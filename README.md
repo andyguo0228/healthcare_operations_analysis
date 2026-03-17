@@ -61,13 +61,13 @@ python3 -m pip install pandas numpy faker
 python3 -m pip install pandas numpy faker
 ```
 
-2. Generate the dataset:
+1. Generate the dataset:
 
 ```bash
 python3 build_dataset.py
 ```
 
-3. Review the output in:
+1. Review the output in:
 
 ```bash
 synthetic_healthcare_data/
@@ -114,13 +114,18 @@ Contains one row per provider with fields such as:
 
 ### `appointments.csv`
 
-Contains one row per appointment with scheduling and clinic flow metrics, including:
+Contains one row per room-status event within an appointment (multiple rows per `appointment_id`) with scheduling and clinic flow metrics, including:
 
 - `appointment_id`
 - `patient_id`
+- `mrn`
 - `provider_id`
 - `appointment_date`
 - `room`
+- `room_type`
+- `room_datetime`
+- `duration_min`
+- `room_sequence`
 - `patient_flow`
 - `visit_type`
 - `status`
@@ -208,7 +213,8 @@ You can tune the generated dataset by editing `config.py`. Common changes includ
 - All data is synthetic and generated with fake names and identifiers
 - The dataset is not suitable for clinical, billing, or compliance use
 - Dates are relative to the day the generator is run unless you change `config.py`
-- The `room` and `patient_flow` fields represent workflow states, not physical room numbers
+- Each row in `appointments.csv` is a single room-status event; completed visits have multiple rows per appointment
+- `room` may include specific physical room labels like `Exam Rm 3` and `Infusion Bay 8`
 
 ## Current Local Verification
 

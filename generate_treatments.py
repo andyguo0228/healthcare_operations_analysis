@@ -134,8 +134,11 @@ def treatment_intent(patient_row: pd.Series, regimen: str) -> str:
 
 
 def generate_treatments(patients_df: pd.DataFrame, appointments_df: pd.DataFrame) -> pd.DataFrame:
+    appointment_grain = appointments_df[["appointment_id", "patient_id", "appointment_date"]].drop_duplicates(
+        subset=["appointment_id"]
+    )
     first_appt = (
-        appointments_df.groupby("patient_id", as_index=False)["appointment_date"]
+        appointment_grain.groupby("patient_id", as_index=False)["appointment_date"]
         .min()
         .rename(columns={"appointment_date": "first_appointment_date"})
     )

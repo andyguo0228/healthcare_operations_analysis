@@ -15,6 +15,27 @@ from config import (
 from utils import compute_duration_minutes, random_date, random_datetime_in_business_hours, weighted_choice
 
 
+EXAM_ROOMS = [f"Exam Rm {i}" for i in range(1, 25)]
+INFUSION_ROOMS = [f"Infusion Bay {i}" for i in range(1, 17)]
+
+
+ROOM_TYPE_MAP = {
+    "Registration": "Front Desk",
+    "Lab Waiting Room": "Lab",
+    "Lab": "Lab",
+    "Phlebotomy": "Lab",
+    "Waiting Room": "Waiting Room",
+    "Px Living Room": "Waiting Room",
+    "MA Intake": "Exam Room",
+    "MD Office": "Exam Room",
+    "Tx Living Room": "Other",
+    "Waiting for RN": "Other",
+    "Ready to Check Out": "Other",
+    "Cancelled": "Status",
+    "No Show": "Status",
+}
+
+
 def patient_visit_count(patient_row: pd.Series) -> int:
     if patient_row["primary_diagnosis"] == "Iron Deficiency Anemia":
         base = 2
@@ -73,25 +94,134 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
         return ["Cancelled"]
 
     if status == "No Show":
-        return ["Scheduled", "No Show"]
+        return ["No Show"]
 
     if visit_type == "Follow-up":
         if weighted_choice([0, 1], [85, 15]) == 1:
-            return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Infusion Room", "Checked Out"]
-        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Checked Out"]
+            return [
+                "Lab Waiting Room",
+                "Lab",
+                "Phlebotomy",
+                "Px Living Room",
+                "Exam Room",
+                "MD Office",
+                "Tx Living Room",
+                "Waiting for RN",
+                "Infusion Room",
+                "Ready to Check Out",
+            ]
+        return ["Lab Waiting Room", "Lab", "Phlebotomy", "Px Living Room", "Exam Room", "Ready to Check Out"]
 
     if visit_type == "New Patient":
         if weighted_choice([0, 1], [90, 10]) == 1:
-            return ["Registration", "Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Infusion Room", "Checked Out"]
-        return ["Registration", "Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Checked Out"]
+            return [
+                "Registration",
+                "Lab Waiting Room",
+                "Lab",
+                "Phlebotomy",
+                "Px Living Room",
+                "MA Intake",
+                "Exam Room",
+                "MD Office",
+                "Tx Living Room",
+                "Waiting for RN",
+                "Infusion Room",
+                "Ready to Check Out",
+            ]
+        return [
+            "Registration",
+            "Lab Waiting Room",
+            "Lab",
+            "Phlebotomy",
+            "Px Living Room",
+            "MA Intake",
+            "Exam Room",
+            "MD Office",
+            "Ready to Check Out",
+        ]
 
     if visit_type == "Infusion":
-        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Infusion Room", "Checked Out"]
+        return [
+            "Lab Waiting Room",
+            "Lab",
+            "Phlebotomy",
+            "Px Living Room",
+            "Exam Room",
+            "MD Office",
+            "Tx Living Room",
+            "Waiting for RN",
+            "Infusion Room",
+            "Ready to Check Out",
+        ]
 
     if visit_type == "Lab Review":
-        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Checked Out"]
+        return ["Lab Waiting Room", "Lab", "Phlebotomy", "Px Living Room", "Exam Room", "Ready to Check Out"]
 
-    return ["Waiting Room", "Exam Room", "Checked Out"]
+    return ["Waiting Room", "MA Intake", "Exam Room", "Ready to Check Out"]
+
+
+def resolve_room_name(room_state: str) -> str:
+    if room_state == "Exam Room":
+        return random.choice(EXAM_ROOMS)
+    if room_state == "Infusion Room":
+        return random.choice(INFUSION_ROOMS)
+    return room_state
+
+
+def room_type_for(room_name: str) -> str:
+    if room_name.startswith("Exam Rm"):
+        return "Exam Room"
+    if room_name.startswith("Infusion Bay"):
+        return "Other"
+    return ROOM_TYPE_MAP.get(room_name, "Other")
+
+
+def room_duration_bounds(room_state: str, visit_type: str) -> tuple[int, int]:
+    bounds = {
+        "Registration": (3, 9),
+        "Lab Waiting Room": (4, 18),
+        "Lab": (3, 12),
+        "Phlebotomy": (4, 16),
+        "Waiting Room": (4, 16),
+        "Px Living Room": (5, 20),
+        "MA Intake": (4, 12),
+        "Exam Room": (8, 30),
+        "MD Office": (8, 28),
+        "Tx Living Room": (4, 20),
+        "Waiting for RN": (3, 16),
+        "Infusion Room": (45, 240),
+        "Ready to Check Out": (4, 20),
+    }
+    if room_state == "Infusion Room" and visit_type != "Infusion":
+        return (25, 120)
+    return bounds.get(room_state, (3, 12))
+
+
+def allocate_room_durations(patient_flow: list[str], total_minutes: int, visit_type: str) -> list[int]:
+    total_minutes = max(total_minutes, len(patient_flow))
+
+    base = []
+    for room_state in patient_flow:
+        low, high = room_duration_bounds(room_state, visit_type)
+        base.append(random.randint(low, high))
+
+    base_sum = sum(base)
+    scaled = [max(1, int(round(value * total_minutes / base_sum))) for value in base]
+
+    diff = total_minutes - sum(scaled)
+    idx = 0
+    max_iter = 10000
+    while diff != 0 and idx < max_iter:
+        i = idx % len(scaled)
+        if diff > 0:
+            scaled[i] += 1
+            diff -= 1
+        elif scaled[i] > 1:
+            scaled[i] -= 1
+            diff += 1
+        idx += 1
+
+    return scaled
 
 
 def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
@@ -191,34 +321,67 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
             flow = generate_flow_times(scheduled_dt, visit_type, status)
             patient_flow = build_patient_flow(visit_type, status)
 
-            rows.append(
-                {
-                    "appointment_id": f"APPT-{uuid.uuid4().hex[:10].upper()}",
-                    "patient_id": patient["patient_id"],
-                    "provider_id": provider_id,
-                    "appointment_date": scheduled_dt.date(),
-                    "room": " -> ".join(patient_flow),
-                    "visit_type": visit_type,
-                    "status": status,
-                    "scheduled_datetime": flow["scheduled_datetime"],
-                    "check_in_datetime": flow["check_in_datetime"],
-                    "roomed_datetime": flow["roomed_datetime"],
-                    "provider_seen_datetime": flow["provider_seen_datetime"],
-                    "checkout_datetime": flow["checkout_datetime"],
-                    "arrival_delay_min": compute_duration_minutes(flow["scheduled_datetime"], flow["check_in_datetime"]),
-                    "wait_to_room_min": compute_duration_minutes(flow["check_in_datetime"], flow["roomed_datetime"]),
-                    "wait_to_provider_min": compute_duration_minutes(flow["roomed_datetime"], flow["provider_seen_datetime"]),
-                    "provider_cycle_min": compute_duration_minutes(flow["provider_seen_datetime"], flow["checkout_datetime"]),
-                    "visit_duration_min": compute_duration_minutes(flow["check_in_datetime"], flow["checkout_datetime"]),
-                    "total_los_min": compute_duration_minutes(flow["scheduled_datetime"], flow["checkout_datetime"]),
-                    "patient_flow": " -> ".join(patient_flow),
-                    "new_patient_flag": 1 if visit_type == "New Patient" else 0,
-                    "infusion_flag": 1 if visit_type == "Infusion" else 0,
-                    "urgent_flag": 1 if visit_type == "Urgent Visit" else 0,
-                }
-            )
+            appointment_id = f"APPT-{uuid.uuid4().hex[:10].upper()}"
+            patient_flow_str = " -> ".join(patient_flow)
 
-    return pd.DataFrame(rows).sort_values(["scheduled_datetime", "patient_id"]).reset_index(drop=True)
+            common_values = {
+                "appointment_id": appointment_id,
+                "patient_id": patient["patient_id"],
+                "mrn": patient["mrn"],
+                "provider_id": provider_id,
+                "appointment_date": scheduled_dt.date(),
+                "visit_type": visit_type,
+                "status": status,
+                "scheduled_datetime": flow["scheduled_datetime"],
+                "check_in_datetime": flow["check_in_datetime"],
+                "roomed_datetime": flow["roomed_datetime"],
+                "provider_seen_datetime": flow["provider_seen_datetime"],
+                "checkout_datetime": flow["checkout_datetime"],
+                "arrival_delay_min": compute_duration_minutes(flow["scheduled_datetime"], flow["check_in_datetime"]),
+                "wait_to_room_min": compute_duration_minutes(flow["check_in_datetime"], flow["roomed_datetime"]),
+                "wait_to_provider_min": compute_duration_minutes(flow["roomed_datetime"], flow["provider_seen_datetime"]),
+                "provider_cycle_min": compute_duration_minutes(flow["provider_seen_datetime"], flow["checkout_datetime"]),
+                "visit_duration_min": compute_duration_minutes(flow["check_in_datetime"], flow["checkout_datetime"]),
+                "total_los_min": compute_duration_minutes(flow["scheduled_datetime"], flow["checkout_datetime"]),
+                "patient_flow": patient_flow_str,
+                "new_patient_flag": 1 if visit_type == "New Patient" else 0,
+                "infusion_flag": 1 if visit_type == "Infusion" else 0,
+                "urgent_flag": 1 if visit_type == "Urgent Visit" else 0,
+            }
+
+            if status in {"Cancelled", "No Show"}:
+                status_room = patient_flow[0]
+                rows.append(
+                    {
+                        **common_values,
+                        "room": status_room,
+                        "room_type": room_type_for(status_room),
+                        "room_datetime": flow["scheduled_datetime"],
+                        "duration_min": None,
+                        "room_sequence": 1,
+                    }
+                )
+                continue
+
+            total_visit_minutes = compute_duration_minutes(flow["check_in_datetime"], flow["checkout_datetime"]) or 0
+            durations = allocate_room_durations(patient_flow, total_visit_minutes, visit_type)
+
+            room_start = flow["check_in_datetime"]
+            for sequence, (room_state, duration_min) in enumerate(zip(patient_flow, durations), start=1):
+                room_name = resolve_room_name(room_state)
+                rows.append(
+                    {
+                        **common_values,
+                        "room": room_name,
+                        "room_type": room_type_for(room_name),
+                        "room_datetime": room_start,
+                        "duration_min": duration_min,
+                        "room_sequence": sequence,
+                    }
+                )
+                room_start = room_start + timedelta(minutes=duration_min)
+
+    return pd.DataFrame(rows).sort_values(["room_datetime", "patient_id", "appointment_id", "room_sequence"]).reset_index(drop=True)
 
 
 if __name__ == "__main__":
