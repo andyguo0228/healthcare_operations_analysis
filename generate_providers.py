@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from config import LOCATION_WEIGHTS, LOCATIONS, NUM_PROVIDERS, PROVIDER_SPECIALTIES
+from config import NUM_PROVIDERS
 from utils import fake, weighted_choice
 
 
@@ -17,8 +17,6 @@ def generate_providers(n: int = NUM_PROVIDERS) -> pd.DataFrame:
             {
                 "provider_id": f"PR{1000 + i}",
                 "provider_name": f"Dr. {first_name} {last_name}",
-                "specialty": weighted_choice(PROVIDER_SPECIALTIES, [35, 30, 20, 15]),
-                "location": weighted_choice(LOCATIONS, LOCATION_WEIGHTS),
                 "years_experience": int(np.clip(np.random.normal(12, 6), 1, 35)),
                 "fte": weighted_choice([1.0, 0.8, 0.6], [70, 20, 10]),
             }

@@ -6,31 +6,15 @@ SEED = 42
 NUM_PATIENTS = 1200
 NUM_PROVIDERS = 12
 
-START_DATE = date.today() - timedelta(days=365)
+START_DATE = date.today() - timedelta(days=1095)
 END_DATE = date.today()
 
-OUTPUT_DIR = Path("synthetic_oncology_data")
-
-LOCATIONS = ["Rego Park", "Forest Hills", "Flushing", "Manhattan West"]
-LOCATION_WEIGHTS = [40, 20, 20, 20]
-
-EXAM_ROOMS = ["Exam Room 1", "Exam Room 2", "Exam Room 3", "Exam Room 4"]
-INFUSION_CHAIRS = ["Infusion Chair A", "Infusion Chair B", "Infusion Chair C", "Infusion Chair D"]
+OUTPUT_DIR = Path("synthetic_healthcare_data")
 
 RACES = ["White", "Black", "Asian", "Hispanic", "Other"]
 RACE_WEIGHTS = [35, 20, 18, 20, 7]
 
-ETHNICITIES = ["Non-Hispanic", "Hispanic or Latino"]
-ETHNICITY_WEIGHTS = [78, 22]
-
 INSURANCE_TYPES = ["Commercial", "Medicare", "Medicaid", "Self-Pay"]
-
-PROVIDER_SPECIALTIES = [
-    "Medical Oncology",
-    "Hematology-Oncology",
-    "Breast Oncology",
-    "Thoracic Oncology",
-]
 
 # Split the patient population between malignant oncology and benign hematology
 DIAGNOSIS_GROUPS = {

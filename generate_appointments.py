@@ -8,8 +8,6 @@ import pandas as pd
 from config import (
     APPOINTMENT_STATUS,
     END_DATE,
-    EXAM_ROOMS,
-    INFUSION_CHAIRS,
     START_DATE,
     STATUS_WEIGHTS,
     VISIT_TYPES,
@@ -66,23 +64,34 @@ def choose_status(visit_type: str) -> str:
     return weighted_choice(APPOINTMENT_STATUS, STATUS_WEIGHTS)
 
 
-def choose_room(visit_type: str) -> str:
-    return random.choice(INFUSION_CHAIRS if visit_type == "Infusion" else EXAM_ROOMS)
+def provider_for_patient_visit(providers_df: pd.DataFrame) -> str:
+    return providers_df.sample(1, random_state=random.randint(1, 999999)).iloc[0]["provider_id"]
 
 
-def provider_for_patient_visit(providers_df: pd.DataFrame, patient_row: pd.Series) -> str:
-    dx = patient_row["primary_diagnosis"]
+def build_patient_flow(visit_type: str, status: str) -> list[str]:
+    if status == "Cancelled":
+        return ["Cancelled"]
 
-    if dx == "Breast Cancer":
-        preferred = providers_df[providers_df["specialty"].isin(["Breast Oncology", "Medical Oncology"])]
-    elif dx == "Lung Cancer":
-        preferred = providers_df[providers_df["specialty"].isin(["Thoracic Oncology", "Medical Oncology"])]
-    elif dx == "Iron Deficiency Anemia":
-        preferred = providers_df[providers_df["specialty"].isin(["Hematology-Oncology", "Medical Oncology"])]
-    else:
-        preferred = providers_df
+    if status == "No Show":
+        return ["Scheduled", "No Show"]
 
-    return preferred.sample(1, random_state=random.randint(1, 999999)).iloc[0]["provider_id"]
+    if visit_type == "Follow-up":
+        if weighted_choice([0, 1], [85, 15]) == 1:
+            return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Infusion Room", "Checked Out"]
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Checked Out"]
+
+    if visit_type == "New Patient":
+        if weighted_choice([0, 1], [90, 10]) == 1:
+            return ["Registration", "Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Infusion Room", "Checked Out"]
+        return ["Registration", "Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Checked Out"]
+
+    if visit_type == "Infusion":
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Infusion Room", "Checked Out"]
+
+    if visit_type == "Lab Review":
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Checked Out"]
+
+    return ["Waiting Room", "Exam Room", "Checked Out"]
 
 
 def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
@@ -177,11 +186,10 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
             visit_type = choose_visit_type(patient, idx)
             status = choose_status(visit_type)
 
-            provider_id = provider_for_patient_visit(providers_df, patient)
-            provider_row = providers_df.loc[providers_df["provider_id"] == provider_id].iloc[0]
-
+            provider_id = provider_for_patient_visit(providers_df)
             scheduled_dt = random_datetime_in_business_hours(visit_date)
             flow = generate_flow_times(scheduled_dt, visit_type, status)
+            patient_flow = build_patient_flow(visit_type, status)
 
             rows.append(
                 {
@@ -189,8 +197,7 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
                     "patient_id": patient["patient_id"],
                     "provider_id": provider_id,
                     "appointment_date": scheduled_dt.date(),
-                    "location": provider_row["location"],
-                    "room": choose_room(visit_type),
+                    "room": " -> ".join(patient_flow),
                     "visit_type": visit_type,
                     "status": status,
                     "scheduled_datetime": flow["scheduled_datetime"],
@@ -204,6 +211,7 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
                     "provider_cycle_min": compute_duration_minutes(flow["provider_seen_datetime"], flow["checkout_datetime"]),
                     "visit_duration_min": compute_duration_minutes(flow["check_in_datetime"], flow["checkout_datetime"]),
                     "total_los_min": compute_duration_minutes(flow["scheduled_datetime"], flow["checkout_datetime"]),
+                    "patient_flow": " -> ".join(patient_flow),
                     "new_patient_flag": 1 if visit_type == "New Patient" else 0,
                     "infusion_flag": 1 if visit_type == "Infusion" else 0,
                     "urgent_flag": 1 if visit_type == "Urgent Visit" else 0,
