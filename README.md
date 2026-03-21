@@ -83,6 +83,13 @@ The generator writes CSV files into `synthetic_healthcare_data/`:
 - `treatments.csv`
 - `date_dim.csv`
 
+## Data Dictionary
+
+Field-level data dictionaries are available in:
+
+- `DATA_DICTIONARY.md` (human-readable)
+- `DATA_DICTIONARY.csv` (machine-readable)
+
 ## Dataset Overview
 
 ### `patients.csv`
