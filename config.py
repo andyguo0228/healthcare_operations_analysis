@@ -3,8 +3,8 @@ from pathlib import Path
 
 SEED = 42
 
-NUM_PATIENTS = 1200
-NUM_PROVIDERS = 12
+NUM_PATIENTS = 3600
+NUM_PROVIDERS = 6
 
 START_DATE = date.today() - timedelta(days=1095)
 END_DATE = date.today()
@@ -18,8 +18,8 @@ INSURANCE_TYPES = ["Commercial", "Medicare", "Medicaid", "Self-Pay"]
 
 # Split the patient population between malignant oncology and benign hematology
 DIAGNOSIS_GROUPS = {
-    "malignant": 0.92,
-    "ida": 0.08,
+    "malignant": 0.40,
+    "ida": 0.60,
 }
 
 MALIGNANT_CANCERS = [
@@ -28,7 +28,7 @@ MALIGNANT_CANCERS = [
     "Colorectal Cancer",
     "Prostate Cancer",
     "Lymphoma",
-    "Leukemia",
+    "Bladder Cancer",
     "Multiple Myeloma",
     "Ovarian Cancer",
     "Pancreatic Cancer",

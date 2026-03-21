@@ -18,7 +18,7 @@ This document defines the schema, grain, relationships, and field semantics for 
 
 Join paths:
 
-- `appointments.patient_id` -> `patients.patient_id`
+- `appointments.mrn` -> `patients.mrn`
 - `appointments.provider_id` -> `providers.provider_id`
 - `treatments.patient_id` -> `patients.patient_id`
 - `appointments.appointment_date` -> `date_dim.date`
@@ -26,7 +26,7 @@ Join paths:
 
 Important grain notes:
 
-- `appointments.csv` is not one row per appointment. A completed visit has multiple rows with the same `appointment_id` (one row per flow step in `room_sequence`).
+- `appointments.csv` is not one row per appointment. A completed visit has multiple rows with the same `appointment_id` (one row per flow step).
 - For appointment-level metrics, deduplicate by `appointment_id` (or use one row per `appointment_id` after aggregation).
 - `treatments.csv` can have multiple rows per patient (`line_of_therapy` 1..N).
 
@@ -50,9 +50,9 @@ Primary key: `patient_id`
 | race | string | No | Race category. | `White`, `Black`, `Asian`, `Hispanic`, `Other`. | Weighted by `RACE_WEIGHTS` in `config.py`. |
 | zip_code | string | No | ZIP code (synthetic). | 5-digit text. | Randomized plausible ZIP pattern. |
 | insurance_type | string | No | Primary insurance category. | `Commercial`, `Medicare`, `Medicaid`, `Self-Pay`. | Age-dependent weighting (<65 vs >=65). |
-| diagnosis_group | string | No | Broad diagnosis grouping. | `malignant`, `ida`. | Weighted by `DIAGNOSIS_GROUPS` (default 92%/8%). |
+| diagnosis_group | string | No | Broad diagnosis grouping. | `malignant`, `ida`. | Weighted by `DIAGNOSIS_GROUPS` (default 40%/60%). |
 | primary_diagnosis | string | No | Primary diagnosis label. | 9 malignant diagnoses plus `Iron Deficiency Anemia`. | Derived from diagnosis group and weighted diagnosis mix. |
-| stage | string | No | Staging or risk category. | Solid tumors: `I`,`II`,`III`,`IV`; heme cancers: `Low Risk`,`Intermediate Risk`,`High Risk`; IDA: `N/A`. | Diagnosis-specific staging rule. |
+| stage | string | No | Staging or risk category. | Solid tumors: `I`,`II`,`III`,`IV`; heme cancers (`Lymphoma`,`Multiple Myeloma`): `Low Risk`,`Intermediate Risk`,`High Risk`; IDA: `N/A`. | Diagnosis-specific staging rule. |
 | comorbidity_score | integer | No | Synthetic comorbidity burden score. | Integer, clipped to 0..6 (IDA) or 0..8 (malignant). | Poisson-distributed by diagnosis and age. |
 | smoking_status | string | No | Tobacco-use status. | `Never`, `Former`, `Current`. | Lung cancer uses different weighting than non-lung diagnoses. |
 | active_treatment_flag | integer | No | Whether patient is currently in treatment cohort. | `0` or `1`. | Group-specific probability (`ida` vs `malignant`). |
@@ -75,55 +75,39 @@ Primary key: `provider_id`
 
 ## appointments.csv
 
-Table purpose: Appointment operations fact table with both appointment-level timestamps and room-level event sequence.
+Table purpose: Appointment operations fact table with room-level event sequence and per-event timing deltas.
 
 Grain: One row per room/status event within an appointment.
 
 Natural keys:
 
 - Appointment-level identifier: `appointment_id`
-- Event-level uniqueness: (`appointment_id`, `room_sequence`)
 
 Foreign keys:
 
-- `patient_id` -> `patients.patient_id`
 - `provider_id` -> `providers.provider_id`
 - `appointment_date` -> `date_dim.date`
 
 | Column | Type | Nullable | Description | Allowed values / range | Generation notes |
 | --- | --- | --- | --- | --- | --- |
 | appointment_id | string | No | Appointment identifier. | Format `APPT-` + 10 uppercase hex chars. | UUID-derived token. |
-| patient_id | string | No | Patient identifier. | Must exist in `patients.csv`. | Propagated from patient row. |
 | mrn | string | No | Patient MRN snapshot. | Matches patient MRN format. | Copied from patient dimension. |
 | provider_id | string | No | Assigned provider identifier. | Must exist in `providers.csv`. | Random provider sample per visit. |
-| appointment_date | date | No | Scheduled visit date. | Calendar date in configured range. | Derived from `scheduled_datetime`. |
+| appointment_date | date | No | Scheduled visit date. | Calendar date in configured range. | Derived from scheduled visit datetime at generation time. |
 | visit_type | string | No | Visit category. | `New Patient`, `Follow-up`, `Infusion`, `Lab Review`, `Urgent Visit`. | Diagnosis and treatment-state weighted logic. |
 | status | string | No | Appointment status. | `Completed`, `No Show`, `Cancelled`. | Infusion has higher completion probability. |
-| scheduled_datetime | datetime | No | Scheduled start datetime. | Business-hours timestamp. | Generated within business hours for the date. |
-| check_in_datetime | datetime | Yes | Check-in timestamp. | Null for `Cancelled`/`No Show`. | Scheduled time plus stochastic arrival offset. |
-| roomed_datetime | datetime | Yes | Timestamp when patient first roomed. | Null for `Cancelled`/`No Show`. | Derived from check-in plus wait-to-room. |
-| provider_seen_datetime | datetime | Yes | Timestamp when provider begins encounter. | Null for `Cancelled`/`No Show`. | Derived from roomed plus wait-to-provider. |
-| checkout_datetime | datetime | Yes | Encounter completion timestamp. | Null for `Cancelled`/`No Show`. | Derived from visit-type cycle components. |
-| arrival_delay_min | float | Yes | Minutes from scheduled time to check-in. | Can be negative (early arrival). | Computed as `check_in - scheduled`. |
-| wait_to_room_min | float | Yes | Minutes from check-in to roomed. | Null for non-completed statuses. | Computed duration. |
-| wait_to_provider_min | float | Yes | Minutes from roomed to provider seen. | Null for non-completed statuses. | Computed duration. |
-| provider_cycle_min | float | Yes | Minutes from provider seen to checkout. | Null for non-completed statuses. | Includes provider and visit-type downstream time. |
-| visit_duration_min | float | Yes | Minutes from check-in to checkout. | Null for non-completed statuses. | Computed duration. |
-| total_los_min | float | Yes | Minutes from scheduled time to checkout. | Null for non-completed statuses. | Computed LOS metric. |
-| patient_flow | string | No | Ordered room/state path string. | ` -> ` delimited sequence. | Built from visit type and status logic. |
 | new_patient_flag | integer | No | New patient indicator. | `0` or `1`. | 1 when `visit_type` is `New Patient`. |
 | infusion_flag | integer | No | Infusion visit indicator. | `0` or `1`. | 1 when `visit_type` is `Infusion`. |
 | urgent_flag | integer | No | Urgent visit indicator. | `0` or `1`. | 1 when `visit_type` is `Urgent Visit`. |
 | room | string | No | Room/state label for this event row. | Workflow state or physical room like `Exam Rm 3`, `Infusion Bay 8`. | Completed visits resolve generic states to physical rooms for exam/infusion. |
 | room_type | string | No | Normalized room grouping. | `Front Desk`, `Lab`, `Waiting Room`, `Exam Room`, `Other`, `Status`. | Mapped from `room` using room-type logic. |
-| room_datetime | datetime | No | Event start timestamp for the row's room/state. | Timestamp. | For completed visits, increments by prior room duration. |
-| duration_min | float | Yes | Duration in this room/state. | Positive minutes; null for `Cancelled`/`No Show`. | Allocated proportionally to match visit duration. |
-| room_sequence | integer | No | Sequence number within appointment flow. | Starts at 1, increments by step. | Defines event order per `appointment_id`. |
+| room_timestamp | datetime | No | Event start timestamp for the row's room/state. | Timestamp. | For completed visits, increments through the generated room flow. |
+| duration | float | Yes | Minutes between this row's `room_timestamp` and the previous room event within the same appointment. | Null for first room event in each appointment. | Computed as per-appointment timestamp diff ordered by `room_timestamp`. |
 
 Operational caveats:
 
-- For `Cancelled` and `No Show`, exactly one status row is created and many flow timestamps/durations are null.
-- Completed visits carry repeated appointment-level metrics across all room-event rows for the same `appointment_id`.
+- For `Cancelled` and `No Show`, exactly one status row is created.
+- `duration` is null for the first row of each appointment by design.
 
 ## treatments.csv
 
@@ -179,7 +163,7 @@ Primary key: `date`
 ## Suggested Querying Patterns
 
 - Appointment count (unique visits): count distinct `appointment_id` from `appointments.csv`.
-- Room utilization: aggregate `duration_min` by `room`, `room_type`, and time grain.
+- Room utilization: aggregate `duration` by `room`, `room_type`, and time grain.
 - Provider throughput: distinct appointments by `provider_id`, not raw row count.
 - Treatment timeline: sort by (`patient_id`, `line_of_therapy`) and compare `start_date`/`end_date`.
 

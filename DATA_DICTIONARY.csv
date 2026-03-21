@@ -21,32 +21,18 @@ providers,provider_name,2,string,No,,,Provider display name,Dr. <First> <Last>,S
 providers,years_experience,3,integer,No,,,Years in practice,1..35,Normal distribution clipped to bounds
 providers,fte,4,float,No,,,Full-time equivalent,1.0|0.8|0.6,Weighted assignment 70/20/10
 appointments,appointment_id,1,string,No,AK,,Appointment identifier,APPT- + 10 hex chars,UUID-derived token
-appointments,patient_id,2,string,No,FK,patients.patient_id,Patient identifier,Matches patients.patient_id,Propagated from patient row
-appointments,mrn,3,string,No,,,Patient MRN snapshot,MRN + 6 digits,Copied from patient dimension
-appointments,provider_id,4,string,No,FK,providers.provider_id,Provider identifier,Matches providers.provider_id,Random provider assignment per visit
-appointments,appointment_date,5,date,No,FK,date_dim.date,Scheduled visit date,Within configured date range,Derived from scheduled_datetime
-appointments,visit_type,6,string,No,,,Visit category,"New Patient|Follow-up|Infusion|Lab Review|Urgent Visit",Diagnosis and treatment weighted logic
-appointments,status,7,string,No,,,Appointment status,"Completed|No Show|Cancelled",Infusion has higher completion probability
-appointments,scheduled_datetime,8,datetime,No,,,Scheduled timestamp,Business-hours datetime,Generated within business hours
-appointments,check_in_datetime,9,datetime,Yes,,,Check-in timestamp,Null for No Show/Cancelled,Scheduled time plus arrival offset
-appointments,roomed_datetime,10,datetime,Yes,,,First roomed timestamp,Null for No Show/Cancelled,Derived from wait-to-room interval
-appointments,provider_seen_datetime,11,datetime,Yes,,,Provider-seen timestamp,Null for No Show/Cancelled,Derived from wait-to-provider interval
-appointments,checkout_datetime,12,datetime,Yes,,,Checkout timestamp,Null for No Show/Cancelled,Derived from visit flow timing
-appointments,arrival_delay_min,13,float,Yes,,,Minutes from scheduled to check-in,Can be negative,Duration difference in minutes
-appointments,wait_to_room_min,14,float,Yes,,,Minutes from check-in to roomed,Null for No Show/Cancelled,Duration difference in minutes
-appointments,wait_to_provider_min,15,float,Yes,,,Minutes from roomed to provider seen,Null for No Show/Cancelled,Duration difference in minutes
-appointments,provider_cycle_min,16,float,Yes,,,Minutes from provider seen to checkout,Null for No Show/Cancelled,Duration difference in minutes
-appointments,visit_duration_min,17,float,Yes,,,Minutes from check-in to checkout,Null for No Show/Cancelled,Duration difference in minutes
-appointments,total_los_min,18,float,Yes,,,Minutes from scheduled to checkout,Null for No Show/Cancelled,Duration difference in minutes
-appointments,patient_flow,19,string,No,,,Ordered room/state path,Delimiter is ' -> ',Built from visit type and status
-appointments,new_patient_flag,20,integer,No,,,New patient indicator,0|1,1 when visit_type is New Patient
-appointments,infusion_flag,21,integer,No,,,Infusion indicator,0|1,1 when visit_type is Infusion
-appointments,urgent_flag,22,integer,No,,,Urgent visit indicator,0|1,1 when visit_type is Urgent Visit
-appointments,room,23,string,No,,,Room/state label,"Workflow state or physical room label",Completed visits resolve exam/infusion room names
-appointments,room_type,24,string,No,,,Normalized room grouping,"Front Desk|Lab|Waiting Room|Exam Room|Other|Status",Mapped from room label
-appointments,room_datetime,25,datetime,No,,,Event start timestamp,Datetime,Increments through patient flow
-appointments,duration_min,26,float,Yes,,,Duration in room/state,Positive minutes or null,Null for status-only rows
-appointments,room_sequence,27,integer,No,AK,,Event order within appointment,Starts at 1 and increments,Uniqueness with appointment_id at event grain
+appointments,mrn,2,string,No,,,Patient MRN snapshot,MRN + 6 digits,Copied from patient dimension
+appointments,provider_id,3,string,No,FK,providers.provider_id,Provider identifier,Matches providers.provider_id,Random provider assignment per visit
+appointments,appointment_date,4,date,No,FK,date_dim.date,Scheduled visit date,Within configured date range,Derived from scheduled visit datetime at generation time
+appointments,visit_type,5,string,No,,,Visit category,"New Patient|Follow-up|Infusion|Lab Review|Urgent Visit",Diagnosis and treatment weighted logic
+appointments,status,6,string,No,,,Appointment status,"Completed|No Show|Cancelled",Infusion has higher completion probability
+appointments,new_patient_flag,7,integer,No,,,New patient indicator,0|1,1 when visit_type is New Patient
+appointments,infusion_flag,8,integer,No,,,Infusion indicator,0|1,1 when visit_type is Infusion
+appointments,urgent_flag,9,integer,No,,,Urgent visit indicator,0|1,1 when visit_type is Urgent Visit
+appointments,room,10,string,No,,,Room/state label,"Workflow state or physical room label",Completed visits resolve exam/infusion room names
+appointments,room_type,11,string,No,,,Normalized room grouping,"Front Desk|Lab|Waiting Room|Exam Room|Other|Status",Mapped from room label
+appointments,room_timestamp,12,datetime,No,,,Event start timestamp,Datetime,Increments through generated room flow
+appointments,duration,13,float,Yes,,,Minutes from previous room event timestamp within appointment,Null for first room event,Computed with per-appointment timestamp diff by room_timestamp
 treatments,treatment_id,1,string,No,PK,,Treatment-line identifier,TRT- + 10 hex chars,UUID-derived token
 treatments,patient_id,2,string,No,FK,patients.patient_id,Patient identifier,Matches patients.patient_id,Inherited from patient row
 treatments,line_of_therapy,3,integer,No,,,Line index,Positive integer starting at 1,Number of lines based on diagnosis stage and active status

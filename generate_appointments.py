@@ -23,14 +23,10 @@ ROOM_TYPE_MAP = {
     "Registration": "Front Desk",
     "Lab Waiting Room": "Lab",
     "Lab": "Lab",
-    "Phlebotomy": "Lab",
     "Waiting Room": "Waiting Room",
-    "Px Living Room": "Waiting Room",
-    "MA Intake": "Exam Room",
-    "MD Office": "Exam Room",
     "Tx Living Room": "Other",
-    "Waiting for RN": "Other",
     "Ready to Check Out": "Other",
+    "Checked Out": "Status",
     "Cancelled": "Status",
     "No Show": "Status",
 }
@@ -47,7 +43,7 @@ def patient_visit_count(patient_row: pd.Series) -> int:
     base = 2
     if patient_row["active_treatment_flag"] == 1:
         base += 5
-    if patient_row["primary_diagnosis"] in {"Leukemia", "Lymphoma", "Multiple Myeloma"}:
+    if patient_row["primary_diagnosis"] in {"Lymphoma", "Multiple Myeloma"}:
         base += 2
     if patient_row["stage"] in {"III", "IV", "High Risk"}:
         base += 2
@@ -101,16 +97,13 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             return [
                 "Lab Waiting Room",
                 "Lab",
-                "Phlebotomy",
-                "Px Living Room",
                 "Exam Room",
-                "MD Office",
                 "Tx Living Room",
-                "Waiting for RN",
                 "Infusion Room",
                 "Ready to Check Out",
+                "Checked Out",
             ]
-        return ["Lab Waiting Room", "Lab", "Phlebotomy", "Px Living Room", "Exam Room", "Ready to Check Out"]
+        return ["Lab Waiting Room", "Lab", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     if visit_type == "New Patient":
         if weighted_choice([0, 1], [90, 10]) == 1:
@@ -118,46 +111,36 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
                 "Registration",
                 "Lab Waiting Room",
                 "Lab",
-                "Phlebotomy",
-                "Px Living Room",
-                "MA Intake",
                 "Exam Room",
-                "MD Office",
                 "Tx Living Room",
-                "Waiting for RN",
                 "Infusion Room",
                 "Ready to Check Out",
+                "Checked Out",
             ]
         return [
             "Registration",
             "Lab Waiting Room",
             "Lab",
-            "Phlebotomy",
-            "Px Living Room",
-            "MA Intake",
             "Exam Room",
-            "MD Office",
             "Ready to Check Out",
+            "Checked Out",
         ]
 
     if visit_type == "Infusion":
         return [
             "Lab Waiting Room",
             "Lab",
-            "Phlebotomy",
-            "Px Living Room",
             "Exam Room",
-            "MD Office",
             "Tx Living Room",
-            "Waiting for RN",
             "Infusion Room",
             "Ready to Check Out",
+            "Checked Out",
         ]
 
     if visit_type == "Lab Review":
-        return ["Lab Waiting Room", "Lab", "Phlebotomy", "Px Living Room", "Exam Room", "Ready to Check Out"]
+        return ["Lab Waiting Room", "Lab", "Exam Room", "Ready to Check Out", "Checked Out"]
 
-    return ["Waiting Room", "MA Intake", "Exam Room", "Ready to Check Out"]
+    return ["Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
 
 def resolve_room_name(room_state: str) -> str:
@@ -181,16 +164,12 @@ def room_duration_bounds(room_state: str, visit_type: str) -> tuple[int, int]:
         "Registration": (3, 9),
         "Lab Waiting Room": (4, 18),
         "Lab": (3, 12),
-        "Phlebotomy": (4, 16),
         "Waiting Room": (4, 16),
-        "Px Living Room": (5, 20),
-        "MA Intake": (4, 12),
         "Exam Room": (8, 30),
-        "MD Office": (8, 28),
         "Tx Living Room": (4, 20),
-        "Waiting for RN": (3, 16),
         "Infusion Room": (45, 240),
         "Ready to Check Out": (4, 20),
+        "Checked Out": (1, 5),
     }
     if room_state == "Infusion Room" and visit_type != "Infusion":
         return (25, 120)
@@ -322,28 +301,14 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
             patient_flow = build_patient_flow(visit_type, status)
 
             appointment_id = f"APPT-{uuid.uuid4().hex[:10].upper()}"
-            patient_flow_str = " -> ".join(patient_flow)
 
             common_values = {
                 "appointment_id": appointment_id,
-                "patient_id": patient["patient_id"],
                 "mrn": patient["mrn"],
                 "provider_id": provider_id,
                 "appointment_date": scheduled_dt.date(),
                 "visit_type": visit_type,
                 "status": status,
-                "scheduled_datetime": flow["scheduled_datetime"],
-                "check_in_datetime": flow["check_in_datetime"],
-                "roomed_datetime": flow["roomed_datetime"],
-                "provider_seen_datetime": flow["provider_seen_datetime"],
-                "checkout_datetime": flow["checkout_datetime"],
-                "arrival_delay_min": compute_duration_minutes(flow["scheduled_datetime"], flow["check_in_datetime"]),
-                "wait_to_room_min": compute_duration_minutes(flow["check_in_datetime"], flow["roomed_datetime"]),
-                "wait_to_provider_min": compute_duration_minutes(flow["roomed_datetime"], flow["provider_seen_datetime"]),
-                "provider_cycle_min": compute_duration_minutes(flow["provider_seen_datetime"], flow["checkout_datetime"]),
-                "visit_duration_min": compute_duration_minutes(flow["check_in_datetime"], flow["checkout_datetime"]),
-                "total_los_min": compute_duration_minutes(flow["scheduled_datetime"], flow["checkout_datetime"]),
-                "patient_flow": patient_flow_str,
                 "new_patient_flag": 1 if visit_type == "New Patient" else 0,
                 "infusion_flag": 1 if visit_type == "Infusion" else 0,
                 "urgent_flag": 1 if visit_type == "Urgent Visit" else 0,
@@ -356,9 +321,7 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
                         **common_values,
                         "room": status_room,
                         "room_type": room_type_for(status_room),
-                        "room_datetime": flow["scheduled_datetime"],
-                        "duration_min": None,
-                        "room_sequence": 1,
+                        "room_timestamp": flow["scheduled_datetime"],
                     }
                 )
                 continue
@@ -367,21 +330,22 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
             durations = allocate_room_durations(patient_flow, total_visit_minutes, visit_type)
 
             room_start = flow["check_in_datetime"]
-            for sequence, (room_state, duration_min) in enumerate(zip(patient_flow, durations), start=1):
+            for room_state, duration_min in zip(patient_flow, durations):
                 room_name = resolve_room_name(room_state)
                 rows.append(
                     {
                         **common_values,
                         "room": room_name,
                         "room_type": room_type_for(room_name),
-                        "room_datetime": room_start,
-                        "duration_min": duration_min,
-                        "room_sequence": sequence,
+                        "room_timestamp": room_start,
                     }
                 )
                 room_start = room_start + timedelta(minutes=duration_min)
 
-    return pd.DataFrame(rows).sort_values(["room_datetime", "patient_id", "appointment_id", "room_sequence"]).reset_index(drop=True)
+    df = pd.DataFrame(rows).sort_values(["room_timestamp", "appointment_id"]).reset_index(drop=True)
+    # Duration is derived from room status transitions within each appointment flow.
+    df["duration"] = df.groupby("appointment_id")["room_timestamp"].diff().dt.total_seconds().div(60)
+    return df
 
 
 if __name__ == "__main__":

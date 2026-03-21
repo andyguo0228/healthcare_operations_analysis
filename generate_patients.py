@@ -54,7 +54,7 @@ def assign_malignant_sex(diagnosis: str) -> str:
 
 
 def assign_stage(diagnosis: str) -> str:
-    if diagnosis in {"Leukemia", "Lymphoma", "Multiple Myeloma"}:
+    if diagnosis in {"Lymphoma", "Multiple Myeloma"}:
         return weighted_choice(["Low Risk", "Intermediate Risk", "High Risk"], [35, 40, 25])
     if diagnosis == "Iron Deficiency Anemia":
         return "N/A"

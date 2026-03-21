@@ -18,14 +18,14 @@ Running the main build script creates a reproducible synthetic dataset for an ou
 
 - Patient demographics, diagnosis mix, insurance, and treatment status
 - Provider rosters with experience and FTE
-- Appointment scheduling, patient flow paths, and clinic flow timestamps
+- Appointment scheduling, patient flow paths, and room event timestamps/durations
 - Treatment regimens, line of therapy, route, frequency, and intent
 - A calendar table for time-based reporting
 
 The default configuration models:
 
 - 1,200 patients
-- 12 providers
+- 6 providers
 - A rolling 3-year date range ending on the run date
 - Visit flows that move patients through waiting, lab, exam, infusion, and checkout states
 
@@ -121,32 +121,18 @@ Contains one row per provider with fields such as:
 
 ### `appointments.csv`
 
-Contains one row per room-status event within an appointment (multiple rows per `appointment_id`) with scheduling and clinic flow metrics, including:
+Contains one row per room-status event within an appointment (multiple rows per `appointment_id`) with event-level clinic flow metrics, including:
 
 - `appointment_id`
-- `patient_id`
 - `mrn`
 - `provider_id`
 - `appointment_date`
 - `room`
 - `room_type`
-- `room_datetime`
-- `duration_min`
-- `room_sequence`
-- `patient_flow`
+- `room_timestamp`
+- `duration`
 - `visit_type`
 - `status`
-- `scheduled_datetime`
-- `check_in_datetime`
-- `roomed_datetime`
-- `provider_seen_datetime`
-- `checkout_datetime`
-- `arrival_delay_min`
-- `wait_to_room_min`
-- `wait_to_provider_min`
-- `provider_cycle_min`
-- `visit_duration_min`
-- `total_los_min`
 - `new_patient_flag`
 - `infusion_flag`
 - `urgent_flag`
@@ -184,7 +170,7 @@ Contains a reporting calendar dimension with:
 
 The synthetic data is designed to loosely reflect common oncology operations patterns:
 
-- Patients are mostly malignant oncology, with a smaller iron deficiency anemia population
+- Patients are split across malignant oncology and iron deficiency anemia populations
 - Diagnosis-specific logic influences sex mix, stage/risk, smoking status, and treatment likelihood
 - Providers are assigned across visits without specialty or location constraints
 - Visit counts vary by diagnosis, acuity, and active treatment status
@@ -222,13 +208,3 @@ You can tune the generated dataset by editing `config.py`. Common changes includ
 - Dates are relative to the day the generator is run unless you change `config.py`
 - Each row in `appointments.csv` is a single room-status event; completed visits have multiple rows per appointment
 - `room` may include specific physical room labels like `Exam Rm 3` and `Infusion Bay 8`
-
-## Current Local Verification
-
-The main script was invoked locally with:
-
-```bash
-python3 build_dataset.py
-```
-
-That run failed because `faker` is not currently installed in the environment. After installing dependencies, the same command should generate the CSV outputs described above.
