@@ -14,7 +14,7 @@ REGIMENS = {
     "Colorectal Cancer": ["FOLFOX", "FOLFIRI", "CAPOX", "Bevacizumab"],
     "Prostate Cancer": ["Lupron", "Abiraterone", "Docetaxel", "Enzalutamide"],
     "Lymphoma": ["R-CHOP", "ABVD", "Pola-R-CHP", "Observation"],
-    "Leukemia": ["Azacitidine", "Venetoclax", "Imatinib", "Observation"],
+    "Bladder Cancer": ["Enfortumab vedotin/Pembrolizumab", "Gemcitabine/Cisplatin", "DDMVAC", "Erdafitinib"],
     "Multiple Myeloma": ["VRd", "Daratumumab", "Lenalidomide", "Bortezomib"],
     "Ovarian Cancer": ["Carboplatin/Paclitaxel", "Bevacizumab", "Olaparib"],
     "Pancreatic Cancer": ["FOLFIRINOX", "Gemcitabine/Abraxane", "Observation"],
@@ -42,9 +42,6 @@ TREATMENT_CATEGORIES = {
     "R-CHOP": "Chemo",
     "ABVD": "Chemo",
     "Pola-R-CHP": "Chemo",
-    "Azacitidine": "Chemo",
-    "Venetoclax": "Targeted Therapy",
-    "Imatinib": "Targeted Therapy",
     "VRd": "Chemo",
     "Daratumumab": "Immunotherapy",
     "Lenalidomide": "Targeted Therapy",
@@ -55,6 +52,10 @@ TREATMENT_CATEGORIES = {
     "Gemcitabine/Abraxane": "Chemo",
     "Venofer": "Supportive Therapy",
     "Observation": "Observation",
+    "Enfortumab vedotin/Pembrolizumab": "Immunotherapy",
+    "Gemcitabine/Cisplatin": "Chemo",
+    "DDMVAC": "Chemo",
+    "Erdafitinib": "Targeted Therapy",
 }
 
 TREATMENT_ROUTE = {
@@ -134,13 +135,16 @@ def treatment_intent(patient_row: pd.Series, regimen: str) -> str:
 
 
 def generate_treatments(patients_df: pd.DataFrame, appointments_df: pd.DataFrame) -> pd.DataFrame:
+    appointment_grain = appointments_df[["appointment_id", "mrn", "appointment_date"]].drop_duplicates(
+        subset=["appointment_id"]
+    )
     first_appt = (
-        appointments_df.groupby("patient_id", as_index=False)["appointment_date"]
+        appointment_grain.groupby("mrn", as_index=False)["appointment_date"]
         .min()
         .rename(columns={"appointment_date": "first_appointment_date"})
     )
 
-    merged = patients_df.merge(first_appt, on="patient_id", how="left")
+    merged = patients_df.merge(first_appt, on="mrn", how="left")
     rows = []
 
     for _, patient in merged.iterrows():

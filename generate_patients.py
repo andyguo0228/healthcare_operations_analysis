@@ -5,8 +5,6 @@ import pandas as pd
 
 from config import (
     DIAGNOSIS_GROUPS,
-    ETHNICITIES,
-    ETHNICITY_WEIGHTS,
     INSURANCE_TYPES,
     MALIGNANT_CANCERS,
     MALIGNANT_WEIGHTS,
@@ -34,7 +32,6 @@ class PatientProfile:
     dob: object
     age: int
     race: str
-    ethnicity: str
     zip_code: str
     insurance_type: str
     diagnosis_group: str
@@ -57,7 +54,7 @@ def assign_malignant_sex(diagnosis: str) -> str:
 
 
 def assign_stage(diagnosis: str) -> str:
-    if diagnosis in {"Leukemia", "Lymphoma", "Multiple Myeloma"}:
+    if diagnosis in {"Lymphoma", "Multiple Myeloma"}:
         return weighted_choice(["Low Risk", "Intermediate Risk", "High Risk"], [35, 40, 25])
     if diagnosis == "Iron Deficiency Anemia":
         return "N/A"
@@ -134,7 +131,6 @@ def generate_patients(n: int = NUM_PATIENTS) -> pd.DataFrame:
             dob=dob,
             age=age,
             race=weighted_choice(RACES, RACE_WEIGHTS),
-            ethnicity=weighted_choice(ETHNICITIES, ETHNICITY_WEIGHTS),
             zip_code=generate_zip_code(),
             insurance_type=insurance_for_age(age),
             diagnosis_group=group,
