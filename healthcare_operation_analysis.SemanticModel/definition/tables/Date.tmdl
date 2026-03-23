@@ -1,8 +1,10 @@
 table Date
 	lineageTag: bc2bdfcf-ea7b-44f0-8e69-408b981a7ee9
+	dataCategory: Time
 
 	column Date
 		dataType: dateTime
+		isKey
 		formatString: Long Date
 		lineageTag: 658d999e-e0ee-4300-9e48-687135838a95
 		summarizeBy: none
@@ -16,7 +18,7 @@ table Date
 		dataType: int64
 		formatString: 0
 		lineageTag: 5b6db22d-8a01-4717-aa04-53f00d81b7fc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Year
 
 		annotation SummarizationSetBy = Automatic
@@ -25,7 +27,7 @@ table Date
 		dataType: int64
 		formatString: 0
 		lineageTag: fbebf537-f037-496a-b758-36a9bccf5fdf
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Quarter
 
 		annotation SummarizationSetBy = Automatic
@@ -34,7 +36,7 @@ table Date
 		dataType: int64
 		formatString: 0
 		lineageTag: 89dba699-d3db-465f-8229-a1c21e6f9bfc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Month
 
 		annotation SummarizationSetBy = Automatic
@@ -67,7 +69,7 @@ table Date
 		dataType: int64
 		formatString: 0
 		lineageTag: 611b9f99-7bbd-4b75-bcb4-aa6a34833684
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Month Year Sort
 
 		annotation SummarizationSetBy = Automatic
@@ -76,7 +78,7 @@ table Date
 		dataType: int64
 		formatString: 0
 		lineageTag: 7a08ebd9-dedf-458e-b385-1a8646461cee
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Day of Week
 
 		annotation SummarizationSetBy = Automatic
@@ -93,7 +95,7 @@ table Date
 		mode: import
 		source =
 				let
-				    MaxFactDate = Date.From(List.Max(#"zzzPlaceholder Date"[Date])),
+				    MaxFactDate = Date.From(List.Max(#"Appointments"[Appointment Date])),
 				    StartDate = Date.StartOfYear(Date.AddYears(MaxFactDate, -3)),
 				    EndDate = Date.EndOfYear(MaxFactDate),
 				

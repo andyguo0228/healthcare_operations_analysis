@@ -1,0 +1,53 @@
+table Providers
+	lineageTag: c1c1a8a4-7ac7-4c52-821c-1d25b1616f2d
+
+	column 'Provider ID'
+		dataType: string
+		lineageTag: 55eaa9ea-b4df-44fb-838c-f4387139fd84
+		summarizeBy: none
+		sourceColumn: Provider ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider Name'
+		dataType: string
+		lineageTag: 91d4c825-ea60-4027-9702-4e476f966268
+		summarizeBy: none
+		sourceColumn: Provider Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column years_experience
+		dataType: int64
+		formatString: 0
+		lineageTag: b540e81c-7c6e-483c-85a0-06eee7d1d4fd
+		summarizeBy: none
+		sourceColumn: years_experience
+
+		annotation SummarizationSetBy = Automatic
+
+	column fte
+		dataType: double
+		lineageTag: 28ca81c2-970f-4657-a553-8982bfd75204
+		summarizeBy: none
+		sourceColumn: fte
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Providers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\aguo1\Documents\coding_projects\healthcare_operations_analysis\data\providers.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"provider_id", type text}, {"provider_name", type text}, {"years_experience", Int64.Type}, {"fte", type number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"provider_id", "Provider ID"}, {"provider_name", "Provider Name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,145 @@
+table Appointments
+	lineageTag: 3ef9e08a-67fe-43c9-b6ee-745e7d6198a6
+
+	column 'Appointment ID'
+		dataType: string
+		lineageTag: 290bd609-88e3-468d-9a77-39f94cab2278
+		summarizeBy: none
+		sourceColumn: Appointment ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column MRN
+		dataType: string
+		lineageTag: a78c1dc3-64a0-424e-996c-67edd3fe8044
+		summarizeBy: none
+		sourceColumn: MRN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider ID'
+		dataType: string
+		lineageTag: 880af8de-1f29-4466-b73f-faa7bbbe14e1
+		summarizeBy: none
+		sourceColumn: Provider ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Appointment Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5cb7c37c-2896-40a4-83c8-65f89bbb6dce
+		summarizeBy: none
+		sourceColumn: Appointment Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Visit Type'
+		dataType: string
+		lineageTag: 258578d0-20d8-4e2a-be6f-72ccebc28239
+		summarizeBy: none
+		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: cf1d3548-ffd7-48bc-ab13-6e351f184c04
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Patient Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: c339f9eb-2639-4ef4-af27-353c90ecd029
+		summarizeBy: sum
+		sourceColumn: New Patient Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Infusion Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: 89d40a6c-06d7-408f-b90e-f9cf25d7608b
+		summarizeBy: sum
+		sourceColumn: Infusion Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Urgent Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: 693a422e-92d1-4175-98c9-6b1b7db96878
+		summarizeBy: sum
+		sourceColumn: Urgent Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column Room
+		dataType: string
+		lineageTag: 54301d72-8a45-42be-b835-4a58071ed93c
+		summarizeBy: none
+		sourceColumn: Room
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Type'
+		dataType: string
+		lineageTag: 1c3c78c7-b67b-4cb3-8e96-02402e52056e
+		summarizeBy: none
+		sourceColumn: Room Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Timestamp'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9181c04b-358c-4eca-9a0b-8d9543e8bcb5
+		summarizeBy: none
+		sourceColumn: Room Timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 5c9f0cc5-6c4b-4dcc-b086-30ef51919675
+		summarizeBy: none
+		sourceColumn: Room Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Duration
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fc8c649-a06a-41c7-aa8f-2d129ebdffed
+		summarizeBy: sum
+		sourceColumn: Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Appointments = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\aguo1\Documents\coding_projects\healthcare_operations_analysis\data\appointments.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"appointment_id", type text}, {"mrn", type text}, {"provider_id", type text}, {"appointment_date", type date}, {"visit_type", type text}, {"status", type text}, {"new_patient_flag", Int64.Type}, {"infusion_flag", Int64.Type}, {"urgent_flag", Int64.Type}, {"room", type text}, {"room_type", type text}, {"room_timestamp", type datetime}, {"duration", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"appointment_date", "Appointment Date"}, {"appointment_id", "Appointment ID"}, {"mrn", "MRN"}, {"provider_id", "Provider ID"}, {"visit_type", "Visit Type"}, {"status", "Status"}, {"new_patient_flag", "New Patient Flag"}, {"infusion_flag", "Infusion Flag"}, {"urgent_flag", "Urgent Flag"}, {"room", "Room"}, {"room_type", "Room Type"}, {"room_timestamp", "Room Timestamp"}, {"duration", "Duration"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","Rm","Room",Replacer.ReplaceText,{"Room"}),
+				    #"Inserted Time" = Table.AddColumn(#"Replaced Value", "Time", each DateTime.Time([Room Timestamp]), type time),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Inserted Time",{"Appointment ID", "MRN", "Provider ID", "Appointment Date", "Visit Type", "Status", "New Patient Flag", "Infusion Flag", "Urgent Flag", "Room", "Room Type", "Room Timestamp", "Time", "Duration"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Reordered Columns",{{"Time", "Room Time"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
