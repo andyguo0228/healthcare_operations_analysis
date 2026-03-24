@@ -344,7 +344,14 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
 
     df = pd.DataFrame(rows).sort_values(["room_timestamp", "appointment_id"]).reset_index(drop=True)
     # Duration is derived from room status transitions within each appointment flow.
-    df["duration"] = df.groupby("appointment_id")["room_timestamp"].diff().dt.total_seconds().div(60)
+    df["duration"] = (
+        df.groupby("appointment_id")["room_timestamp"]
+        .diff()
+        .dt.total_seconds()
+        .div(60)
+        .groupby(df["appointment_id"])
+        .shift(-1)
+    )
     return df
 
 
