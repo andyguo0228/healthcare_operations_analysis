@@ -23,9 +23,9 @@ ROOM_TYPE_MAP = {
     "Registration": "Front Desk",
     "Lab Waiting Room": "Lab",
     "Lab": "Lab",
-    "Waiting Room": "Waiting Room",
-    "Tx Living Room": "Other",
-    "Ready to Check Out": "Other",
+    "Waiting Room": "Exam Room",
+    "Infusion Waiting Room": "Infusion Room",
+    "Ready to Check Out": "Front Desk",
     "Checked Out": "Status",
     "Cancelled": "Status",
     "No Show": "Status",
@@ -97,13 +97,14 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             return [
                 "Lab Waiting Room",
                 "Lab",
+                "Waiting Room",
                 "Exam Room",
-                "Tx Living Room",
+                "Infusion Waiting Room",
                 "Infusion Room",
                 "Ready to Check Out",
                 "Checked Out",
             ]
-        return ["Lab Waiting Room", "Lab", "Exam Room", "Ready to Check Out", "Checked Out"]
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     if visit_type == "New Patient":
         if weighted_choice([0, 1], [90, 10]) == 1:
@@ -111,8 +112,9 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
                 "Registration",
                 "Lab Waiting Room",
                 "Lab",
+                "Waiting Room",
                 "Exam Room",
-                "Tx Living Room",
+                "Infusion Waiting Room",
                 "Infusion Room",
                 "Ready to Check Out",
                 "Checked Out",
@@ -121,6 +123,7 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             "Registration",
             "Lab Waiting Room",
             "Lab",
+            "Waiting Room",
             "Exam Room",
             "Ready to Check Out",
             "Checked Out",
@@ -130,15 +133,16 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
         return [
             "Lab Waiting Room",
             "Lab",
+            "Waiting Room",
             "Exam Room",
-            "Tx Living Room",
+            "Infusion Waiting Room",
             "Infusion Room",
             "Ready to Check Out",
             "Checked Out",
         ]
 
     if visit_type == "Lab Review":
-        return ["Lab Waiting Room", "Lab", "Exam Room", "Ready to Check Out", "Checked Out"]
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     return ["Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
@@ -155,7 +159,7 @@ def room_type_for(room_name: str) -> str:
     if room_name.startswith("Exam Rm"):
         return "Exam Room"
     if room_name.startswith("Infusion Bay"):
-        return "Other"
+        return "Infusion Room"
     return ROOM_TYPE_MAP.get(room_name, "Other")
 
 
@@ -166,7 +170,7 @@ def room_duration_bounds(room_state: str, visit_type: str) -> tuple[int, int]:
         "Lab": (3, 12),
         "Waiting Room": (4, 16),
         "Exam Room": (8, 30),
-        "Tx Living Room": (4, 20),
+        "Infusion Waiting Room": (4, 20),
         "Infusion Room": (45, 240),
         "Ready to Check Out": (4, 20),
         "Checked Out": (1, 5),
