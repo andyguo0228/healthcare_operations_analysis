@@ -40,7 +40,7 @@ table Providers
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\aguo1\Documents\coding_projects\healthcare_operations_analysis\data\providers.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/providers.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"provider_id", type text}, {"provider_name", type text}, {"years_experience", Int64.Type}, {"fte", type number}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"provider_id", "Provider ID"}, {"provider_name", "Provider Name"}})

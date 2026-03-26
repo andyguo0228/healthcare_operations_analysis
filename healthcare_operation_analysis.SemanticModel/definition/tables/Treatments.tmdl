@@ -101,7 +101,7 @@ table Treatments
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\aguo1\Documents\coding_projects\healthcare_operations_analysis\data\treatments.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/treatments.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"treatment_id", type text}, {"patient_id", type text}, {"line_of_therapy", Int64.Type}, {"regimen_name", type text}, {"treatment_category", type text}, {"route", type text}, {"frequency", type text}, {"intent", type text}, {"start_date", type date}, {"end_date", type date}, {"active_flag", Int64.Type}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"treatment_id", "Treatment ID"}, {"patient_id", "Patient ID"}, {"line_of_therapy", "Line of Therapy"}, {"regimen_name", "Regimen Name"}, {"treatment_category", "Treatment Category"}, {"route", "Route"}, {"frequency", "Frequency"}, {"intent", "Intent"}, {"start_date", "Start Date"}, {"end_date", "End Date"}, {"active_flag", "Active Flag"}})

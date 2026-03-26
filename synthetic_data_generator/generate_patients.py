@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
-from config import (
+from synthetic_data_generator.config import (
     DIAGNOSIS_GROUPS,
     INSURANCE_TYPES,
     MALIGNANT_CANCERS,
@@ -12,7 +12,7 @@ from config import (
     RACES,
     RACE_WEIGHTS,
 )
-from utils import (
+from synthetic_data_generator.utils import (
     age_from_dob,
     fake,
     generate_dob,

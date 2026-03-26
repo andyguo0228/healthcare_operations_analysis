@@ -1,8 +1,8 @@
-from config import OUTPUT_DIR
-from generate_appointments import generate_appointments
-from generate_patients import generate_patients
-from generate_providers import generate_providers
-from generate_treatments import generate_treatments
+from synthetic_data_generator.config import OUTPUT_DIR
+from synthetic_data_generator.generate_appointments import generate_appointments
+from synthetic_data_generator.generate_patients import generate_patients
+from synthetic_data_generator.generate_providers import generate_providers
+from synthetic_data_generator.generate_treatments import generate_treatments
 
 
 def main():

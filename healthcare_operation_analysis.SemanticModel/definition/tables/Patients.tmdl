@@ -149,7 +149,7 @@ table Patients
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\aguo1\Documents\coding_projects\healthcare_operations_analysis\data\patients.csv"),[Delimiter=",", Columns=17, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/patients.csv"),[Delimiter=",", Columns=17, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"patient_id", type text}, {"mrn", type text}, {"first_name", type text}, {"last_name", type text}, {"sex", type text}, {"dob", type date}, {"age", Int64.Type}, {"race", type text}, {"zip_code", Int64.Type}, {"insurance_type", type text}, {"diagnosis_group", type text}, {"primary_diagnosis", type text}, {"stage", type text}, {"comorbidity_score", Int64.Type}, {"smoking_status", type text}, {"active_treatment_flag", Int64.Type}, {"deceased_flag", Int64.Type}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"patient_id", "Patient ID"}, {"mrn", "MRN"}, {"first_name", "First Name"}, {"last_name", "Last Name"}, {"sex", "Sex"}, {"dob", "DOB"}, {"age", "Age"}, {"race", "Race"}, {"zip_code", "Zip Code"}, {"insurance_type", "Insurance"}, {"diagnosis_group", "Dx Group"}, {"primary_diagnosis", "Diagnosis"}, {"stage", "Stage"}, {"comorbidity_score", "Comorbidity Score"}, {"smoking_status", "Smoking Status"}, {"active_treatment_flag", "Active Treatment Flag"}, {"deceased_flag", "Deceased Flag"}})

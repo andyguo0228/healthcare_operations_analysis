@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 import numpy as np
 from faker import Faker
 
-from config import SEED
+from synthetic_data_generator.config import SEED
 
 random.seed(SEED)
 np.random.seed(SEED)
