@@ -1,0 +1,138 @@
+table Rooms
+	lineageTag: c6f7d3d8-65cd-425a-b647-4033b84be14b
+
+	column 'Appointment ID'
+		dataType: string
+		lineageTag: 109fcd6f-d88b-418a-a3ac-180a61fd520c
+		summarizeBy: none
+		sourceColumn: Appointment ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column MRN
+		dataType: string
+		lineageTag: 14582503-7645-4952-99e2-19810f6502d4
+		summarizeBy: none
+		sourceColumn: MRN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider ID'
+		dataType: string
+		lineageTag: c5c00d4a-9841-4548-974f-10fc80a692ea
+		summarizeBy: none
+		sourceColumn: Provider ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Appointment Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eb22dedd-d86f-4737-8ade-4757f568d56b
+		summarizeBy: none
+		sourceColumn: Appointment Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Visit Type'
+		dataType: string
+		lineageTag: b53e264d-d6ad-4bdd-bcfa-34cc53be06bd
+		summarizeBy: none
+		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: ff8bca18-9c41-4e16-a49a-6d143ce03656
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Patient Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a831cbe-69d9-494e-beba-5db8436fd916
+		summarizeBy: sum
+		sourceColumn: New Patient Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Infusion Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0a29e4a-f761-4665-b9bf-cca4384ea250
+		summarizeBy: sum
+		sourceColumn: Infusion Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Urgent Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: bc30759d-2537-41af-8335-cd2235baf9b6
+		summarizeBy: sum
+		sourceColumn: Urgent Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column Room
+		dataType: string
+		lineageTag: cf2c9659-bb13-4b81-ba89-f759f101695b
+		summarizeBy: none
+		sourceColumn: Room
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Type'
+		dataType: string
+		lineageTag: 59bddc34-d503-4fcb-bbdc-fd3fcff86783
+		summarizeBy: none
+		sourceColumn: Room Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Timestamp'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8a59e2e3-037a-497f-a2e2-07082b11855d
+		summarizeBy: none
+		sourceColumn: Room Timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: f08bf1f8-0739-43c6-8d83-bfaa1371de9e
+		summarizeBy: none
+		sourceColumn: Room Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Duration
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d8f4c8d-e332-40ce-ace5-e0ed816e6297
+		summarizeBy: sum
+		sourceColumn: Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Rooms = m
+		mode: import
+		source =
+				let
+				    Source = raw_Appointments
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

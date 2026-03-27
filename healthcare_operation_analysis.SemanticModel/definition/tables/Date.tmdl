@@ -95,7 +95,7 @@ table Date
 		mode: import
 		source =
 				let
-				    MaxFactDate = Date.From(List.Max(#"Appointments"[Appointment Date])),
+				    MaxFactDate = Date.From(List.Max(raw_Appointments[Appointment Date])),
 				    StartDate = Date.StartOfYear(Date.AddYears(MaxFactDate, -3)),
 				    EndDate = Date.EndOfYear(MaxFactDate),
 				

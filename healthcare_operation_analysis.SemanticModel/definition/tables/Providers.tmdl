@@ -21,7 +21,7 @@ table Providers
 		dataType: int64
 		formatString: 0
 		lineageTag: b540e81c-7c6e-483c-85a0-06eee7d1d4fd
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: years_experience
 
 		annotation SummarizationSetBy = Automatic
@@ -29,7 +29,7 @@ table Providers
 	column fte
 		dataType: double
 		lineageTag: 28ca81c2-970f-4657-a553-8982bfd75204
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: fte
 
 		annotation SummarizationSetBy = Automatic

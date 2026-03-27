@@ -10,14 +10,16 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["_Measures","Date","Appointments","Patients","Providers","Treatments"]
+annotation PBI_QueryOrder = ["_Measures","Date","raw_Appointments","Patients","Providers","Treatments","Appointments","Rooms"]
 
 ref table _Measures
 ref table Date
 ref table Patients
-ref table Appointments
+ref table raw_Appointments
 ref table Treatments
 ref table Providers
+ref table Appointments
+ref table Rooms
 
 ref cultureInfo en-US
 

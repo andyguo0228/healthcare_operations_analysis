@@ -36,19 +36,6 @@
         },
         {
           "location": {
-            "x": 308.77873890629695,
-            "y": 365.17284541095154
-          },
-          "nodeIndex": "Appointments",
-          "nodeLineageTag": "3ef9e08a-67fe-43c9-b6ee-745e7d6198a6",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
             "x": 78.034785865833783,
             "y": 0
           },
@@ -85,6 +72,44 @@
             "width": 234
           },
           "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 308.77873890629695,
+            "y": 365.17284541095154
+          },
+          "nodeIndex": "raw_Appointments",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 909.90096677159113,
+            "y": 233.48218840572611
+          },
+          "nodeIndex": "Appointments",
+          "nodeLineageTag": "6521c02d-db2f-4335-b17d-a107b832de70",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1193.9009667715911,
+            "y": 233.48218840572611
+          },
+          "nodeIndex": "Rooms",
+          "nodeLineageTag": "c6f7d3d8-65cd-425a-b647-4033b84be14b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

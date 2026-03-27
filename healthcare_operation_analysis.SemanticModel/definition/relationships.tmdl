@@ -3,14 +3,30 @@ relationship AutoDetected_65a8076e-e95e-46cb-8699-c5faf426c3a2
 	toColumn: Patients.'Patient ID'
 
 relationship AutoDetected_33e83503-42f3-4fd6-a016-e2d52f8126fc
-	fromColumn: Appointments.MRN
+	fromColumn: raw_Appointments.MRN
 	toColumn: Patients.MRN
 
 relationship AutoDetected_bafb8b45-0566-44a9-8160-62b7e68eaa81
-	fromColumn: Appointments.'Provider ID'
+	fromColumn: raw_Appointments.'Provider ID'
 	toColumn: Providers.'Provider ID'
 
 relationship 7f68afbc-519f-c75f-0ac9-34d65adba505
-	fromColumn: Appointments.'Appointment Date'
+	fromColumn: raw_Appointments.'Appointment Date'
 	toColumn: Date.Date
+
+relationship AutoDetected_7ade9d7b-a1b5-429f-ac9c-fd34db5edba9
+	fromColumn: Appointments.MRN
+	toColumn: Patients.MRN
+
+relationship AutoDetected_61f31ebb-fb40-457d-9e47-f3df4a563923
+	fromColumn: Rooms.MRN
+	toColumn: Patients.MRN
+
+relationship AutoDetected_f054c9f6-beb6-4512-a8a7-d15b3e974887
+	fromColumn: Appointments.'Provider ID'
+	toColumn: Providers.'Provider ID'
+
+relationship AutoDetected_3bcfd6c0-a4b9-481f-b521-fba0fcbf22c6
+	fromColumn: Rooms.'Provider ID'
+	toColumn: Providers.'Provider ID'
 
