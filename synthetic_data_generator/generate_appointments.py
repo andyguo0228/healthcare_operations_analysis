@@ -5,14 +5,14 @@ from datetime import timedelta
 import numpy as np
 import pandas as pd
 
-from config import (
+from synthetic_data_generator.config import (
     APPOINTMENT_STATUS,
     END_DATE,
     START_DATE,
     STATUS_WEIGHTS,
     VISIT_TYPES,
 )
-from utils import compute_duration_minutes, random_date, random_datetime_in_business_hours, weighted_choice
+from synthetic_data_generator.utils import compute_duration_minutes, random_date, random_datetime_in_business_hours, weighted_choice
 
 
 EXAM_ROOMS = [f"Exam Rm {i}" for i in range(1, 25)]
@@ -360,8 +360,8 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
 
 
 if __name__ == "__main__":
-    from generate_patients import generate_patients
-    from generate_providers import generate_providers
+    from synthetic_data_generator.generate_patients import generate_patients
+    from synthetic_data_generator.generate_providers import generate_providers
 
     patients = generate_patients()
     providers = generate_providers()

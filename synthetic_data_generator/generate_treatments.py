@@ -4,8 +4,8 @@ from datetime import timedelta
 
 import pandas as pd
 
-from config import END_DATE
-from utils import weighted_choice
+from synthetic_data_generator.config import END_DATE
+from synthetic_data_generator.utils import weighted_choice
 
 
 REGIMENS = {
@@ -193,9 +193,9 @@ def generate_treatments(patients_df: pd.DataFrame, appointments_df: pd.DataFrame
 
 
 if __name__ == "__main__":
-    from generate_appointments import generate_appointments
-    from generate_patients import generate_patients
-    from generate_providers import generate_providers
+    from synthetic_data_generator.generate_appointments import generate_appointments
+    from synthetic_data_generator.generate_patients import generate_patients
+    from synthetic_data_generator.generate_providers import generate_providers
 
     patients = generate_patients()
     providers = generate_providers()
