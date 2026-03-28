@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
 
 annotation PBI_QueryOrder = ["helper_arrivaltimes","raw_Appointments","_Measures","Appointments","Rooms","Patients","Providers","Treatments","Date"]
 

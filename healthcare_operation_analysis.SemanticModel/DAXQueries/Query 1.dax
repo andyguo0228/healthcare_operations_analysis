@@ -1,0 +1,6 @@
+EVALUATE
+
+CALCULATETABLE(
+    AVERAGE(Rooms[Duration]),
+    Rooms[Is Waiting Room] = TRUE
+)

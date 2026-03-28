@@ -1,8 +1,92 @@
 table _Measures
 	lineageTag: 425ca366-8b8e-4c46-8ada-33e93c0984c3
 
-	measure Placeholder = DATATABLE("Placeholder", STRING, {{"x"}})
-		lineageTag: 41528c26-67b2-4439-ba1e-1f39159572c5
+	measure 'Total Appointments' =
+			
+			COUNTROWS(Appointments)
+		formatString: 0
+		displayFolder: KPI
+		lineageTag: 4bf2e2e4-91f0-4c5d-a060-9bc1e1ffbb35
+
+	measure 'Completion Rate' =
+			
+			DIVIDE(
+			    COUNTROWS(FILTER(Appointments, Appointments[Status] = "Completed")),
+			    COUNTROWS(Appointments),
+			    0
+			)
+		displayFolder: KPI
+		lineageTag: 10092593-b9e9-41b9-8104-877b48cec1a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'No-Show Rate' =
+			
+			DIVIDE(
+			    COUNTROWS(FILTER(Appointments, Appointments[Status] = "No Show")),
+			    COUNTROWS(Appointments),
+			    0
+			)
+		displayFolder: KPI
+		lineageTag: 180269fc-6f4a-46fa-88ae-98f77207bc89
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cancellation Rate' =
+			
+			DIVIDE(
+			    COUNTROWS(FILTER(Appointments, Appointments[Status] = "Cancelled")),
+			    COUNTROWS(Appointments),
+			    0
+			)
+		displayFolder: KPI
+		lineageTag: 84b7a343-9bf8-4812-a8f6-144aaae32975
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Wait Time' = ```
+			
+			CALCULATE(
+			    AVERAGE(Rooms[Duration]),
+			    Rooms[Is Waiting Room] = TRUE
+			)
+			
+			    
+			```
+		displayFolder: KPI
+		lineageTag: ee482928-3986-4239-9e12-5d60006c8f4f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Duration Completed' =
+			
+			CALCULATE(
+			    AVERAGE(Appointments[Total Duration]),
+			    Appointments[Status] = "Completed"
+			)
+		displayFolder: KPI
+		lineageTag: 165cc250-6d40-44b7-b32b-d2f44acab8e8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Active Patients' =
+			
+			COUNTROWS(
+			    FILTER(Patients, Patients[Active Treatment Flag] = 1)
+			)
+		formatString: 0
+		displayFolder: KPI
+		lineageTag: 7939b46c-2af1-483a-88d7-87bb45d79422
+
+	measure 'Avg Duration by Provider' =
+			
+			CALCULATE(
+			    AVERAGE(Appointments[Total Duration]),
+			    Appointments[Status] = "Completed"
+			)
+		lineageTag: 01660de4-ccac-40f1-93d4-5ee2929520e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition _Measures = m
 		mode: import
