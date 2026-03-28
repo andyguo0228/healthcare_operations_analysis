@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from config import NUM_PROVIDERS
-from utils import fake, weighted_choice
+from synthetic_data_generator.config import NUM_PROVIDERS
+from synthetic_data_generator.utils import fake, weighted_choice
 
 
 def generate_providers(n: int = NUM_PROVIDERS) -> pd.DataFrame:

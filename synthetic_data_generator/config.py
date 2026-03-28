@@ -9,9 +9,9 @@ NUM_PROVIDERS = 6
 START_DATE = date.today() - timedelta(days=1095)
 END_DATE = date.today()
 
-OUTPUT_DIR = Path("synthetic_healthcare_data")
+OUTPUT_DIR = Path("data")
 
-RACES = ["White", "Black", "Asian", "Hispanic", "Other"]
+RACES = ["White", "African American", "Asian", "Hispanic", "Other"]
 RACE_WEIGHTS = [35, 20, 18, 20, 7]
 
 INSURANCE_TYPES = ["Commercial", "Medicare", "Medicaid", "Self-Pay"]

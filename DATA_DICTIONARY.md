@@ -100,7 +100,7 @@ Foreign keys:
 | infusion_flag | integer | No | Infusion visit indicator. | `0` or `1`. | 1 when `visit_type` is `Infusion`. |
 | urgent_flag | integer | No | Urgent visit indicator. | `0` or `1`. | 1 when `visit_type` is `Urgent Visit`. |
 | room | string | No | Room/state label for this event row. | Workflow state or physical room like `Exam Rm 3`, `Infusion Bay 8`. | Completed visits resolve generic states to physical rooms for exam/infusion. |
-| room_type | string | No | Normalized room grouping. | `Front Desk`, `Lab`, `Waiting Room`, `Exam Room`, `Other`, `Status`. | Mapped from `room` using room-type logic. |
+| room_type | string | No | Normalized room grouping. | `Front Desk`, `Lab`, `Exam Room`, `Infusion Room`, `Other`, `Status`. | Mapped from `room` using room-type logic. |
 | room_timestamp | datetime | No | Event start timestamp for the row's room/state. | Timestamp. | For completed visits, increments through the generated room flow. |
 | duration | float | Yes | Minutes between this row's `room_timestamp` and the previous room event within the same appointment. | Null for first room event in each appointment. | Computed as per-appointment timestamp diff ordered by `room_timestamp`. |
 

@@ -1,0 +1,162 @@
+table Patients
+	lineageTag: 0b7a980d-9049-441e-ae54-d9a60959ec4e
+
+	column 'Patient ID'
+		dataType: string
+		lineageTag: cfe38244-c6bf-45aa-9c16-dc7453ff7b33
+		summarizeBy: none
+		sourceColumn: Patient ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column MRN
+		dataType: string
+		lineageTag: b2a833a9-af13-4d49-b637-949064affbd3
+		summarizeBy: none
+		sourceColumn: MRN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Name'
+		dataType: string
+		lineageTag: 20cef4eb-5f5e-480f-83d1-b9534ad9678b
+		summarizeBy: none
+		sourceColumn: First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Name'
+		dataType: string
+		lineageTag: d1449403-f7e6-44ca-837e-bd77cc010b4b
+		summarizeBy: none
+		sourceColumn: Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: f4ca759f-e553-40f4-948f-9461dc8a0fa9
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column DOB
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7717cc4b-6616-4de9-9448-e6fb76fa0f4a
+		summarizeBy: none
+		sourceColumn: DOB
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 6066cdc4-ea8f-4a5d-8cce-6ab51f47958b
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Race
+		dataType: string
+		lineageTag: ef336a7b-7756-470a-9e70-5d65ce54ee16
+		summarizeBy: none
+		sourceColumn: Race
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Zip Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: d93553bf-431b-4c0d-ada9-5475e070936f
+		summarizeBy: count
+		sourceColumn: Zip Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Insurance
+		dataType: string
+		lineageTag: c734ac3d-f6f1-4c04-ad59-22d44276d583
+		summarizeBy: none
+		sourceColumn: Insurance
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dx Group'
+		dataType: string
+		lineageTag: c79a4a6f-63a7-46c3-babb-0b46e3149d99
+		summarizeBy: none
+		sourceColumn: Dx Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Diagnosis
+		dataType: string
+		lineageTag: 34978659-e4bd-4639-9b61-e2301c970264
+		summarizeBy: none
+		sourceColumn: Diagnosis
+
+		annotation SummarizationSetBy = Automatic
+
+	column Stage
+		dataType: string
+		lineageTag: 8b6e8fb4-e08c-4500-a3cb-3806d076610b
+		summarizeBy: none
+		sourceColumn: Stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Comorbidity Score'
+		dataType: int64
+		formatString: 0
+		lineageTag: d175a75c-04ea-4297-88e3-e7ca09c90d3f
+		summarizeBy: sum
+		sourceColumn: Comorbidity Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Smoking Status'
+		dataType: string
+		lineageTag: cd30f9c8-01ca-494e-864e-017b19af24a5
+		summarizeBy: none
+		sourceColumn: Smoking Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Active Treatment Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c003311-ccdc-4c35-aaac-c99f5cebaa50
+		summarizeBy: sum
+		sourceColumn: Active Treatment Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Deceased Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: f8fa187d-3ebf-4e67-8455-0e58918e470b
+		summarizeBy: sum
+		sourceColumn: Deceased Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Patients = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/patients.csv"),[Delimiter=",", Columns=17, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"patient_id", type text}, {"mrn", type text}, {"first_name", type text}, {"last_name", type text}, {"sex", type text}, {"dob", type date}, {"age", Int64.Type}, {"race", type text}, {"zip_code", Int64.Type}, {"insurance_type", type text}, {"diagnosis_group", type text}, {"primary_diagnosis", type text}, {"stage", type text}, {"comorbidity_score", Int64.Type}, {"smoking_status", type text}, {"active_treatment_flag", Int64.Type}, {"deceased_flag", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"patient_id", "Patient ID"}, {"mrn", "MRN"}, {"first_name", "First Name"}, {"last_name", "Last Name"}, {"sex", "Sex"}, {"dob", "DOB"}, {"age", "Age"}, {"race", "Race"}, {"zip_code", "Zip Code"}, {"insurance_type", "Insurance"}, {"diagnosis_group", "Dx Group"}, {"primary_diagnosis", "Diagnosis"}, {"stage", "Stage"}, {"comorbidity_score", "Comorbidity Score"}, {"smoking_status", "Smoking Status"}, {"active_treatment_flag", "Active Treatment Flag"}, {"deceased_flag", "Deceased Flag"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

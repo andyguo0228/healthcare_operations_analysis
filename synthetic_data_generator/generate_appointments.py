@@ -5,14 +5,14 @@ from datetime import timedelta
 import numpy as np
 import pandas as pd
 
-from config import (
+from synthetic_data_generator.config import (
     APPOINTMENT_STATUS,
     END_DATE,
     START_DATE,
     STATUS_WEIGHTS,
     VISIT_TYPES,
 )
-from utils import compute_duration_minutes, random_date, random_datetime_in_business_hours, weighted_choice
+from synthetic_data_generator.utils import compute_duration_minutes, random_date, random_datetime_in_business_hours, weighted_choice
 
 
 EXAM_ROOMS = [f"Exam Rm {i}" for i in range(1, 25)]
@@ -23,9 +23,9 @@ ROOM_TYPE_MAP = {
     "Registration": "Front Desk",
     "Lab Waiting Room": "Lab",
     "Lab": "Lab",
-    "Waiting Room": "Waiting Room",
-    "Tx Living Room": "Other",
-    "Ready to Check Out": "Other",
+    "Waiting Room": "Exam Room",
+    "Infusion Waiting Room": "Infusion Room",
+    "Ready to Check Out": "Front Desk",
     "Checked Out": "Status",
     "Cancelled": "Status",
     "No Show": "Status",
@@ -97,13 +97,14 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             return [
                 "Lab Waiting Room",
                 "Lab",
+                "Waiting Room",
                 "Exam Room",
-                "Tx Living Room",
+                "Infusion Waiting Room",
                 "Infusion Room",
                 "Ready to Check Out",
                 "Checked Out",
             ]
-        return ["Lab Waiting Room", "Lab", "Exam Room", "Ready to Check Out", "Checked Out"]
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     if visit_type == "New Patient":
         if weighted_choice([0, 1], [90, 10]) == 1:
@@ -111,8 +112,9 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
                 "Registration",
                 "Lab Waiting Room",
                 "Lab",
+                "Waiting Room",
                 "Exam Room",
-                "Tx Living Room",
+                "Infusion Waiting Room",
                 "Infusion Room",
                 "Ready to Check Out",
                 "Checked Out",
@@ -121,6 +123,7 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             "Registration",
             "Lab Waiting Room",
             "Lab",
+            "Waiting Room",
             "Exam Room",
             "Ready to Check Out",
             "Checked Out",
@@ -130,15 +133,16 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
         return [
             "Lab Waiting Room",
             "Lab",
+            "Waiting Room",
             "Exam Room",
-            "Tx Living Room",
+            "Infusion Waiting Room",
             "Infusion Room",
             "Ready to Check Out",
             "Checked Out",
         ]
 
     if visit_type == "Lab Review":
-        return ["Lab Waiting Room", "Lab", "Exam Room", "Ready to Check Out", "Checked Out"]
+        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     return ["Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
@@ -155,7 +159,7 @@ def room_type_for(room_name: str) -> str:
     if room_name.startswith("Exam Rm"):
         return "Exam Room"
     if room_name.startswith("Infusion Bay"):
-        return "Other"
+        return "Infusion Room"
     return ROOM_TYPE_MAP.get(room_name, "Other")
 
 
@@ -166,7 +170,7 @@ def room_duration_bounds(room_state: str, visit_type: str) -> tuple[int, int]:
         "Lab": (3, 12),
         "Waiting Room": (4, 16),
         "Exam Room": (8, 30),
-        "Tx Living Room": (4, 20),
+        "Infusion Waiting Room": (4, 20),
         "Infusion Room": (45, 240),
         "Ready to Check Out": (4, 20),
         "Checked Out": (1, 5),
@@ -344,13 +348,20 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
 
     df = pd.DataFrame(rows).sort_values(["room_timestamp", "appointment_id"]).reset_index(drop=True)
     # Duration is derived from room status transitions within each appointment flow.
-    df["duration"] = df.groupby("appointment_id")["room_timestamp"].diff().dt.total_seconds().div(60)
+    df["duration"] = (
+        df.groupby("appointment_id")["room_timestamp"]
+        .diff()
+        .dt.total_seconds()
+        .div(60)
+        .groupby(df["appointment_id"])
+        .shift(-1)
+    )
     return df
 
 
 if __name__ == "__main__":
-    from generate_patients import generate_patients
-    from generate_providers import generate_providers
+    from synthetic_data_generator.generate_patients import generate_patients
+    from synthetic_data_generator.generate_providers import generate_providers
 
     patients = generate_patients()
     providers = generate_providers()

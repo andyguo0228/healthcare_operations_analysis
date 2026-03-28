@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 17.792523351322302,
+            "y": 738.92877857714416
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "425ca366-8b8e-4c46-8ada-33e93c0984c3",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 112.46777310651868,
+            "y": 0
+          },
+          "nodeIndex": "Date",
+          "nodeLineageTag": "bc2bdfcf-ea7b-44f0-8e69-408b981a7ee9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 579.12086383845963,
+            "y": 0
+          },
+          "nodeIndex": "Patients",
+          "nodeLineageTag": "0b7a980d-9049-441e-ae54-d9a60959ec4e",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 375.05862432094295
+          },
+          "nodeIndex": "Providers",
+          "nodeLineageTag": "c1c1a8a4-7ac7-4c52-821c-1d25b1616f2d",
+          "size": {
+            "height": 203.70982919664289,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 739.78163063550278,
+            "y": 429.502352547965
+          },
+          "nodeIndex": "Treatments",
+          "nodeLineageTag": "814cc6a4-9ca7-4670-81a9-ecfcd907bf28",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 362.60609087230409,
+            "y": 351.24896249145831
+          },
+          "nodeIndex": "Appointments",
+          "nodeLineageTag": "c6f7d3d8-65cd-425a-b647-4033b84be14b",
+          "size": {
+            "height": 403.91185948741088,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 349.93150175609907,
+            "y": 861.57165019629861
+          },
+          "nodeIndex": "Rooms",
+          "nodeLineageTag": "6521c02d-db2f-4335-b17d-a107b832de70",
+          "size": {
+            "height": 300.00000000000011,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 86.611865521378391,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

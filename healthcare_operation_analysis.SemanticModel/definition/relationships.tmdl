@@ -1,0 +1,20 @@
+relationship AutoDetected_65a8076e-e95e-46cb-8699-c5faf426c3a2
+	fromColumn: Treatments.'Patient ID'
+	toColumn: Patients.'Patient ID'
+
+relationship AutoDetected_61f31ebb-fb40-457d-9e47-f3df4a563923
+	fromColumn: Appointments.MRN
+	toColumn: Patients.MRN
+
+relationship AutoDetected_3bcfd6c0-a4b9-481f-b521-fba0fcbf22c6
+	fromColumn: Appointments.'Provider ID'
+	toColumn: Providers.'Provider ID'
+
+relationship c47495ec-f897-65a3-f324-f23d198bc12d
+	fromColumn: Rooms.'Appointment ID'
+	toColumn: Appointments.'Appointment ID'
+
+relationship 1e796995-ca61-ab30-f080-c09b83da9d04
+	fromColumn: Appointments.'Appointment Date'
+	toColumn: Date.Date
+

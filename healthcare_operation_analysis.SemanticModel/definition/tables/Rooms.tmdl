@@ -1,0 +1,186 @@
+table Rooms
+	lineageTag: 6521c02d-db2f-4335-b17d-a107b832de70
+
+	column 'Appointment ID'
+		dataType: string
+		lineageTag: 3d424c46-0814-4b17-8676-6607ced15d62
+		summarizeBy: none
+		sourceColumn: Appointment ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Room
+		dataType: string
+		lineageTag: ff2d6fd2-04e1-4117-a142-59807464d357
+		summarizeBy: none
+		sourceColumn: Room
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Type'
+		dataType: string
+		lineageTag: edad5ec1-8abf-4c3b-b266-afa39a6bf951
+		summarizeBy: none
+		sourceColumn: Room Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Timestamp'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eff394c3-16e9-4a56-a6d7-ac51ef0478b3
+		summarizeBy: none
+		sourceColumn: Room Timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Room Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 0105f7b1-3ef3-49aa-b5ca-eaaf0a4b6545
+		summarizeBy: none
+		sourceColumn: Room Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Duration
+		dataType: int64
+		formatString: 0
+		lineageTag: 964b6f00-7c5e-4157-af63-d21a2f5b8112
+		summarizeBy: sum
+		sourceColumn: Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sequence
+		dataType: int64
+		formatString: 0
+		lineageTag: 402323cd-1ccb-4767-944d-ae9d7a79906a
+		summarizeBy: sum
+		sourceColumn: Sequence
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Waiting Room'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 029d7020-241d-4725-81b0-ccd99e7152f3
+		summarizeBy: none
+		sourceColumn: Is Waiting Room
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Rooms = m
+		mode: import
+		source = ```
+				let
+				    Source = raw_Appointments,
+				    #"Grouped Rows" = Table.Group(
+				        Source,
+				        {"Appointment ID"},
+				        {
+				            {
+				                "Data",
+				                each _,
+				                type table [
+				                    Appointment ID = nullable text,
+				                    MRN = nullable text,
+				                    Provider ID = nullable text,
+				                    Appointment Date = nullable date,
+				                    Visit Type = nullable text,
+				                    Status = nullable text,
+				                    New Patient Flag = nullable number,
+				                    Infusion Flag = nullable number,
+				                    Urgent Flag = nullable number,
+				                    Room = nullable text,
+				                    Room Type = nullable text,
+				                    Room Timestamp = nullable datetime,
+				                    Room Time = time,
+				                    Duration = nullable number
+				                ]
+				            }
+				        }
+				    ),
+				    #"Added Custom" = Table.AddColumn(
+				        #"Grouped Rows",
+				        "Sequence",
+				        each Table.AddIndexColumn(
+				            Table.Sort([Data], {{"Room Timestamp", Order.Ascending}}),
+				             "Sequence", 
+				             1, 
+				             1
+				             )
+				    ),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Added Custom", {"Sequence"}),
+				    #"Expanded Sequence" = Table.ExpandTableColumn(
+				        #"Removed Other Columns",
+				        "Sequence",
+				        {
+				            "Appointment ID",
+				            "MRN",
+				            "Provider ID",
+				            "Appointment Date",
+				            "Visit Type",
+				            "Status",
+				            "New Patient Flag",
+				            "Infusion Flag",
+				            "Urgent Flag",
+				            "Room",
+				            "Room Type",
+				            "Room Timestamp",
+				            "Room Time",
+				            "Duration",
+				            "Sequence"
+				        },
+				        {
+				            "Appointment ID",
+				            "MRN",
+				            "Provider ID",
+				            "Appointment Date",
+				            "Visit Type",
+				            "Status",
+				            "New Patient Flag",
+				            "Infusion Flag",
+				            "Urgent Flag",
+				            "Room",
+				            "Room Type",
+				            "Room Timestamp",
+				            "Room Time",
+				            "Duration",
+				            "Sequence.1"
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Expanded Sequence",
+				        {
+				            {"Appointment ID", type text},
+				            {"MRN", type text},
+				            {"Provider ID", type text},
+				            {"Appointment Date", type date},
+				            {"Visit Type", type text},
+				            {"Status", type text},
+				            {"New Patient Flag", Int64.Type},
+				            {"Infusion Flag", Int64.Type},
+				            {"Urgent Flag", Int64.Type},
+				            {"Room", type text},
+				            {"Room Type", type text},
+				            {"Room Timestamp", type datetime},
+				            {"Room Time", type time},
+				            {"Duration", Int64.Type},
+				            {"Sequence.1", Int64.Type}
+				        }
+				    ),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type", {{"Sequence.1", "Sequence"}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns", "Is Waiting Room", each if [Room] = "Waiting Room" then true else if [Room] = "Lab Waiting Room" then true else if [Room] = "Infusion Waiting Room" then true else false),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Is Waiting Room", type logical}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"MRN", "Provider ID", "Appointment Date", "Visit Type", "Status", "New Patient Flag", "Infusion Flag", "Urgent Flag"})
+				in
+				    #"Removed Columns"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

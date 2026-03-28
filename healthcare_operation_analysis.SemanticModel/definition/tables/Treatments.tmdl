@@ -1,0 +1,117 @@
+table Treatments
+	lineageTag: 814cc6a4-9ca7-4670-81a9-ecfcd907bf28
+
+	column 'Treatment ID'
+		dataType: string
+		lineageTag: 8c8f5026-34ff-4983-9893-c5d278efe738
+		summarizeBy: none
+		sourceColumn: Treatment ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Patient ID'
+		dataType: string
+		isHidden
+		lineageTag: e4f29c98-2635-404f-849a-76f4c8158b66
+		summarizeBy: none
+		sourceColumn: Patient ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Line of Therapy'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0aedcfa1-8900-464a-a77e-6552103e4492
+		summarizeBy: sum
+		sourceColumn: Line of Therapy
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Regimen Name'
+		dataType: string
+		lineageTag: 0250f40d-4e32-43eb-8a11-8719b79895ea
+		summarizeBy: none
+		sourceColumn: Regimen Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Treatment Category'
+		dataType: string
+		lineageTag: 0b6254b0-78e1-4206-92ef-7496241c708b
+		summarizeBy: none
+		sourceColumn: Treatment Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Route
+		dataType: string
+		lineageTag: 9d468ba4-1c70-4e33-a73d-50abf17f522f
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frequency
+		dataType: string
+		lineageTag: 0bc9de56-708a-4117-9a83-d068e4497fc7
+		summarizeBy: none
+		sourceColumn: Frequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column Intent
+		dataType: string
+		lineageTag: 983a4ad9-58a9-4687-ac27-ce424161ba0a
+		summarizeBy: none
+		sourceColumn: Intent
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bf6fdae3-b6f2-43c8-9534-927e5746e24a
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e64dc833-b36f-44be-ad7f-bb43596f99b9
+		summarizeBy: none
+		sourceColumn: End Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Active Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: f34b7a61-2fd1-4bd9-af3a-78d11a2fbd77
+		summarizeBy: sum
+		sourceColumn: Active Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Treatments = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/treatments.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"treatment_id", type text}, {"patient_id", type text}, {"line_of_therapy", Int64.Type}, {"regimen_name", type text}, {"treatment_category", type text}, {"route", type text}, {"frequency", type text}, {"intent", type text}, {"start_date", type date}, {"end_date", type date}, {"active_flag", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"treatment_id", "Treatment ID"}, {"patient_id", "Patient ID"}, {"line_of_therapy", "Line of Therapy"}, {"regimen_name", "Regimen Name"}, {"treatment_category", "Treatment Category"}, {"route", "Route"}, {"frequency", "Frequency"}, {"intent", "Intent"}, {"start_date", "Start Date"}, {"end_date", "End Date"}, {"active_flag", "Active Flag"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

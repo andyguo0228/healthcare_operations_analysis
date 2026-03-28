@@ -1,0 +1,131 @@
+table Appointments
+	lineageTag: c6f7d3d8-65cd-425a-b647-4033b84be14b
+
+	column 'Appointment ID'
+		dataType: string
+		lineageTag: 109fcd6f-d88b-418a-a3ac-180a61fd520c
+		summarizeBy: none
+		sourceColumn: Appointment ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column MRN
+		dataType: string
+		lineageTag: 14582503-7645-4952-99e2-19810f6502d4
+		summarizeBy: none
+		sourceColumn: MRN
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider ID'
+		dataType: string
+		isHidden
+		lineageTag: c5c00d4a-9841-4548-974f-10fc80a692ea
+		summarizeBy: none
+		sourceColumn: Provider ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Appointment Date'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: eb22dedd-d86f-4737-8ade-4757f568d56b
+		summarizeBy: none
+		sourceColumn: Appointment Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Visit Type'
+		dataType: string
+		lineageTag: b53e264d-d6ad-4bdd-bcfa-34cc53be06bd
+		summarizeBy: none
+		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: ff8bca18-9c41-4e16-a49a-6d143ce03656
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Patient Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a831cbe-69d9-494e-beba-5db8436fd916
+		summarizeBy: sum
+		sourceColumn: New Patient Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Infusion Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0a29e4a-f761-4665-b9bf-cca4384ea250
+		summarizeBy: sum
+		sourceColumn: Infusion Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Urgent Flag'
+		dataType: int64
+		formatString: 0
+		lineageTag: bc30759d-2537-41af-8335-cd2235baf9b6
+		summarizeBy: sum
+		sourceColumn: Urgent Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Arrival'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c4399f4c-d35e-4644-be17-133f1bc02ba2
+		summarizeBy: none
+		sourceColumn: First Arrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Timestamp'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c5139650-11d8-4fef-bf8d-9a846b70f7a2
+		summarizeBy: none
+		sourceColumn: Last Timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Duration'
+		dataType: double
+		lineageTag: 807c4552-db66-4047-8272-5b7291de71a0
+		summarizeBy: sum
+		sourceColumn: Total Duration
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Appointments = m
+		mode: import
+		source =
+				let
+				    Source = raw_Appointments,
+				    #"Removed Duplicates" = Table.Distinct(Source, {"Appointment ID"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Removed Duplicates",{"Room", "Room Type", "Room Timestamp", "Room Time", "Duration"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Removed Columns", {"Appointment ID"}, helper_arrivaltimes, {"Appointment ID"}, "helper_arrivaltimes", JoinKind.LeftOuter),
+				    #"Expanded helper_arrivaltimes" = Table.ExpandTableColumn(#"Merged Queries", "helper_arrivaltimes", {"First Arrival", "Last Timestamp", "Total Duration"}, {"First Arrival", "Last Timestamp", "Total Duration"})
+				in
+				    #"Expanded helper_arrivaltimes"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
