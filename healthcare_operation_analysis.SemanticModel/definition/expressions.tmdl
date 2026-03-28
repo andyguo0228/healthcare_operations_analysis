@@ -1,0 +1,30 @@
+expression helper_arrivaltimes =
+		let
+		    Source = raw_Appointments,
+		    #"Grouped Rows" = Table.Group(Source, {"Appointment ID"}, {{"First Arrival", each List.Min([Room Timestamp]), type nullable datetime}, {"Last Timestamp", each List.Max([Room Timestamp]), type nullable datetime}, {"Total Duration", each List.Sum([Duration]), type nullable number}})
+		in
+		    #"Grouped Rows"
+	lineageTag: e9ffa8cd-8159-483c-9809-cbfd3a65a149
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression raw_Appointments =
+		let
+		    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/appointments.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"appointment_id", type text}, {"mrn", type text}, {"provider_id", type text}, {"appointment_date", type date}, {"visit_type", type text}, {"status", type text}, {"new_patient_flag", Int64.Type}, {"infusion_flag", Int64.Type}, {"urgent_flag", Int64.Type}, {"room", type text}, {"room_type", type text}, {"room_timestamp", type datetime}, {"duration", Int64.Type}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"appointment_date", "Appointment Date"}, {"appointment_id", "Appointment ID"}, {"mrn", "MRN"}, {"provider_id", "Provider ID"}, {"visit_type", "Visit Type"}, {"status", "Status"}, {"new_patient_flag", "New Patient Flag"}, {"infusion_flag", "Infusion Flag"}, {"urgent_flag", "Urgent Flag"}, {"room", "Room"}, {"room_type", "Room Type"}, {"room_timestamp", "Room Timestamp"}, {"duration", "Duration"}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","Rm","Room",Replacer.ReplaceText,{"Room"}),
+		    #"Inserted Time" = Table.AddColumn(#"Replaced Value", "Time", each DateTime.Time([Room Timestamp]), type time),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Inserted Time",{"Appointment ID", "MRN", "Provider ID", "Appointment Date", "Visit Type", "Status", "New Patient Flag", "Infusion Flag", "Urgent Flag", "Room", "Room Type", "Room Timestamp", "Time", "Duration"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Reordered Columns",{{"Time", "Room Time"}})
+		in
+		    #"Renamed Columns1"
+	lineageTag: be14874c-9b64-4d3f-aa83-59edf8c892dd
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

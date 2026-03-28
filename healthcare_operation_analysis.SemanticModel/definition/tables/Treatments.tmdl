@@ -11,9 +11,12 @@ table Treatments
 
 	column 'Patient ID'
 		dataType: string
+		isHidden
 		lineageTag: e4f29c98-2635-404f-849a-76f4c8158b66
 		summarizeBy: none
 		sourceColumn: Patient ID
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

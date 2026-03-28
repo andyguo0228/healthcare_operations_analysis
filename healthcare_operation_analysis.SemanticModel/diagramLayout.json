@@ -10,8 +10,8 @@
       "nodes": [
         {
           "location": {
-            "x": 674.74639055506429,
-            "y": 59.80627801153787
+            "x": 17.792523351322302,
+            "y": 738.92877857714416
           },
           "nodeIndex": "_Measures",
           "nodeLineageTag": "425ca366-8b8e-4c46-8ada-33e93c0984c3",
@@ -19,54 +19,15 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 598.54436026429653,
-            "y": 401.46048359707459
-          },
-          "nodeIndex": "Date",
-          "nodeLineageTag": "bc2bdfcf-ea7b-44f0-8e69-408b981a7ee9",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 6
-        },
-        {
-          "location": {
-            "x": 78.034785865833783,
-            "y": 0
-          },
-          "nodeIndex": "Patients",
-          "nodeLineageTag": "0b7a980d-9049-441e-ae54-d9a60959ec4e",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
           "zIndex": 3
         },
         {
           "location": {
-            "x": 48.845423783473223,
-            "y": 590.96437681145221
-          },
-          "nodeIndex": "Providers",
-          "nodeLineageTag": "c1c1a8a4-7ac7-4c52-821c-1d25b1616f2d",
-          "size": {
-            "height": 176,
-            "width": 234
-          },
-          "zIndex": 4
-        },
-        {
-          "location": {
-            "x": 418.80944244105558,
+            "x": 112.46777310651868,
             "y": 0
           },
-          "nodeIndex": "Treatments",
-          "nodeLineageTag": "814cc6a4-9ca7-4670-81a9-ecfcd907bf28",
+          "nodeIndex": "Date",
+          "nodeLineageTag": "bc2bdfcf-ea7b-44f0-8e69-408b981a7ee9",
           "size": {
             "height": 300,
             "width": 234
@@ -75,41 +36,68 @@
         },
         {
           "location": {
-            "x": 308.77873890629695,
-            "y": 365.17284541095154
+            "x": 579.12086383845963,
+            "y": 0
           },
-          "nodeIndex": "raw_Appointments",
+          "nodeIndex": "Patients",
+          "nodeLineageTag": "0b7a980d-9049-441e-ae54-d9a60959ec4e",
           "size": {
             "height": 300,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 4
         },
         {
           "location": {
-            "x": 909.90096677159113,
-            "y": 233.48218840572611
+            "x": 0,
+            "y": 375.05862432094295
+          },
+          "nodeIndex": "Providers",
+          "nodeLineageTag": "c1c1a8a4-7ac7-4c52-821c-1d25b1616f2d",
+          "size": {
+            "height": 203.70982919664289,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 739.78163063550278,
+            "y": 429.502352547965
+          },
+          "nodeIndex": "Treatments",
+          "nodeLineageTag": "814cc6a4-9ca7-4670-81a9-ecfcd907bf28",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 362.60609087230409,
+            "y": 351.24896249145831
           },
           "nodeIndex": "Appointments",
-          "nodeLineageTag": "6521c02d-db2f-4335-b17d-a107b832de70",
+          "nodeLineageTag": "c6f7d3d8-65cd-425a-b647-4033b84be14b",
           "size": {
-            "height": 300,
+            "height": 403.91185948741088,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
-            "x": 1193.9009667715911,
-            "y": 233.48218840572611
+            "x": 349.93150175609907,
+            "y": 861.57165019629861
           },
           "nodeIndex": "Rooms",
-          "nodeLineageTag": "c6f7d3d8-65cd-425a-b647-4033b84be14b",
+          "nodeLineageTag": "6521c02d-db2f-4335-b17d-a107b832de70",
           "size": {
-            "height": 300,
+            "height": 300.00000000000011,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
         }
       ],
       "name": "All tables",

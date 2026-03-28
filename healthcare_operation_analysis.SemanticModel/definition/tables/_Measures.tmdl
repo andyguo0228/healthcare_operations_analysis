@@ -14,7 +14,7 @@ table _Measures
 				in
 				    #"Removed Columns"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
 
