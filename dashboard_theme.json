@@ -1,0 +1,17 @@
+{
+    "name": "Oncology Clinic",
+    "dataColors": [
+      "#005F73", "#0A9396", "#94D2BD", "#EE9B00",
+      "#AE2012", "#001219", "#CA6702", "#BB3E03"
+    ],
+    "background": "#FFFFFF",
+    "foreground": "#333333",
+    "tableAccent": "#005F73",
+    "visualStyles": {
+      "*": {
+        "*": {
+          "border": [{ "color": { "solid": { "color": "#FFFFFF" } } }]
+        }
+      }
+    }
+  }

@@ -19,6 +19,7 @@ ref table Treatments
 ref table Providers
 ref table Rooms
 ref table Appointments
+ref table Year-Month
 
 ref cultureInfo en-US
 

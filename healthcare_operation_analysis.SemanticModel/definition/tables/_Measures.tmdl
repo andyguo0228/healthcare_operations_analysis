@@ -15,10 +15,9 @@ table _Measures
 			    COUNTROWS(Appointments),
 			    0
 			)
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: KPI
 		lineageTag: 10092593-b9e9-41b9-8104-877b48cec1a1
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'No-Show Rate' =
 			
@@ -27,10 +26,9 @@ table _Measures
 			    COUNTROWS(Appointments),
 			    0
 			)
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: KPI
 		lineageTag: 180269fc-6f4a-46fa-88ae-98f77207bc89
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Cancellation Rate' =
 			
@@ -87,6 +85,67 @@ table _Measures
 		lineageTag: 01660de4-ccac-40f1-93d4-5ee2929520e9
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Appts MoM Change' = ```
+			
+			VAR _current = COUNTROWS(Appointments)
+			VAR _prior = 
+			    CALCULATE(
+			        COUNTROWS(Appointments),
+			        DATEADD('Date'[Date], -1, MONTH)
+			    )
+			RETURN
+			    DIVIDE(_current - _prior, _prior, 0)
+			```
+		displayFolder: Time Intelligence
+		lineageTag: c15f3f55-cf55-4215-abdf-059ff464f8f2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Appts YoY Change' = ```
+			
+			VAR _current = COUNTROWS(Appointments)
+			VAR _prior = 
+			    CALCULATE(
+			        COUNTROWS(Appointments),
+			        DATEADD('Date'[Date], -1, YEAR)
+			    )
+			RETURN
+			    DIVIDE(_current - _prior, _prior, 0)
+			```
+		displayFolder: Time Intelligence
+		lineageTag: d9c47517-98e2-4c8d-80ae-2a926fe01c74
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Appts Rolling 3M Avg' =
+			
+			CALCULATE(
+			    DIVIDE(COUNTROWS(Appointments), 3),
+			    DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)
+			)
+		displayFolder: Time Intelligence
+		lineageTag: 3399bd66-c4e7-4e7e-bee4-a3e196591df0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'NoShow Color' =
+			
+			IF(
+			    [No-Show Rate] > 0.07, "#AE2012",
+			    IF([No-Show Rate] > 0.05, "#EE9B00", "#005F73")
+			)
+		displayFolder: Formating
+		lineageTag: f6b8c0ff-9303-46a5-af79-493a78c2bb8c
+
+	measure 'Wait Time Color' =
+			
+			IF(
+			    [Avg Wait Time] > 15, "#AE2012",
+			    IF([Avg Wait Time] > 10, "#EE9B00", "#005F73")
+			)
+		displayFolder: Formating
+		lineageTag: 2ca8f9b9-332c-4d3d-a0a2-66dbc2a161a8
 
 	partition _Measures = m
 		mode: import

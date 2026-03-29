@@ -46,6 +46,9 @@ table Date
 		lineageTag: ef785979-bb46-4ad6-a226-806e547adcf0
 		summarizeBy: none
 		sourceColumn: Month Name
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -88,8 +91,30 @@ table Date
 		lineageTag: 08ad23c3-3c02-4e75-86f0-d71cc1d1badd
 		summarizeBy: none
 		sourceColumn: Day Name
+		sortByColumn: 'Day of Week'
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierarchy'
+		lineageTag: d9882146-8064-4e0d-857e-073dbe299f3e
+
+		level Year
+			lineageTag: 764ef4dd-f5f6-4d41-ad80-a410e12a3959
+			column: Year
+
+		level Quarter
+			lineageTag: 168d3893-f89f-4128-a9de-fb9b8eea850d
+			column: Quarter
+
+		level 'Month Name'
+			lineageTag: cdff165d-58af-4388-bb79-db79fe9b439f
+			column: 'Month Name'
+
+		level 'Day Name'
+			lineageTag: 3af7c6cd-cd75-43ac-94cc-49206fb784dd
+			column: 'Day Name'
 
 	partition Date = m
 		mode: import
