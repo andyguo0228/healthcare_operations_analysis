@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "3ca40fdf72aae5e4c049",
   "position": {
-    "x": 22.660944206008583,
-    "y": 111.24463519313305,
+    "x": 76.317991631799174,
+    "y": 73.640167364016747,
     "z": 0,
-    "height": 104.37768240343347,
-    "width": 1087.7253218884121,
+    "height": 104.43514644351465,
+    "width": 1087.866108786611,
     "tabOrder": 0
   },
   "visual": {
@@ -93,11 +93,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Active Patients"
+                  "Property": "Unique Patients"
                 }
               },
               "queryRef": "_Measures.Active Patients",
-              "nativeQueryRef": "Active Patients"
+              "nativeQueryRef": "Unique Patients"
             }
           ]
         }
@@ -412,93 +412,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "9a8e59fc6f197fc684e3",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Active Patients"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "964043c25628a74840ee",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Duration Completed"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "95092f1138b8865deaa3",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Wait Time"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "49f4d7a9cb5838b38ad1",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Completion Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "26c07093e4ba907d262a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "No-Show Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "290067fe481a0b42c0aa",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Total Appointments"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

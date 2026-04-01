@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "6c987c43cf9bf0e433de",
   "position": {
-    "x": 22.816399286987522,
-    "y": 222.07961972667854,
-    "z": 4,
-    "height": 382.55496137849076,
-    "width": 1083.0184194890076,
-    "tabOrder": 4
+    "x": 76.357927786499218,
+    "y": 182.85714285714286,
+    "z": 3000,
+    "height": 263.90371533228677,
+    "width": 679.18367346938783,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -23,29 +23,12 @@
                       "Entity": "Date"
                     }
                   },
-                  "Property": "Month Name"
+                  "Property": "Month Short"
                 }
               },
-              "queryRef": "Date.Month Name",
-              "nativeQueryRef": "Month Name",
-              "active": true,
-              "displayName": "Month Name"
-            }
-          ],
-          "fieldParameters": [
-            {
-              "parameterExpr": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Year-Month"
-                    }
-                  },
-                  "Property": "Year-Month"
-                }
-              },
-              "index": 0,
-              "length": 1
+              "queryRef": "Date.Month Short",
+              "nativeQueryRef": "Month Short",
+              "active": true
             }
           ]
         },
@@ -77,6 +60,67 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "customizeSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
                 }
               }
             }

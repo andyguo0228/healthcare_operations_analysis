@@ -67,11 +67,7 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Active Patients' =
-			
-			COUNTROWS(
-			    FILTER(Patients, Patients[Active Treatment Flag] = 1)
-			)
+	measure 'Unique Patients' = DISTINCTCOUNT(Appointments[MRN])
 		formatString: 0
 		displayFolder: KPI
 		lineageTag: 7939b46c-2af1-483a-88d7-87bb45d79422

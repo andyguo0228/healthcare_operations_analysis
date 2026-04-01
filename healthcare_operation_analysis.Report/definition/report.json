@@ -68,6 +68,11 @@
           "name": "Oncology_Clinic20253417377037275.json",
           "path": "Oncology_Clinic20253417377037275.json",
           "type": "CustomTheme"
+        },
+        {
+          "name": "pulse23659646463683689.png",
+          "path": "pulse23659646463683689.png",
+          "type": "Image"
         }
       ]
     }

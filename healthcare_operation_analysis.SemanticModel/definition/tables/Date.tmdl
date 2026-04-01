@@ -57,6 +57,9 @@ table Date
 		lineageTag: adab990f-97a7-4c6a-b1c4-9b4a67c2061b
 		summarizeBy: none
 		sourceColumn: Month Short
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -91,6 +94,17 @@ table Date
 		lineageTag: 08ad23c3-3c02-4e75-86f0-d71cc1d1badd
 		summarizeBy: none
 		sourceColumn: Day Name
+		sortByColumn: 'Day of Week'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name Short'
+		dataType: string
+		lineageTag: 351ead2e-90e9-4ced-8783-a67dab05cb92
+		summarizeBy: none
+		sourceColumn: Day Name Short
 		sortByColumn: 'Day of Week'
 
 		changedProperty = SortByColumn
@@ -220,9 +234,11 @@ table Date
 				            "Day of Week",
 				            "Day Name"
 				        }
-				    )
+				    ),
+				    #"Added Custom" = Table.AddColumn(#"Reordered Columns", "Day Name Short", each Date.ToText([Date], "ddd")),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Day Name Short", type text}})
 				in
-				    #"Reordered Columns"
+				    #"Changed Type1"
 
 	annotation PBI_NavigationStepName = Navigation
 

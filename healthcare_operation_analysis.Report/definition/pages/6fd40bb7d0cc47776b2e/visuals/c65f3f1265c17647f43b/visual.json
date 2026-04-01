@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "c65f3f1265c17647f43b",
+  "position": {
+    "x": 156.73469387755102,
+    "y": 6.0282574568288858,
+    "z": 4000,
+    "height": 67.650444793301943,
+    "width": 503.02459445316589,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Cancer Center Operations Dashboard",
+                    "textStyle": {
+                      "fontSize": "20pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Outpatient Hematology/Oncology Clinic",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
