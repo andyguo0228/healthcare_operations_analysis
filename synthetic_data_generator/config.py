@@ -1,18 +1,16 @@
 from datetime import date, timedelta
 from pathlib import Path
+import random
 
 SEED = 42
 
-NUM_PATIENTS = 3600
-NUM_PROVIDERS = 6
+NUM_PATIENTS = random.randint(4000, 5000)
+NUM_PROVIDERS = 8
 
 START_DATE = date.today() - timedelta(days=1095)
 END_DATE = date.today()
 
 OUTPUT_DIR = Path("data")
-
-RACES = ["White", "African American", "Asian", "Hispanic", "Other"]
-RACE_WEIGHTS = [35, 20, 18, 20, 7]
 
 INSURANCE_TYPES = ["Commercial", "Medicare", "Medicaid", "Self-Pay"]
 

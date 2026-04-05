@@ -9,8 +9,6 @@ from synthetic_data_generator.config import (
     MALIGNANT_CANCERS,
     MALIGNANT_WEIGHTS,
     NUM_PATIENTS,
-    RACES,
-    RACE_WEIGHTS,
 )
 from synthetic_data_generator.utils import (
     age_from_dob,
@@ -31,7 +29,6 @@ class PatientProfile:
     sex: str
     dob: object
     age: int
-    race: str
     zip_code: str
     insurance_type: str
     diagnosis_group: str
@@ -91,16 +88,56 @@ def assign_sex_for_diagnosis(group: str, diagnosis: str) -> str:
     return assign_malignant_sex(diagnosis)
 
 
-def active_treatment_flag_for_dx(group: str, diagnosis: str) -> int:
+def active_treatment_flag_for_dx(
+    group: str,
+    diagnosis: str,
+    age: int,
+    stage: str,
+    comorbidity_score: int,
+) -> int:
     if group == "ida":
-        return weighted_choice([1, 0], [65, 35])
-    return weighted_choice([1, 0], [72, 28])
+        prob = 0.45
+        if comorbidity_score >= 4:
+            prob += 0.12
+        if age >= 75:
+            prob -= 0.08
+        if diagnosis == "Iron Deficiency Anemia" and comorbidity_score <= 1:
+            prob -= 0.05
+    else:
+        prob = 0.60
+        if stage in {"III", "IV", "High Risk"}:
+            prob += 0.16
+        if diagnosis in {"Lymphoma", "Multiple Myeloma", "Pancreatic Cancer"}:
+            prob += 0.08
+        if age >= 80:
+            prob -= 0.10
+        if comorbidity_score >= 6:
+            prob -= 0.06
+
+    prob = float(np.clip(prob + np.random.normal(0, 0.05), 0.05, 0.95))
+    return int(np.random.binomial(1, prob))
 
 
-def deceased_flag_for_dx(group: str) -> int:
+def deceased_flag_for_dx(group: str, stage: str, age: int, comorbidity_score: int) -> int:
     if group == "ida":
-        return weighted_choice([0, 1], [995, 5])
-    return weighted_choice([0, 1], [97, 3])
+        prob = 0.004
+        if age >= 82:
+            prob += 0.010
+        if comorbidity_score >= 5:
+            prob += 0.008
+    else:
+        prob = 0.020
+        if stage in {"IV", "High Risk"}:
+            prob += 0.040
+        elif stage == "III":
+            prob += 0.015
+        if age >= 80:
+            prob += 0.015
+        if comorbidity_score >= 6:
+            prob += 0.010
+
+    prob = float(np.clip(prob + np.random.normal(0, 0.003), 0.001, 0.20))
+    return int(np.random.binomial(1, prob))
 
 
 def generate_patients(n: int = NUM_PATIENTS) -> pd.DataFrame:
@@ -110,6 +147,7 @@ def generate_patients(n: int = NUM_PATIENTS) -> pd.DataFrame:
         group = choose_diagnosis_group()
         diagnosis = choose_primary_diagnosis(group)
         sex = assign_sex_for_diagnosis(group, diagnosis)
+        stage = assign_stage(diagnosis)
 
         dob = generate_dob()
         age = age_from_dob(dob)
@@ -122,6 +160,15 @@ def generate_patients(n: int = NUM_PATIENTS) -> pd.DataFrame:
         else:
             comorbidity_score = int(np.clip(np.random.poisson(lam=max(1.2, age / 30)), 0, 8))
 
+        active_treatment_flag = active_treatment_flag_for_dx(
+            group,
+            diagnosis,
+            age,
+            stage,
+            comorbidity_score,
+        )
+        deceased_flag = deceased_flag_for_dx(group, stage, age, comorbidity_score)
+
         patient = PatientProfile(
             patient_id=f"PT{100000 + i}",
             mrn=generate_mrn(i),
@@ -130,16 +177,15 @@ def generate_patients(n: int = NUM_PATIENTS) -> pd.DataFrame:
             sex=sex,
             dob=dob,
             age=age,
-            race=weighted_choice(RACES, RACE_WEIGHTS),
             zip_code=generate_zip_code(),
             insurance_type=insurance_for_age(age),
             diagnosis_group=group,
             primary_diagnosis=diagnosis,
-            stage=assign_stage(diagnosis),
+            stage=stage,
             comorbidity_score=comorbidity_score,
             smoking_status=smoking_status_for_dx(diagnosis),
-            active_treatment_flag=active_treatment_flag_for_dx(group, diagnosis),
-            deceased_flag=deceased_flag_for_dx(group),
+            active_treatment_flag=active_treatment_flag,
+            deceased_flag=deceased_flag,
         )
 
         rows.append(patient.__dict__)

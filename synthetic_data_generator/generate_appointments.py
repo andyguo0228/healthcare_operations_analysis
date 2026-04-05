@@ -33,12 +33,16 @@ ROOM_TYPE_MAP = {
 
 
 def patient_visit_count(patient_row: pd.Series) -> int:
+    volatility = float(np.clip(np.random.lognormal(mean=-0.1, sigma=0.45), 0.55, 2.6))
+
     if patient_row["primary_diagnosis"] == "Iron Deficiency Anemia":
         base = 2
         if patient_row["active_treatment_flag"] == 1:
             base += 3
+        if patient_row["comorbidity_score"] >= 4:
+            base += 1
         extra = np.random.poisson(1)
-        return int(np.clip(base + extra, 1, 8))
+        return int(np.clip(round((base + extra) * volatility), 1, 11))
 
     base = 2
     if patient_row["active_treatment_flag"] == 1:
@@ -47,9 +51,11 @@ def patient_visit_count(patient_row: pd.Series) -> int:
         base += 2
     if patient_row["stage"] in {"III", "IV", "High Risk"}:
         base += 2
+    if patient_row["comorbidity_score"] >= 6:
+        base += 1
 
     extra = np.random.poisson(2)
-    return int(np.clip(base + extra, 1, 18))
+    return int(np.clip(round((base + extra) * volatility), 1, 24))
 
 
 def choose_visit_type(patient_row: pd.Series, visit_index: int) -> str:
@@ -70,15 +76,43 @@ def choose_visit_type(patient_row: pd.Series, visit_index: int) -> str:
         )
 
     if patient_row["active_treatment_flag"] == 1:
-        return weighted_choice(VISIT_TYPES, [3, 38, 35, 14, 10])
+        weights = [3, 38, 35, 14, 10]
+        if patient_row["stage"] in {"IV", "High Risk"}:
+            weights = [2, 30, 40, 12, 16]
+        elif patient_row["comorbidity_score"] >= 6:
+            weights = [2, 33, 28, 18, 19]
+        return weighted_choice(VISIT_TYPES, weights)
 
-    return weighted_choice(VISIT_TYPES, [2, 55, 8, 25, 10])
+    weights = [2, 55, 8, 25, 10]
+    if patient_row["comorbidity_score"] >= 5:
+        weights = [2, 50, 8, 23, 17]
+    return weighted_choice(VISIT_TYPES, weights)
 
 
-def choose_status(visit_type: str) -> str:
+def choose_status(visit_type: str, patient_row: pd.Series, scheduled_dt=None) -> str:
+    weather_months = {1, 2, 7, 8, 12}
+    month = scheduled_dt.month if scheduled_dt is not None else None
+
     if visit_type == "Infusion":
-        return weighted_choice(APPOINTMENT_STATUS, [90, 4, 6])
-    return weighted_choice(APPOINTMENT_STATUS, STATUS_WEIGHTS)
+        weights = [90, 4, 6]
+    elif visit_type == "Urgent Visit":
+        weights = [93, 3, 4]
+    elif visit_type == "New Patient":
+        weights = [80, 8, 12]
+    else:
+        weights = list(STATUS_WEIGHTS)
+
+    if month in weather_months:
+        weights[1] += 2
+        weights[2] += 1
+        weights[0] = max(60, 100 - weights[1] - weights[2])
+
+    if patient_row["comorbidity_score"] >= 6:
+        weights[2] += 2
+        weights[1] += 1
+        weights[0] = max(55, 100 - weights[1] - weights[2])
+
+    return weighted_choice(APPOINTMENT_STATUS, weights)
 
 
 def provider_for_patient_visit(providers_df: pd.DataFrame) -> str:
@@ -184,9 +218,13 @@ def allocate_room_durations(patient_flow: list[str], total_minutes: int, visit_t
     total_minutes = max(total_minutes, len(patient_flow))
 
     base = []
+    shock_multiplier = float(np.clip(np.random.lognormal(mean=0.0, sigma=0.28), 0.70, 2.2))
     for room_state in patient_flow:
         low, high = room_duration_bounds(room_state, visit_type)
-        base.append(random.randint(low, high))
+        sampled = random.randint(low, high)
+        if room_state in {"Waiting Room", "Lab Waiting Room", "Infusion Waiting Room"}:
+            sampled = int(round(sampled * shock_multiplier))
+        base.append(max(1, sampled))
 
     base_sum = sum(base)
     scaled = [max(1, int(round(value * total_minutes / base_sum))) for value in base]
@@ -217,7 +255,10 @@ def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
             "checkout_datetime": None,
         }
 
-    arrival_offset_min = int(np.clip(np.random.normal(3, 9), -20, 35))
+    arrival_offset_min = int(np.clip(np.random.normal(4, 11), -40, 60))
+    # Introduce occasional long delays/early arrivals to create heavier tails.
+    if np.random.random() < 0.14:
+        arrival_offset_min += random.choice([-30, -20, 20, 35, 50])
     check_in_dt = scheduled_dt + timedelta(minutes=arrival_offset_min)
 
     if visit_type == "Infusion":
@@ -289,7 +330,16 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
         visit_dates = [first_visit_date]
 
         for _ in range(n_visits - 1):
-            gap = int(np.clip(np.random.normal(28, 18), 7, 90))
+            if patient["active_treatment_flag"] == 1 and np.random.random() < 0.35:
+                gap = int(np.clip(np.random.normal(11, 6), 3, 28))
+            elif np.random.random() < 0.20:
+                gap = int(np.clip(np.random.normal(74, 26), 28, 180))
+            else:
+                gap = int(np.clip(np.random.normal(32, 20), 5, 120))
+
+            if np.random.random() < 0.06:
+                gap += random.randint(30, 120)
+
             next_date = visit_dates[-1] + timedelta(days=gap)
             if next_date > END_DATE:
                 break
@@ -297,10 +347,9 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
 
         for idx, visit_date in enumerate(sorted(visit_dates)):
             visit_type = choose_visit_type(patient, idx)
-            status = choose_status(visit_type)
-
             provider_id = provider_for_patient_visit(providers_df)
             scheduled_dt = random_datetime_in_business_hours(visit_date)
+            status = choose_status(visit_type, patient, scheduled_dt)
             flow = generate_flow_times(scheduled_dt, visit_type, status)
             patient_flow = build_patient_flow(visit_type, status)
 

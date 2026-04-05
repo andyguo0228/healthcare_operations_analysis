@@ -42,7 +42,7 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Avg Wait Time' = ```
+	measure 'Avg Wait Time (Min)' = ```
 			
 			CALCULATE(
 			    AVERAGE(Rooms[Duration]),
@@ -56,7 +56,7 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Avg Duration Completed' =
+	measure 'Avg Visit Duration (Min)' =
 			
 			CALCULATE(
 			    AVERAGE(Appointments[Total Duration]),
@@ -137,11 +137,21 @@ table _Measures
 	measure 'Wait Time Color' =
 			
 			IF(
-			    [Avg Wait Time] > 15, "#AE2012",
-			    IF([Avg Wait Time] > 10, "#EE9B00", "#005F73")
+			    [Avg Wait Time (Min)] > 15, "#AE2012",
+			    IF([Avg Wait Time (Min)] > 10, "#EE9B00", "#005F73")
 			)
 		displayFolder: Formating
 		lineageTag: 2ca8f9b9-332c-4d3d-a0a2-66dbc2a161a8
+
+	measure 'Appts YoY' =
+			
+			CALCULATE(
+			    COUNTROWS(Appointments),
+			    DATEADD('Date'[Date], -1, YEAR)
+			)
+		formatString: 0
+		displayFolder: Time Intelligence
+		lineageTag: 5ca10299-1193-40c9-92e9-5abf35559713
 
 	partition _Measures = m
 		mode: import

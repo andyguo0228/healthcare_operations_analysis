@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
-  "name": "6c987c43cf9bf0e433de",
+  "name": "8f2071818794bcb2da35",
   "position": {
-    "x": 76.357927786499218,
-    "y": 182.85714285714286,
-    "z": 3000,
-    "height": 263.90371533228677,
-    "width": 679.18367346938783,
-    "tabOrder": 3000
+    "x": 76,
+    "y": 451,
+    "z": 7002,
+    "height": 269,
+    "width": 679,
+    "tabOrder": 7002
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "barChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,15 +20,33 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Date"
+                      "Entity": "Appointments"
                     }
                   },
-                  "Property": "Month Short"
+                  "Property": "Visit Type"
                 }
               },
-              "queryRef": "Date.Month Short",
-              "nativeQueryRef": "Month Short",
+              "queryRef": "Appointments.Visit Type",
+              "nativeQueryRef": "Visit Type",
               "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Rooms"
+                    }
+                  },
+                  "Property": "Room Type"
+                }
+              },
+              "queryRef": "Rooms.Room Type",
+              "nativeQueryRef": "Room Type"
             }
           ]
         },
@@ -42,171 +60,35 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Total Appointments"
+                  "Property": "Avg Visit Duration (Min)"
                 }
               },
-              "queryRef": "_Measures.Total Appointments",
-              "nativeQueryRef": "Total Appointments"
+              "queryRef": "_Measures.Avg Visit Duration (Min)",
+              "nativeQueryRef": "Avg Visit Duration (Min)"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Avg Visit Duration (Min)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "labels": [
-        {
-          "properties": {
-            "optimizeLabelDisplay": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "enableDetailDataLabel": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "enableTitleDataLabel": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "8D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "error": [
-        {
-          "properties": {
-            "enabled": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "barWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "barColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 6,
-                      "Percent": -0.25
-                    }
-                  }
-                }
-              }
-            },
-            "barBorderSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            },
-            "barMatchSeriesColor": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "markerSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Total Appointments"
-          }
-        },
-        {
-          "properties": {
-            "errorRange": {
-              "kind": "ErrorRange",
-              "explicit": {
-                "isRelative": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "false"
-                    }
-                  }
-                },
-                "lowerBound": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Appts YoY"
-                    }
-                  }
-                },
-                "upperBound": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_Measures"
-                        }
-                      },
-                      "Property": "Appts YoY"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 0
-                }
-              }
-            ],
-            "metadata": "_Measures.Total Appointments",
-            "highlightMatching": 1
-          }
-        }
-      ],
-      "categoryAxis": [
-        {
-          "properties": {
-            "innerPadding": {
-              "expr": {
-                "Literal": {
-                  "Value": "65L"
-                }
-              }
-            }
-          }
-        }
-      ],
       "legend": [
         {
           "properties": {
@@ -214,6 +96,19 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
                 }
               }
             }
