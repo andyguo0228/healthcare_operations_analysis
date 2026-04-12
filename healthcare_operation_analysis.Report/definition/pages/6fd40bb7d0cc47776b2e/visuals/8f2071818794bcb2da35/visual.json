@@ -4,10 +4,10 @@
   "position": {
     "x": 76,
     "y": 451,
-    "z": 7002,
+    "z": 8000,
     "height": 269,
     "width": 679,
-    "tabOrder": 7002
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "barChart",
@@ -368,20 +368,6 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "7fea5e51abc02e0b86b4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Appointments"
-              }
-            },
-            "Property": "Visit Type"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
         "name": "54516dadc4ac70ba28c5",
         "field": {
           "Column": {
@@ -452,25 +438,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "82b55bf936c0c6b7a730",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Rooms"
-                  }
-                },
-                "Property": "Duration"
-              }
-            },
-            "Function": 1
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }
