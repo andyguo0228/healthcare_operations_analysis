@@ -65,20 +65,6 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Wait Time (Min)"
-                }
-              },
-              "queryRef": "_Measures.Avg Wait Time",
-              "nativeQueryRef": "Avg Wait Time (Min)"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
                   "Property": "Avg Visit Duration (Min)"
                 }
               },
@@ -290,20 +276,6 @@
           "selector": {
             "metadata": "_Measures.Avg Duration Completed"
           }
-        },
-        {
-          "properties": {
-            "labelPrecision": {
-              "expr": {
-                "Literal": {
-                  "Value": "1L"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Avg Wait Time"
-          }
         }
       ],
       "image": [
@@ -495,20 +467,6 @@
               }
             },
             "Property": "No-Show Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "52df9470103c4aa34e2b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Avg Wait Time (Min)"
           }
         },
         "type": "Advanced"

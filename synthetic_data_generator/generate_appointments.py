@@ -12,7 +12,7 @@ from synthetic_data_generator.config import (
     STATUS_WEIGHTS,
     VISIT_TYPES,
 )
-from synthetic_data_generator.utils import compute_duration_minutes, random_date, random_datetime_in_business_hours, weighted_choice
+from synthetic_data_generator.utils import compute_duration_minutes, random_business_date, random_date, random_datetime_in_business_hours, next_weekday, weighted_choice
 
 
 EXAM_ROOMS = [f"Exam Rm {i}" for i in range(1, 25)]
@@ -33,7 +33,8 @@ ROOM_TYPE_MAP = {
 
 
 def patient_visit_count(patient_row: pd.Series) -> int:
-    volatility = float(np.clip(np.random.lognormal(mean=-0.1, sigma=0.45), 0.55, 2.6))
+    # Wider sigma creates a longer tail — some patients have many more/fewer visits than average
+    volatility = float(np.clip(np.random.lognormal(mean=-0.1, sigma=0.65), 0.40, 3.2))
 
     if patient_row["primary_diagnosis"] == "Iron Deficiency Anemia":
         base = 2
@@ -42,7 +43,7 @@ def patient_visit_count(patient_row: pd.Series) -> int:
         if patient_row["comorbidity_score"] >= 4:
             base += 1
         extra = np.random.poisson(1)
-        return int(np.clip(round((base + extra) * volatility), 1, 11))
+        return int(np.clip(round((base + extra) * volatility), 1, 16))
 
     base = 2
     if patient_row["active_treatment_flag"] == 1:
@@ -55,7 +56,7 @@ def patient_visit_count(patient_row: pd.Series) -> int:
         base += 1
 
     extra = np.random.poisson(2)
-    return int(np.clip(round((base + extra) * volatility), 1, 24))
+    return int(np.clip(round((base + extra) * volatility), 1, 36))
 
 
 def choose_visit_type(patient_row: pd.Series, visit_index: int) -> str:
@@ -115,7 +116,10 @@ def choose_status(visit_type: str, patient_row: pd.Series, scheduled_dt=None) ->
     return weighted_choice(APPOINTMENT_STATUS, weights)
 
 
-def provider_for_patient_visit(providers_df: pd.DataFrame) -> str:
+def provider_for_patient_visit(providers_df: pd.DataFrame, preferred_id: str | None = None) -> str:
+    # 70% chance of continuity — patients tend to see the same provider
+    if preferred_id is not None and random.random() < 0.70:
+        return preferred_id
     return providers_df.sample(1, random_state=random.randint(1, 999999)).iloc[0]["provider_id"]
 
 
@@ -218,7 +222,8 @@ def allocate_room_durations(patient_flow: list[str], total_minutes: int, visit_t
     total_minutes = max(total_minutes, len(patient_flow))
 
     base = []
-    shock_multiplier = float(np.clip(np.random.lognormal(mean=0.0, sigma=0.28), 0.70, 2.2))
+    # Wider sigma + higher ceiling creates sporadic days where waits are dramatically longer or shorter
+    shock_multiplier = float(np.clip(np.random.lognormal(mean=0.0, sigma=0.55), 0.45, 3.5))
     for room_state in patient_flow:
         low, high = room_duration_bounds(room_state, visit_type)
         sampled = random.randint(low, high)
@@ -255,58 +260,62 @@ def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
             "checkout_datetime": None,
         }
 
-    arrival_offset_min = int(np.clip(np.random.normal(4, 11), -40, 60))
-    # Introduce occasional long delays/early arrivals to create heavier tails.
-    if np.random.random() < 0.14:
-        arrival_offset_min += random.choice([-30, -20, 20, 35, 50])
+    # Wider sigma and heavier tails — patients arrive very early or very late more often
+    arrival_offset_min = int(np.clip(np.random.normal(4, 16), -50, 90))
+    if np.random.random() < 0.22:
+        arrival_offset_min += random.choice([-45, -30, -20, 25, 40, 60, 80])
     check_in_dt = scheduled_dt + timedelta(minutes=arrival_offset_min)
 
+    # Helper: lognormal wait — produces realistic right-skewed distributions
+    def _lognorm_wait(median: float, sigma: float, lo: int, hi: int) -> int:
+        return int(np.clip(np.random.lognormal(mean=np.log(median), sigma=sigma), lo, hi))
+
     if visit_type == "Infusion":
-        wait_to_room = random.randint(5, 25)
-        wait_to_provider = random.randint(8, 30)
-        provider_time = random.randint(8, 20)
-        infusion_time = random.randint(45, 240)
-        post_time = random.randint(5, 20)
+        wait_to_room = _lognorm_wait(12, 0.65, 2, 80)
+        wait_to_provider = _lognorm_wait(15, 0.60, 3, 75)
+        provider_time = _lognorm_wait(13, 0.50, 5, 50)
+        infusion_time = _lognorm_wait(105, 0.55, 30, 420)
+        post_time = _lognorm_wait(10, 0.55, 3, 45)
 
         roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
         checkout_dt = provider_seen_dt + timedelta(minutes=provider_time + infusion_time + post_time)
 
     elif visit_type == "New Patient":
-        wait_to_room = random.randint(8, 30)
-        wait_to_provider = random.randint(5, 20)
-        provider_time = random.randint(30, 65)
-        post_time = random.randint(5, 15)
+        wait_to_room = _lognorm_wait(16, 0.65, 3, 90)
+        wait_to_provider = _lognorm_wait(11, 0.60, 3, 60)
+        provider_time = _lognorm_wait(45, 0.45, 20, 120)
+        post_time = _lognorm_wait(9, 0.55, 3, 35)
 
         roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
         checkout_dt = provider_seen_dt + timedelta(minutes=provider_time + post_time)
 
     elif visit_type == "Urgent Visit":
-        wait_to_room = random.randint(3, 18)
-        wait_to_provider = random.randint(2, 12)
-        provider_time = random.randint(15, 35)
-        post_time = random.randint(3, 10)
+        wait_to_room = _lognorm_wait(8, 0.70, 1, 50)
+        wait_to_provider = _lognorm_wait(6, 0.65, 1, 35)
+        provider_time = _lognorm_wait(22, 0.50, 8, 70)
+        post_time = _lognorm_wait(6, 0.55, 2, 25)
 
         roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
         checkout_dt = provider_seen_dt + timedelta(minutes=provider_time + post_time)
 
     elif visit_type == "Lab Review":
-        wait_to_room = random.randint(4, 18)
-        wait_to_provider = random.randint(2, 10)
-        provider_time = random.randint(8, 18)
-        post_time = random.randint(2, 8)
+        wait_to_room = _lognorm_wait(10, 0.65, 2, 55)
+        wait_to_provider = _lognorm_wait(5, 0.60, 1, 30)
+        provider_time = _lognorm_wait(12, 0.50, 5, 45)
+        post_time = _lognorm_wait(4, 0.55, 1, 20)
 
         roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
         checkout_dt = provider_seen_dt + timedelta(minutes=provider_time + post_time)
 
     else:
-        wait_to_room = random.randint(5, 22)
-        wait_to_provider = random.randint(3, 15)
-        provider_time = random.randint(10, 25)
-        post_time = random.randint(3, 10)
+        wait_to_room = _lognorm_wait(11, 0.65, 2, 65)
+        wait_to_provider = _lognorm_wait(8, 0.60, 2, 45)
+        provider_time = _lognorm_wait(16, 0.50, 6, 55)
+        post_time = _lognorm_wait(6, 0.55, 2, 25)
 
         roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
@@ -324,30 +333,43 @@ def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
 def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame) -> pd.DataFrame:
     rows = []
 
+    # Assign each patient a primary provider for continuity of care
+    primary_provider_map = {
+        mrn: providers_df.sample(1, random_state=random.randint(1, 999999)).iloc[0]["provider_id"]
+        for mrn in patients_df["mrn"]
+    }
+
     for _, patient in patients_df.iterrows():
         n_visits = patient_visit_count(patient)
-        first_visit_date = random_date(START_DATE, END_DATE - timedelta(days=30))
+        # Use business dates only — clinics don't schedule on weekends
+        first_visit_date = random_business_date(START_DATE, END_DATE - timedelta(days=30))
         visit_dates = [first_visit_date]
 
         for _ in range(n_visits - 1):
             if patient["active_treatment_flag"] == 1 and np.random.random() < 0.35:
-                gap = int(np.clip(np.random.normal(11, 6), 3, 28))
+                gap = int(np.clip(np.random.normal(11, 8), 3, 35))
             elif np.random.random() < 0.20:
-                gap = int(np.clip(np.random.normal(74, 26), 28, 180))
+                gap = int(np.clip(np.random.normal(74, 35), 28, 210))
             else:
-                gap = int(np.clip(np.random.normal(32, 20), 5, 120))
+                gap = int(np.clip(np.random.normal(32, 25), 5, 150))
 
+            # Occasional moderate delay
             if np.random.random() < 0.06:
                 gap += random.randint(30, 120)
+            # Rare "lost to follow-up then returned" gap (~3% of inter-visit intervals)
+            if np.random.random() < 0.03:
+                gap += random.randint(180, 540)
 
-            next_date = visit_dates[-1] + timedelta(days=gap)
+            next_date = next_weekday(visit_dates[-1] + timedelta(days=gap))
             if next_date > END_DATE:
                 break
             visit_dates.append(next_date)
 
+        primary_provider = primary_provider_map[patient["mrn"]]
+
         for idx, visit_date in enumerate(sorted(visit_dates)):
             visit_type = choose_visit_type(patient, idx)
-            provider_id = provider_for_patient_visit(providers_df)
+            provider_id = provider_for_patient_visit(providers_df, preferred_id=primary_provider)
             scheduled_dt = random_datetime_in_business_hours(visit_date)
             status = choose_status(visit_type, patient, scheduled_dt)
             flow = generate_flow_times(scheduled_dt, visit_type, status)

@@ -109,10 +109,9 @@ table _Measures
 			RETURN
 			    DIVIDE(_current - _prior, _prior, 0)
 			```
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Time Intelligence
 		lineageTag: d9c47517-98e2-4c8d-80ae-2a926fe01c74
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Appts Rolling 3M Avg' =
 			
@@ -143,15 +142,47 @@ table _Measures
 		displayFolder: Formating
 		lineageTag: 2ca8f9b9-332c-4d3d-a0a2-66dbc2a161a8
 
-	measure 'Appts YoY' =
+	measure 'Appts PY' =
 			
 			CALCULATE(
-			    COUNTROWS(Appointments),
+			    [Total Appointments],
 			    DATEADD('Date'[Date], -1, YEAR)
 			)
 		formatString: 0
 		displayFolder: Time Intelligence
 		lineageTag: 5ca10299-1193-40c9-92e9-5abf35559713
+
+	measure 'Avg Visit Duration (Min) Crossfilter' =
+			
+			CALCULATE(
+			    AVERAGE(Appointments[Total Duration]),
+			    Appointments[Status] = "Completed",
+			    Rooms[Room Type] <> "Status",
+			    CROSSFILTER(Appointments[Appointment ID], Rooms[Appointment ID], BOTH)
+			)
+		lineageTag: 3d39f862-24f2-42b6-9b8f-503e953c71a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Diff Format' =
+			
+			VAR up_arrow = UNICHAR(129137)
+			VAR down_arrow = UNICHAR(129139)
+			VAR target = [Appts PY]
+			VAR targetdiff = [Appts YoY]
+			VAR targetpercent = FORMAT([Appts YoY Change], "0%")
+			
+			RETURN
+				IF(
+					targetdiff < 0, targetpercent & " " & down_arrow,
+					targetpercent & " " & up_arrow
+				)
+		lineageTag: 90051758-2bb7-4ae8-9187-437677780dae
+
+	measure 'Appts YoY' = [Total Appointments] - [Appts PY]
+		formatString: 0
+		displayFolder: Time Intelligence
+		lineageTag: 33bdacbc-47a4-4d7a-8e1b-dc28f5667f00
 
 	partition _Measures = m
 		mode: import

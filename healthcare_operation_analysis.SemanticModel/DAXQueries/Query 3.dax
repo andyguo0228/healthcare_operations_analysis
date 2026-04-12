@@ -1,0 +1,11 @@
+TimeSlicer =
+VAR current_selection = SELECTEDVALUE('Time Period Slicer'[Period], "Last Month")
+
+RETURN
+SWITCH(
+	current_selection,
+	"Last Month", CALCULATE('Appointments'[Total Appointments], DATEADD('Date'[Date], MAX('Date'[Date]), -1, MONTH)),
+	"Last 3 Month", CALCULATE('Appointments'[Total Appointments], DATEADD('Date'[Date], MAX('Date'[Date], -3, MONTH)),
+	"YTD", CALCULATE('Appointments'[Total Appointments], DATESYTD('Date'[Date])),
+	"Last Year", CALCULATE('Appointments'[Total Appointments], SAMEPERIODLASTYEAR('Date'[Date]))
+)

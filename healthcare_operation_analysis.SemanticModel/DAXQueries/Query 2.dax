@@ -1,0 +1,12 @@
+Dynamic Appts by Time = 
+VAR CurrentSelection = SELECTEDVALUE('Time Period Slicer'[Period], "YTD")
+
+RETURN
+SWITCH(
+    CurrentSelection,
+    "Last Month", CALCULATE([Total Appointments], DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -1, MONTH)),
+    "Last 3 Months", CALCULATE([Total Appointments], DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)),
+    "YTD", CALCULATE([Total Appointments], DATESYTD('Date'[Date])),
+    "Last Year", CALCULATE([Total Appointments], SAMEPERIODLASTYEAR('Date'[Date])),
+    [Total Appointments]
+)

@@ -5,7 +5,7 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 167.50169190897338
+        "y": 24.163265228271484
       },
       "nodes": [
         {
@@ -84,7 +84,7 @@
             "height": 403.91185948741088,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
@@ -97,7 +97,7 @@
             "height": 300.00000000000011,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 8
         },
         {
           "location": {
@@ -110,11 +110,23 @@
             "height": 152,
             "width": 234
           },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 923.33349979767229,
+            "y": 444.54557061121295
+          },
+          "nodeIndex": "Time Period Slicer",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
           "zIndex": 0
         }
       ],
       "name": "All tables",
-      "zoomValue": 86.611865521378391,
+      "zoomValue": 70,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

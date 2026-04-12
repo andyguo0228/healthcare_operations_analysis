@@ -1,6 +1,7 @@
 EVALUATE
 
-CALCULATETABLE(
-    AVERAGE(Rooms[Duration]),
-    Rooms[Is Waiting Room] = TRUE
+
+SUMMARIZECOLUMNS(
+    Rooms[Room Type],
+    "Average Duration", AVERAGE(Rooms[Duration])
 )

@@ -72,6 +72,14 @@ table Rooms
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Visit Type'
+		dataType: string
+		lineageTag: 9ff7f2f8-3dfb-4351-8f05-3eaee5695b36
+		summarizeBy: none
+		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Rooms = m
 		mode: import
 		source = ```
@@ -175,9 +183,11 @@ table Rooms
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type", {{"Sequence.1", "Sequence"}}),
 				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns", "Is Waiting Room", each if [Room] = "Waiting Room" then true else if [Room] = "Lab Waiting Room" then true else if [Room] = "Infusion Waiting Room" then true else false),
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Is Waiting Room", type logical}}),
-				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"MRN", "Provider ID", "Appointment Date", "Visit Type", "Status", "New Patient Flag", "Infusion Flag", "Urgent Flag"})
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"MRN", "Provider ID", "Appointment Date", "Status", "New Patient Flag", "Infusion Flag", "Urgent Flag"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns",null,0,Replacer.ReplaceValue,{"Duration"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value",{{"Duration", Int64.Type}})
 				in
-				    #"Removed Columns"
+				    #"Changed Type2"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

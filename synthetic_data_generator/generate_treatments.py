@@ -112,17 +112,17 @@ def number_of_treatment_lines(patient_row: pd.Series) -> int:
 
 def treatment_duration_days(category: str, regimen: str) -> int:
     if regimen == "Venofer":
-        duration = int(np.random.triangular(left=10, mode=24, right=60))
-        return int(np.clip(duration, 7, 75))
+        duration = int(np.random.triangular(left=7, mode=24, right=90))
+        return int(np.clip(duration, 5, 100))
     if category == "Chemo":
-        return int(np.clip(np.random.lognormal(mean=4.6, sigma=0.35), 35, 260))
+        return int(np.clip(np.random.lognormal(mean=4.6, sigma=0.50), 21, 320))
     if category == "Immunotherapy":
-        return int(np.clip(np.random.lognormal(mean=5.0, sigma=0.30), 60, 420))
+        return int(np.clip(np.random.lognormal(mean=5.0, sigma=0.45), 45, 540))
     if category == "Targeted Therapy":
-        return int(np.clip(np.random.lognormal(mean=5.2, sigma=0.35), 90, 540))
+        return int(np.clip(np.random.lognormal(mean=5.2, sigma=0.50), 60, 660))
     if category == "Hormonal Therapy":
-        return int(np.clip(np.random.lognormal(mean=5.5, sigma=0.30), 120, 720))
-    return int(np.clip(np.random.lognormal(mean=4.2, sigma=0.45), 21, 240))
+        return int(np.clip(np.random.lognormal(mean=5.5, sigma=0.45), 90, 900))
+    return int(np.clip(np.random.lognormal(mean=4.2, sigma=0.60), 14, 300))
 
 
 def treatment_frequency(category: str, route: str, regimen: str) -> str:

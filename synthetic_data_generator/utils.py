@@ -26,8 +26,28 @@ def random_datetime_in_business_hours(d: date) -> datetime:
         [8, 9, 10, 11, 12, 13, 14, 15, 16],
         [8, 12, 14, 12, 6, 10, 12, 10, 6],
     )
-    minute = weighted_choice([0, 15, 30, 45], [4, 2, 4, 2])
+    minute = random.randint(0, 59)
     return datetime(d.year, d.month, d.day, hour, minute)
+
+
+def random_business_date(start: date, end: date) -> date:
+    """Return a random weekday (Mon–Fri) between start and end."""
+    d = random_date(start, end)
+    # Nudge Saturday → Friday, Sunday → Friday
+    if d.weekday() == 5:
+        d -= timedelta(days=1)
+    elif d.weekday() == 6:
+        d -= timedelta(days=2)
+    return max(start, d)
+
+
+def next_weekday(d: date) -> date:
+    """Push a weekend date to a nearby weekday (Friday or Monday, 50/50)."""
+    if d.weekday() == 5:  # Saturday — shift to Friday or Monday
+        return d + timedelta(days=random.choice([-1, 2]))
+    if d.weekday() == 6:  # Sunday — shift to Friday or Monday
+        return d + timedelta(days=random.choice([-2, 1]))
+    return d
 
 
 def age_from_dob(dob: date, ref: date | None = None) -> int:

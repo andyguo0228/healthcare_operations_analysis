@@ -10,7 +10,7 @@
     "tabOrder": 3000
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "lineChart",
     "query": {
       "queryState": {
         "Category": {
@@ -30,7 +30,8 @@
               "nativeQueryRef": "Month Short",
               "active": true
             }
-          ]
+          ],
+          "showAll": true
         },
         "Y": {
           "projections": [
@@ -47,6 +48,20 @@
               },
               "queryRef": "_Measures.Total Appointments",
               "nativeQueryRef": "Total Appointments"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Appts PY"
+                }
+              },
+              "queryRef": "_Measures.Appts PY",
+              "nativeQueryRef": "Appts PY"
             }
           ]
         }
@@ -93,7 +108,7 @@
             "enabled": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -162,7 +177,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Appts YoY"
+                      "Property": "Appts PY"
                     }
                   }
                 },
@@ -174,7 +189,7 @@
                           "Entity": "_Measures"
                         }
                       },
-                      "Property": "Appts YoY"
+                      "Property": "Appts PY"
                     }
                   }
                 }
@@ -196,15 +211,7 @@
       ],
       "categoryAxis": [
         {
-          "properties": {
-            "innerPadding": {
-              "expr": {
-                "Literal": {
-                  "Value": "65L"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "legend": [
