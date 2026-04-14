@@ -17,24 +17,14 @@ table Providers
 
 		annotation SummarizationSetBy = Automatic
 
-	column years_experience
+	column 'Years Experience'
 		dataType: int64
 		formatString: 0
 		lineageTag: b540e81c-7c6e-483c-85a0-06eee7d1d4fd
 		summarizeBy: none
-		sourceColumn: years_experience
+		sourceColumn: Years Experience
 
 		annotation SummarizationSetBy = Automatic
-
-	column fte
-		dataType: double
-		lineageTag: 28ca81c2-970f-4657-a553-8982bfd75204
-		summarizeBy: none
-		sourceColumn: fte
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition Providers = m
 		mode: import
@@ -42,10 +32,11 @@ table Providers
 				let
 				    Source = Csv.Document(Web.Contents("https://northwell-my.sharepoint.com/personal/aguo1_northwell_edu/Documents/Data%20Projects/healthcare_operations_analysis/data/providers.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"provider_id", type text}, {"provider_name", type text}, {"years_experience", Int64.Type}, {"fte", type number}}),
-				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"provider_id", "Provider ID"}, {"provider_name", "Provider Name"}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"provider_id", type text}, {"provider_name", type text}, {"years_experience", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"provider_id", "Provider ID"}, {"provider_name", "Provider Name"}, {"years_experience", "Years Experience"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{""})
 				in
-				    #"Renamed Columns"
+				    #"Removed Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -18,3 +18,7 @@ relationship 1e796995-ca61-ab30-f080-c09b83da9d04
 	fromColumn: Appointments.'Appointment Date'
 	toColumn: Date.Date
 
+relationship AutoDetected_07fa0d85-d905-4a4b-9063-4165dd79b1f2
+	fromColumn: Rooms.'Room Type'
+	toColumn: 'Sort Table'.'Room Type'
+

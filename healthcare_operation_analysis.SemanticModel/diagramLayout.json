@@ -5,13 +5,13 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 24.163265228271484
+        "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 12.019642268688372,
-            "y": 659.26301963679589
+            "x": 43.448213697259774,
+            "y": 839.26301963679589
           },
           "nodeIndex": "_Measures",
           "nodeLineageTag": "425ca366-8b8e-4c46-8ada-33e93c0984c3",
@@ -19,7 +19,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 2
         },
         {
           "location": {
@@ -32,7 +32,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 4
         },
         {
           "location": {
@@ -45,20 +45,20 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 342.90913630845597,
-            "y": 885.381312025783
+            "x": 337.19485059417025,
+            "y": 839.66702631149724
           },
           "nodeIndex": "Providers",
           "nodeLineageTag": "c1c1a8a4-7ac7-4c52-821c-1d25b1616f2d",
           "size": {
-            "height": 203.70982919664289,
+            "height": 159.42411491092867,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 6
         },
         {
           "location": {
@@ -71,7 +71,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 5
         },
         {
           "location": {
@@ -84,7 +84,7 @@
             "height": 403.91185948741088,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 1
         },
         {
           "location": {
@@ -97,29 +97,17 @@
             "height": 300.00000000000011,
             "width": 234
           },
-          "zIndex": 8
+          "zIndex": 7
         },
         {
           "location": {
-            "x": 14.682017391090426,
-            "y": 798.0481840959535
+            "x": 40.476356940529342,
+            "y": 690.54557061121284
           },
-          "nodeIndex": "Year-Month",
-          "nodeLineageTag": "839668dc-b4cf-49e3-8d49-3247258b7c3f",
+          "nodeIndex": "Sort Table",
+          "nodeLineageTag": "dbf4b5d1-7d81-4bc0-b542-c5d590fe4edc",
           "size": {
-            "height": 152,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 923.33349979767229,
-            "y": 444.54557061121295
-          },
-          "nodeIndex": "Time Period Slicer",
-          "size": {
-            "height": 200,
+            "height": 128,
             "width": 234
           },
           "zIndex": 0

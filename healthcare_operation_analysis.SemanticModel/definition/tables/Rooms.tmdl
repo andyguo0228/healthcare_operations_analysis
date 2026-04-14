@@ -22,6 +22,9 @@ table Rooms
 		lineageTag: edad5ec1-8abf-4c3b-b266-afa39a6bf951
 		summarizeBy: none
 		sourceColumn: Room Type
+		sortByColumn: 'Sort Column'
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -77,6 +80,13 @@ table Rooms
 		lineageTag: 9ff7f2f8-3dfb-4351-8f05-3eaee5695b36
 		summarizeBy: none
 		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Column' = RELATED('Sort Table'[Sort Order])
+		formatString: 0
+		lineageTag: 5c2aa25a-9fe8-4bc3-8a1d-8ce99cc038dc
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 

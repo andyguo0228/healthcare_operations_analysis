@@ -1,0 +1,40 @@
+table 'Sort Table'
+	lineageTag: dbf4b5d1-7d81-4bc0-b542-c5d590fe4edc
+
+	column 'Room Type'
+		dataType: string
+		lineageTag: 7414e6d8-4dad-466d-8f3c-25ed557d8570
+		summarizeBy: none
+		sourceColumn: Room Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: b915c966-81bb-4f35-8799-34d9d8db2c7d
+		summarizeBy: none
+		sourceColumn: Sort Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sort Table' = m
+		mode: import
+		source =
+				let
+				    Source = Rooms,
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Room Type", "Sequence"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns", {"Room Type"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Removed Duplicates",{"Sequence"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+				    #"Replaced Value" = Table.ReplaceValue(#"Added Index",4,0,Replacer.ReplaceValue,{"Index"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",5,4,Replacer.ReplaceValue,{"Index"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Replaced Value1",{{"Index", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Index", "Sort Order"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

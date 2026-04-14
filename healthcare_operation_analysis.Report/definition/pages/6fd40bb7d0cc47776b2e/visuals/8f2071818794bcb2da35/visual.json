@@ -93,9 +93,21 @@
               }
             },
             "direction": "Descending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Rooms"
+                  }
+                },
+                "Property": "Room Type"
+              }
+            },
+            "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": true
+        ]
       }
     },
     "objects": {

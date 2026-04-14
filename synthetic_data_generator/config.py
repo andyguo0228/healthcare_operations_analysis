@@ -37,10 +37,9 @@ VISIT_TYPES = [
     "New Patient",
     "Follow-up",
     "Infusion",
-    "Lab Review",
-    "Urgent Visit",
+    "Walk In Visits",
 ]
-VISIT_TYPE_WEIGHTS = [8, 42, 26, 16, 8]
+VISIT_TYPE_WEIGHTS = [8, 42, 26, 8]
 
 APPOINTMENT_STATUS = ["Completed", "No Show", "Cancelled"]
 STATUS_WEIGHTS = [86, 7, 7]

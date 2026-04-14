@@ -147,16 +147,6 @@ table _Measures
 		displayFolder: Time Intelligence
 		lineageTag: 33bdacbc-47a4-4d7a-8e1b-dc28f5667f00
 
-	measure 'Appts PY' =
-			
-			CALCULATE(
-			    [Total Appointments],
-			    DATEADD('Date'[Date], -1, YEAR)
-			)
-		formatString: 0
-		displayFolder: Time Intelligence
-		lineageTag: 5ca10299-1193-40c9-92e9-5abf35559713
-
 	measure 'Avg Visit Duration (Min) Crossfilter' =
 			
 			CALCULATE(
@@ -168,6 +158,16 @@ table _Measures
 		lineageTag: 3d39f862-24f2-42b6-9b8f-503e953c71a1
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Appts PY' =
+			
+			CALCULATE(
+			    [Total Appointments],
+			    DATEADD('Date'[Date], -1, YEAR)
+			)
+		formatString: 0
+		displayFolder: Time Intelligence
+		lineageTag: 5ca10299-1193-40c9-92e9-5abf35559713
 
 	measure 'Target Diff Format' =
 			

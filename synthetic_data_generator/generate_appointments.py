@@ -16,7 +16,7 @@ from synthetic_data_generator.utils import compute_duration_minutes, random_busi
 
 
 EXAM_ROOMS = [f"Exam Rm {i}" for i in range(1, 25)]
-INFUSION_ROOMS = [f"Infusion Bay {i}" for i in range(1, 17)]
+INFUSION_ROOMS = [f"Infusion Bay {i}" for i in range(1, 25)]
 
 
 ROOM_TYPE_MAP = {
@@ -68,25 +68,25 @@ def choose_visit_type(patient_row: pd.Series, visit_index: int) -> str:
     if diagnosis == "Iron Deficiency Anemia":
         if patient_row["active_treatment_flag"] == 1:
             return weighted_choice(
-                ["Follow-up", "Infusion", "Lab Review", "Urgent Visit"],
-                [30, 50, 15, 5],
+                ["Follow-up", "Infusion", "Walk In Visits"],
+                [35, 59, 6],
             )
         return weighted_choice(
-            ["Follow-up", "Lab Review", "Infusion"],
-            [65, 25, 10],
+            ["Follow-up", "Infusion"],
+            [87, 13],
         )
 
     if patient_row["active_treatment_flag"] == 1:
-        weights = [3, 38, 35, 14, 10]
+        weights = [3, 38, 35, 10]
         if patient_row["stage"] in {"IV", "High Risk"}:
-            weights = [2, 30, 40, 12, 16]
+            weights = [2, 30, 40, 16]
         elif patient_row["comorbidity_score"] >= 6:
-            weights = [2, 33, 28, 18, 19]
+            weights = [2, 33, 28, 19]
         return weighted_choice(VISIT_TYPES, weights)
 
-    weights = [2, 55, 8, 25, 10]
+    weights = [2, 55, 8, 10]
     if patient_row["comorbidity_score"] >= 5:
-        weights = [2, 50, 8, 23, 17]
+        weights = [2, 50, 8, 17]
     return weighted_choice(VISIT_TYPES, weights)
 
 
@@ -96,7 +96,7 @@ def choose_status(visit_type: str, patient_row: pd.Series, scheduled_dt=None) ->
 
     if visit_type == "Infusion":
         weights = [90, 4, 6]
-    elif visit_type == "Urgent Visit":
+    elif visit_type == "Walk In Visits":
         weights = [93, 3, 4]
     elif visit_type == "New Patient":
         weights = [80, 8, 12]
@@ -131,32 +131,9 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
         return ["No Show"]
 
     if visit_type == "Follow-up":
-        if weighted_choice([0, 1], [85, 15]) == 1:
-            return [
-                "Lab Waiting Room",
-                "Lab",
-                "Waiting Room",
-                "Exam Room",
-                "Infusion Waiting Room",
-                "Infusion Room",
-                "Ready to Check Out",
-                "Checked Out",
-            ]
         return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     if visit_type == "New Patient":
-        if weighted_choice([0, 1], [90, 10]) == 1:
-            return [
-                "Registration",
-                "Lab Waiting Room",
-                "Lab",
-                "Waiting Room",
-                "Exam Room",
-                "Infusion Waiting Room",
-                "Infusion Room",
-                "Ready to Check Out",
-                "Checked Out",
-            ]
         return [
             "Registration",
             "Lab Waiting Room",
@@ -178,9 +155,6 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             "Ready to Check Out",
             "Checked Out",
         ]
-
-    if visit_type == "Lab Review":
-        return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
     return ["Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
@@ -291,21 +265,11 @@ def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
         checkout_dt = provider_seen_dt + timedelta(minutes=provider_time + post_time)
 
-    elif visit_type == "Urgent Visit":
+    elif visit_type == "Walk In Visits":
         wait_to_room = _lognorm_wait(8, 0.70, 1, 50)
         wait_to_provider = _lognorm_wait(6, 0.65, 1, 35)
         provider_time = _lognorm_wait(22, 0.50, 8, 70)
         post_time = _lognorm_wait(6, 0.55, 2, 25)
-
-        roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
-        provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
-        checkout_dt = provider_seen_dt + timedelta(minutes=provider_time + post_time)
-
-    elif visit_type == "Lab Review":
-        wait_to_room = _lognorm_wait(10, 0.65, 2, 55)
-        wait_to_provider = _lognorm_wait(5, 0.60, 1, 30)
-        provider_time = _lognorm_wait(12, 0.50, 5, 45)
-        post_time = _lognorm_wait(4, 0.55, 1, 20)
 
         roomed_dt = check_in_dt + timedelta(minutes=wait_to_room)
         provider_seen_dt = roomed_dt + timedelta(minutes=wait_to_provider)
@@ -386,7 +350,7 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
                 "status": status,
                 "new_patient_flag": 1 if visit_type == "New Patient" else 0,
                 "infusion_flag": 1 if visit_type == "Infusion" else 0,
-                "urgent_flag": 1 if visit_type == "Urgent Visit" else 0,
+                "urgent_flag": 1 if visit_type == "Walk In Visits" else 0,
             }
 
             if status in {"Cancelled", "No Show"}:
