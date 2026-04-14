@@ -184,50 +184,27 @@ table _Measures
 				)
 		lineageTag: 90051758-2bb7-4ae8-9187-437677780dae
 
-	measure MaxValue = ```
+	measure 'MinMax Appointments' =
 			
-			    CALCULATE(
-			        MAXX(
-			            ALLSELECTED( 'Date'[Month Short] ),
-			            [Total Appointments]
-			        )
-			    )
-			```
-		formatString: 0
-		lineageTag: db306a3f-8ac6-490d-a51f-8a875edb5530
-
-	measure 'Label - Max Appointments' =
-			
-			VAR CurrentValue = [Total Appointments]
 			VAR MaxValue =
 			    CALCULATE(
 			        MAXX(
-			            ALLSELECTED( 'Date'[Month] ),
+			            VALUES( 'Date'[Month] ),
 			            [Total Appointments]
-			        )
+			        ),
+			        ALLSELECTED('Date')
+			    )
+			VAR MinValue =
+			    CALCULATE(
+			        MINX(
+			            VALUES( 'Date'[Month] ),
+			            [Total Appointments]
+			        ),
+			        ALLSELECTED('Date')
 			    )
 			RETURN
-			    IF( CurrentValue = MaxValue, CurrentValue, BLANK() )
+			    IF( MinValue = [Total Appointments] || MaxValue = [Total Appointments], [Total Appointments], BLANK() )
 		formatString: 0
-		lineageTag: 51a98879-7860-4c13-91c6-7e61158315fe
-
-	measure MinMax =
-			
-			VAR p1 = MAXX(
-			    ALLSELECTED('Date'[Month Short]),
-			    [Total Appointments]
-			)
-			VAR p2 = MINX(
-			    ALLSELECTED('Date'[Month Short]),
-			    [Total Appointments]
-			)
-			
-			RETURN
-			SWITCH(
-			    TRUE(),
-			    p1 = [Total Appointments], "#013A63",
-			    p2 = [Total Appointments], "#013A63"
-			)
 		lineageTag: 4f5e2b4b-2003-4900-a8e9-fa9a8d3b0c30
 
 	partition _Measures = m

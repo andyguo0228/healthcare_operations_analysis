@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 
-from synthetic_data_generator.utils import weighted_choice
-
 
 PROVIDER_NAMES = [
     "Nina House, MD",
@@ -28,7 +26,6 @@ def generate_providers(n: int = len(PROVIDER_NAMES)) -> pd.DataFrame:
                 "provider_id": f"PR{1000 + i}",
                 "provider_name": PROVIDER_NAMES[i - 1],
                 "years_experience": int(np.clip(np.random.normal(12, 6), 1, 35)),
-                "fte": weighted_choice([1.0, 0.8, 0.6], [70, 20, 10]),
             }
         )
 
