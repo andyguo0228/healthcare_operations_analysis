@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "MaxValue"
+                  "Property": "Appts YoY %"
                 }
               },
-              "queryRef": "_Measures.MaxValue",
-              "nativeQueryRef": "MaxValue"
+              "queryRef": "_Measures.Appts YoY %",
+              "nativeQueryRef": "Appts YoY %"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "MaxValue"
+                "Property": "Appts YoY %"
               }
             },
             "direction": "Descending"
@@ -311,6 +311,20 @@
           },
           "selector": {
             "metadata": "_Measures.Avg Wait Time"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Appointments"
           }
         }
       ]

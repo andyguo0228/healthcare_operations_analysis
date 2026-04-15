@@ -90,6 +90,17 @@ table Rooms
 
 		annotation SummarizationSetBy = Automatic
 
+	hierarchy 'Room Hierarchy'
+		lineageTag: 57273982-a4dd-4e65-b962-2f41e0aff0b2
+
+		level 'Room Type'
+			lineageTag: cfd35d7e-fec5-432b-90f2-81707bc3738b
+			column: 'Room Type'
+
+		level Room
+			lineageTag: 879f40d8-89ea-4a14-906b-69a882939875
+			column: Room
+
 	partition Rooms = m
 		mode: import
 		source = ```

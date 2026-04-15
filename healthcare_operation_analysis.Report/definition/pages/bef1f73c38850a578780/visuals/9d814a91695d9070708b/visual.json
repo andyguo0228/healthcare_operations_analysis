@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "9d814a91695d9070708b",
+  "position": {
+    "x": 19.1044776119403,
+    "y": 299.30348258706471,
+    "z": 5002,
+    "height": 246.23548922056386,
+    "width": 221.82421227197347,
+    "tabOrder": 5002
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Appointments"
+                    }
+                  },
+                  "Property": "Completion YoY %"
+                }
+              },
+              "queryRef": "Appointments.Completion YoY %",
+              "nativeQueryRef": "Completion YoY %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Appointments"
+                  }
+                },
+                "Property": "Completion YoY %"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

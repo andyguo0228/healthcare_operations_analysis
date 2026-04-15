@@ -1,6 +1,20 @@
 table Appointments
 	lineageTag: c6f7d3d8-65cd-425a-b647-4033b84be14b
 
+	measure 'Completion YoY %' = ```
+			
+			VAR _prior =
+			    CALCULATE(
+			        [Completion Rate],
+			        DATEADD('Date'[Date], -1, YEAR)
+			    )
+			RETURN
+			    DIVIDE([Completion Rate] - _prior, _prior, 0) 
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 7a984e33-09d6-474b-b9e4-53a8778c79d3
+
 	column 'Appointment ID'
 		dataType: string
 		lineageTag: 109fcd6f-d88b-418a-a3ac-180a61fd520c

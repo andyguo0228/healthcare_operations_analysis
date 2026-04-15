@@ -136,10 +136,10 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
     if visit_type == "New Patient":
         return [
             "Registration",
-            "Lab Waiting Room",
-            "Lab",
             "Waiting Room",
             "Exam Room",
+            "Lab Waiting Room",
+            "Lab",
             "Ready to Check Out",
             "Checked Out",
         ]
@@ -156,7 +156,7 @@ def build_patient_flow(visit_type: str, status: str) -> list[str]:
             "Checked Out",
         ]
 
-    return ["Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
+    return ["Lab Waiting Room", "Lab", "Waiting Room", "Exam Room", "Ready to Check Out", "Checked Out"]
 
 
 def resolve_room_name(room_state: str) -> str:

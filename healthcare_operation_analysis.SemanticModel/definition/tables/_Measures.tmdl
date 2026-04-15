@@ -98,21 +98,6 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Appts YoY Change' = ```
-			
-			VAR _current = COUNTROWS(Appointments)
-			VAR _prior = 
-			    CALCULATE(
-			        COUNTROWS(Appointments),
-			        DATEADD('Date'[Date], -1, YEAR)
-			    )
-			RETURN
-			    DIVIDE(_current - _prior, _prior, 0)
-			```
-		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: Time Intelligence
-		lineageTag: d9c47517-98e2-4c8d-80ae-2a926fe01c74
-
 	measure 'Appts Rolling 3M Avg' =
 			
 			CALCULATE(
@@ -169,6 +154,8 @@ table _Measures
 		displayFolder: Time Intelligence
 		lineageTag: 5ca10299-1193-40c9-92e9-5abf35559713
 
+		annotation PBI_FormatHint = {"isDecimal":true}
+
 	measure 'Target Diff Format' =
 			
 			VAR up_arrow = UNICHAR(129137)
@@ -206,6 +193,13 @@ table _Measures
 			    IF( MinValue = [Total Appointments] || MaxValue = [Total Appointments], [Total Appointments], BLANK() )
 		formatString: 0
 		lineageTag: 4f5e2b4b-2003-4900-a8e9-fa9a8d3b0c30
+
+	measure 'Appts YoY %' =
+			
+			DIVIDE([Appts YoY], [Appts PY], 0)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Time Intelligence
+		lineageTag: 026f004c-fb0d-47a0-b0b0-ad60a43e1773
 
 	partition _Measures = m
 		mode: import
