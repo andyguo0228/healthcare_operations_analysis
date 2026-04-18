@@ -127,6 +127,20 @@ table Appointments
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Appt Day of Week' = WEEKDAY(Appointments[Appointment Date], 2)
+		formatString: 0
+		lineageTag: 3cf25f04-303e-45a0-9018-eff0a03e56ba
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Appt Hour' = HOUR(Appointments[First Arrival])
+		formatString: 0
+		lineageTag: 1bbe9b12-9c88-4e2e-8af7-a9b886b1a254
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Appointments = m
 		mode: import
 		source =

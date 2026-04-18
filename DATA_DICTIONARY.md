@@ -4,7 +4,7 @@ This document defines the schema, grain, relationships, and field semantics for 
 
 ## Dataset Metadata
 
-- Data is synthetic (non-PHI) and reproducible when using the same `SEED` setting in `synthetic_data_generator/config.py`.
+- Data is synthetic (non-PHI). Most stochastic generation is seed-controlled via `SEED` in `synthetic_data_generator/config.py`; however, `NUM_PATIENTS` is sampled at import time, so total row counts can vary run to run unless fixed.
 - Default date window is a rolling 3 years: `START_DATE = today - 1095 days`, `END_DATE = today`.
 - Output location: `data/`.
 
@@ -88,11 +88,11 @@ Foreign keys:
 | mrn | string | No | Patient MRN snapshot. | Matches patient MRN format. | Copied from patient dimension. |
 | provider_id | string | No | Assigned provider identifier. | Must exist in `providers.csv`. | Random provider sample per visit. |
 | appointment_date | date | No | Scheduled visit date. | Calendar date in configured range. | Derived from scheduled visit datetime at generation time. |
-| visit_type | string | No | Visit category. | `New Patient`, `Follow-up`, `Infusion`, `Lab Review`, `Urgent Visit`. | Diagnosis and treatment-state weighted logic. |
+| visit_type | string | No | Visit category. | `New Patient`, `Follow-up`, `Infusion`, `Walk In Visits`. | Diagnosis and treatment-state weighted logic. |
 | status | string | No | Appointment status. | `Completed`, `No Show`, `Cancelled`. | Infusion has higher completion probability. |
 | new_patient_flag | integer | No | New patient indicator. | `0` or `1`. | 1 when `visit_type` is `New Patient`. |
 | infusion_flag | integer | No | Infusion visit indicator. | `0` or `1`. | 1 when `visit_type` is `Infusion`. |
-| urgent_flag | integer | No | Urgent visit indicator. | `0` or `1`. | 1 when `visit_type` is `Urgent Visit`. |
+| urgent_flag | integer | No | Urgent visit indicator. | `0` or `1`. | 1 when `visit_type` is `Walk In Visits`. |
 | room | string | No | Room/state label for this event row. | Workflow state or physical room like `Exam Rm 3`, `Infusion Bay 8`. | Completed visits resolve generic states to physical rooms for exam/infusion. |
 | room_type | string | No | Normalized room grouping. | `Front Desk`, `Lab`, `Exam Room`, `Infusion Room`, `Other`, `Status`. | Mapped from `room` using room-type logic. |
 | room_timestamp | datetime | No | Event start timestamp for the row's room/state. | Timestamp. | For completed visits, increments through the generated room flow. |

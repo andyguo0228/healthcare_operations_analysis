@@ -173,7 +173,7 @@ PT100171,MRN100171,Robert,Perez,Male,1941-02-21,85,11201,Medicare,malignant,Lymp
 PT100172,MRN100172,Allison,Lee,Female,1984-04-05,42,11354,Commercial,malignant,Pancreatic Cancer,IV,0,Former,1,0
 PT100173,MRN100173,Garrett,Lin,Male,2004-11-11,21,11004,Commercial,malignant,Bladder Cancer,IV,1,Never,0,0
 PT100174,MRN100174,Walter,Ramirez,Male,1987-12-15,38,11373,Commercial,malignant,Multiple Myeloma,High Risk,1,Former,1,0
-PT100175,MRN100175,Margaret,Ross,Female,1951-04-18,74,11101,Medicare,malignant,Colorectal Cancer,III,4,Former,1,1
+PT100175,MRN100175,Margaret,Ross,Female,1951-04-18,75,11101,Medicare,malignant,Colorectal Cancer,III,4,Former,1,1
 PT100176,MRN100176,William,Herrera,Male,1961-11-19,64,11215,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT100177,MRN100177,Todd,Wilson,Male,1983-10-05,42,10016,Commercial,malignant,Prostate Cancer,IV,0,Never,1,0
 PT100178,MRN100178,Tracy,White,Female,1942-02-10,84,11375,Medicare,malignant,Ovarian Cancer,III,0,Never,1,0
@@ -342,7 +342,7 @@ PT100340,MRN100340,Christine,Clark,Female,1964-12-07,61,11354,Medicaid,ida,Iron 
 PT100341,MRN100341,Mary,Moore,Female,1996-03-25,30,11375,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT100342,MRN100342,Carrie,Jones,Female,1991-04-09,35,11375,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT100343,MRN100343,April,Hayes,Female,2005-11-10,20,11101,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
-PT100344,MRN100344,Linda,Carter,Female,2002-04-16,23,11201,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
+PT100344,MRN100344,Linda,Carter,Female,2002-04-16,24,11201,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
 PT100345,MRN100345,Crystal,Mann,Female,2007-06-11,18,11354,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
 PT100346,MRN100346,Michele,Gibson,Female,1986-08-25,39,11375,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT100347,MRN100347,Melissa,Bradshaw,Female,1944-05-21,81,10461,Medicare,malignant,Breast Cancer,IV,3,Never,0,0
@@ -431,7 +431,7 @@ PT100429,MRN100429,Nicole,Hamilton,Female,1984-06-24,41,11101,Medicaid,malignant
 PT100430,MRN100430,Brett,Schultz,Male,1963-09-10,62,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Current,1,0
 PT100431,MRN100431,Shelia,Wallace,Female,1937-03-22,89,10019,Medicare,malignant,Breast Cancer,II,2,Never,1,0
 PT100432,MRN100432,Melissa,Berger,Female,1961-05-19,64,10016,Commercial,malignant,Multiple Myeloma,High Risk,2,Never,1,1
-PT100433,MRN100433,Angel,Flynn,Male,1948-04-17,77,11375,Medicaid,malignant,Lymphoma,Intermediate Risk,2,Never,0,0
+PT100433,MRN100433,Angel,Flynn,Male,1948-04-17,78,11375,Medicaid,malignant,Lymphoma,Intermediate Risk,2,Never,0,0
 PT100434,MRN100434,Elaine,Brooks,Female,1983-06-14,42,11004,Medicaid,malignant,Breast Cancer,I,1,Current,1,0
 PT100435,MRN100435,Brianna,Schmidt,Female,1966-11-06,59,10019,Medicare,malignant,Multiple Myeloma,Low Risk,2,Never,1,0
 PT100436,MRN100436,Kylie,Sparks,Female,1946-02-05,80,11004,Medicare,malignant,Bladder Cancer,IV,1,Never,1,0
@@ -515,7 +515,7 @@ PT100513,MRN100513,Charles,Lester,Male,1990-12-24,35,11215,Self-Pay,ida,Iron Def
 PT100514,MRN100514,April,Garrison,Female,1975-06-08,50,11373,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT100515,MRN100515,Brianna,Anderson,Female,1950-01-02,76,10019,Commercial,ida,Iron Deficiency Anemia,N/A,1,Current,0,0
 PT100516,MRN100516,Danielle,Thompson,Female,1975-10-18,50,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
-PT100517,MRN100517,Matthew,Johnson,Male,1960-04-17,65,11201,Medicare,malignant,Lymphoma,Intermediate Risk,3,Current,0,0
+PT100517,MRN100517,Matthew,Johnson,Male,1960-04-17,66,11201,Medicare,malignant,Lymphoma,Intermediate Risk,3,Current,0,0
 PT100518,MRN100518,Alexis,Tyler,Female,2008-09-05,17,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
 PT100519,MRN100519,Cynthia,Morris,Female,1985-03-12,41,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT100520,MRN100520,Christopher,Williams,Male,1947-08-07,78,11004,Commercial,malignant,Multiple Myeloma,Intermediate Risk,6,Former,0,0
@@ -652,7 +652,7 @@ PT100650,MRN100650,James,Conner,Male,1943-10-06,82,11201,Medicare,ida,Iron Defic
 PT100651,MRN100651,Robert,Santiago,Male,1988-03-06,38,11373,Commercial,malignant,Lung Cancer,IV,2,Former,1,0
 PT100652,MRN100652,Sandra,Rodgers,Female,1985-02-05,41,11101,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
 PT100653,MRN100653,Michael,Fox,Male,2008-10-16,17,11101,Commercial,malignant,Prostate Cancer,III,0,Former,0,0
-PT100654,MRN100654,Maria,Henderson,Female,2008-04-18,17,10016,Medicare,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
+PT100654,MRN100654,Maria,Henderson,Female,2008-04-18,18,10016,Medicare,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
 PT100655,MRN100655,Heidi,Cox,Female,1990-01-21,36,10019,Commercial,ida,Iron Deficiency Anemia,N/A,0,Current,0,0
 PT100656,MRN100656,Christopher,Lewis,Male,1970-06-03,55,11373,Commercial,ida,Iron Deficiency Anemia,N/A,2,Current,1,0
 PT100657,MRN100657,Travis,Tucker,Male,1937-03-15,89,11004,Medicare,malignant,Lung Cancer,III,4,Never,1,0
@@ -773,7 +773,7 @@ PT100771,MRN100771,Sarah,Flores,Female,1990-08-05,35,11101,Commercial,malignant,
 PT100772,MRN100772,Gregory,Brown,Male,1964-07-15,61,11373,Commercial,malignant,Pancreatic Cancer,I,1,Never,0,0
 PT100773,MRN100773,Kimberly,Vance,Female,1942-11-11,83,11201,Medicare,ida,Iron Deficiency Anemia,N/A,4,Former,1,0
 PT100774,MRN100774,Sarah,Joseph,Female,1941-09-15,84,11215,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT100775,MRN100775,Tammy,Little,Female,1975-04-16,50,10019,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
+PT100775,MRN100775,Tammy,Little,Female,1975-04-16,51,10019,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT100776,MRN100776,Rebecca,Hicks,Female,1988-12-18,37,10016,Commercial,malignant,Lung Cancer,I,3,Never,1,0
 PT100777,MRN100777,Bryan,Harris,Male,1989-03-08,37,11375,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
 PT100778,MRN100778,Brenda,Tyler,Female,2004-11-11,21,10019,Commercial,malignant,Lung Cancer,III,2,Former,1,0
@@ -884,7 +884,7 @@ PT100882,MRN100882,Leonard,Lee,Male,1946-07-24,79,10016,Medicaid,malignant,Bladd
 PT100883,MRN100883,Danielle,Grant,Female,1951-07-16,74,10016,Medicare,malignant,Breast Cancer,I,3,Never,0,0
 PT100884,MRN100884,Danny,Dudley,Male,1985-07-21,40,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT100885,MRN100885,Elizabeth,Roberts,Female,1989-08-17,36,10461,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT100886,MRN100886,Christine,Bush,Female,1970-04-17,55,11201,Commercial,malignant,Bladder Cancer,IV,3,Never,1,0
+PT100886,MRN100886,Christine,Bush,Female,1970-04-17,56,11201,Commercial,malignant,Bladder Cancer,IV,3,Never,1,0
 PT100887,MRN100887,Emily,Bailey,Female,1996-08-22,29,11004,Medicaid,malignant,Breast Cancer,II,0,Never,0,0
 PT100888,MRN100888,Timothy,Pope,Male,2006-02-24,20,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT100889,MRN100889,Denise,Martinez,Female,1950-11-15,75,11004,Medicaid,malignant,Breast Cancer,II,0,Never,0,0
@@ -1006,7 +1006,7 @@ PT101004,MRN101004,Sheryl,Buck,Female,1982-08-15,43,10461,Commercial,ida,Iron De
 PT101005,MRN101005,Lori,Simmons,Female,2007-08-26,18,10019,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
 PT101006,MRN101006,Kathleen,Compton,Female,1940-05-11,85,11004,Commercial,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
 PT101007,MRN101007,Teresa,Powers,Female,1966-10-21,59,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
-PT101008,MRN101008,Richard,Flores,Male,1959-04-16,66,11375,Medicare,malignant,Colorectal Cancer,I,3,Current,0,0
+PT101008,MRN101008,Richard,Flores,Male,1959-04-16,67,11375,Medicare,malignant,Colorectal Cancer,I,3,Current,0,0
 PT101009,MRN101009,Jennifer,Hernandez,Female,1987-02-22,39,10461,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
 PT101010,MRN101010,Jamie,Webster,Female,1983-02-13,43,10016,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT101011,MRN101011,Kara,Atkinson,Female,1961-09-01,64,11354,Commercial,ida,Iron Deficiency Anemia,N/A,5,Current,0,0
@@ -1039,7 +1039,7 @@ PT101037,MRN101037,Suzanne,Wood,Female,1968-11-26,57,11373,Commercial,ida,Iron D
 PT101038,MRN101038,Jennifer,Hart,Female,2005-04-28,20,10019,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT101039,MRN101039,Connie,Thomas,Female,1980-10-28,45,11201,Commercial,malignant,Ovarian Cancer,IV,0,Never,1,0
 PT101040,MRN101040,Debbie,Donovan,Female,1946-02-07,80,11373,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT101041,MRN101041,Lauren,Butler,Female,1982-04-17,43,11375,Commercial,malignant,Breast Cancer,IV,1,Never,1,0
+PT101041,MRN101041,Lauren,Butler,Female,1982-04-17,44,11375,Commercial,malignant,Breast Cancer,IV,1,Never,1,0
 PT101042,MRN101042,Brittany,Rivera,Female,1970-05-19,55,11215,Self-Pay,malignant,Lung Cancer,III,0,Former,1,0
 PT101043,MRN101043,Jamie,Whitaker,Female,1962-07-13,63,11354,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT101044,MRN101044,Kathryn,Pena,Female,1989-08-01,36,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
@@ -1131,10 +1131,10 @@ PT101129,MRN101129,Kirk,Gonzalez,Male,1992-06-25,33,11201,Commercial,malignant,P
 PT101130,MRN101130,Ashley,Torres,Female,1994-02-26,32,11373,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT101131,MRN101131,Tiffany,Cook,Female,1954-10-24,71,11373,Medicare,malignant,Lymphoma,High Risk,3,Never,1,0
 PT101132,MRN101132,Manuel,Brock,Male,1977-10-05,48,10461,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT101133,MRN101133,Gary,Cook,Male,1954-04-16,71,11375,Medicare,malignant,Lung Cancer,III,3,Former,1,0
+PT101133,MRN101133,Gary,Cook,Male,1954-04-16,72,11375,Medicare,malignant,Lung Cancer,III,4,Former,1,0
 PT101134,MRN101134,Robert,Villarreal,Male,1979-02-05,47,11201,Commercial,malignant,Pancreatic Cancer,III,1,Current,1,0
-PT101135,MRN101135,Valerie,Taylor,Female,1983-02-28,43,11373,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,1,0
-PT101136,MRN101136,Frank,Valentine,Male,1980-06-14,45,11215,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
+PT101135,MRN101135,Valerie,Taylor,Female,1983-02-28,43,11373,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
+PT101136,MRN101136,Frank,Valentine,Male,1980-06-14,45,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT101137,MRN101137,Christina,Edwards,Female,1955-04-11,71,11373,Commercial,malignant,Breast Cancer,IV,2,Never,1,0
 PT101138,MRN101138,Tracey,Novak,Female,1972-08-09,53,11004,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,1,0
 PT101139,MRN101139,Doris,Neal,Female,1970-02-04,56,11373,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
@@ -1148,7 +1148,7 @@ PT101146,MRN101146,Troy,Murray,Male,1999-03-15,27,10461,Commercial,ida,Iron Defi
 PT101147,MRN101147,Michelle,Gonzales,Female,1985-01-06,41,11004,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
 PT101148,MRN101148,Eddie,Schwartz,Male,1950-09-23,75,10461,Medicare,ida,Iron Deficiency Anemia,N/A,0,Current,1,0
 PT101149,MRN101149,Sabrina,Flynn,Female,1940-04-10,86,11373,Medicare,malignant,Lung Cancer,II,3,Current,0,0
-PT101150,MRN101150,Jennifer,Porter,Female,1977-04-18,48,11375,Commercial,malignant,Breast Cancer,I,1,Never,1,0
+PT101150,MRN101150,Jennifer,Porter,Female,1977-04-18,49,11375,Commercial,malignant,Breast Cancer,I,1,Never,1,0
 PT101151,MRN101151,Madeline,Allen,Female,1998-12-18,27,10016,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT101152,MRN101152,Mary,Espinoza,Female,2001-11-27,24,11373,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT101153,MRN101153,Rachel,Jones,Female,2006-09-22,19,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
@@ -1323,7 +1323,7 @@ PT101321,MRN101321,Amanda,Brown,Female,1960-12-05,65,11201,Medicare,ida,Iron Def
 PT101322,MRN101322,Rachel,Hunter,Female,1963-04-11,63,11201,Medicaid,malignant,Breast Cancer,IV,2,Never,1,0
 PT101323,MRN101323,Lori,Mason,Female,1940-10-02,85,11373,Medicaid,malignant,Breast Cancer,IV,2,Never,1,0
 PT101324,MRN101324,Jennifer,Miles,Female,1968-06-20,57,11101,Self-Pay,malignant,Breast Cancer,II,0,Never,1,0
-PT101325,MRN101325,Bradley,Herrera,Male,1939-04-16,86,10019,Medicaid,malignant,Lymphoma,Low Risk,4,Current,0,0
+PT101325,MRN101325,Bradley,Herrera,Male,1939-04-16,87,10019,Medicaid,malignant,Lymphoma,Low Risk,4,Current,0,0
 PT101326,MRN101326,Lisa,Ramirez,Female,1962-09-10,63,11101,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
 PT101327,MRN101327,Emily,Dixon,Female,2002-06-14,23,11004,Commercial,ida,Iron Deficiency Anemia,N/A,4,Never,0,0
 PT101328,MRN101328,Dalton,Morton,Male,1942-04-10,84,10461,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
@@ -1578,7 +1578,7 @@ PT101576,MRN101576,Valerie,Ramos,Female,2003-06-21,22,11215,Medicaid,ida,Iron De
 PT101577,MRN101577,Roger,Adams,Male,1953-11-01,72,11101,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT101578,MRN101578,Jennifer,Brewer,Female,1956-01-24,70,11215,Medicaid,ida,Iron Deficiency Anemia,N/A,5,Never,0,0
 PT101579,MRN101579,Chelsea,Lewis,Female,1977-05-15,48,11373,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
-PT101580,MRN101580,Rodney,Figueroa,Male,1988-04-18,37,10461,Medicare,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
+PT101580,MRN101580,Rodney,Figueroa,Male,1988-04-18,38,10461,Medicare,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
 PT101581,MRN101581,Peter,Camacho,Male,1986-08-28,39,11375,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT101582,MRN101582,Roberto,Robertson,Male,1979-06-27,46,10016,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
 PT101583,MRN101583,Caitlin,Collins,Female,1945-11-06,80,11201,Medicare,ida,Iron Deficiency Anemia,N/A,2,Current,0,0
@@ -1740,7 +1740,7 @@ PT101738,MRN101738,Randall,Ray,Male,1981-10-14,44,11375,Commercial,malignant,Lun
 PT101739,MRN101739,Karl,Levine,Male,1944-08-03,81,10461,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
 PT101740,MRN101740,Michael,Morgan,Male,1940-11-24,85,11373,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT101741,MRN101741,Kelly,Haynes,Female,1951-05-28,74,11354,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
-PT101742,MRN101742,Anna,Stanley,Female,1999-04-16,26,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
+PT101742,MRN101742,Anna,Stanley,Female,1999-04-16,27,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT101743,MRN101743,Danielle,Reed,Female,1986-07-02,39,10016,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT101744,MRN101744,Michael,Cruz,Male,1979-12-15,46,11375,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT101745,MRN101745,Ryan,Grant,Male,1936-01-15,90,11215,Medicare,ida,Iron Deficiency Anemia,N/A,5,Former,1,1
@@ -2617,7 +2617,7 @@ PT102615,MRN102615,April,Thomas,Female,1936-03-11,90,10016,Medicare,malignant,Co
 PT102616,MRN102616,Chase,Schmidt,Male,1951-03-18,75,10461,Medicaid,ida,Iron Deficiency Anemia,N/A,5,Current,1,0
 PT102617,MRN102617,Jean,Lane,Female,1991-01-15,35,11201,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT102618,MRN102618,Craig,Maldonado,Male,1982-06-07,43,10461,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT102619,MRN102619,Emily,Hudson,Female,1992-04-17,33,11201,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
+PT102619,MRN102619,Emily,Hudson,Female,1992-04-17,34,11201,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT102620,MRN102620,Susan,Torres,Female,2005-05-17,20,10461,Self-Pay,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
 PT102621,MRN102621,Terri,Graham,Female,1978-05-01,47,10019,Medicaid,malignant,Breast Cancer,II,4,Former,0,0
 PT102622,MRN102622,Vickie,Cooper,Female,1990-08-07,35,11004,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,1,0
@@ -2775,7 +2775,7 @@ PT102773,MRN102773,Andrew,Wilson,Male,1967-08-09,58,10016,Medicaid,ida,Iron Defi
 PT102774,MRN102774,Renee,Contreras,Female,1994-07-02,31,11215,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT102775,MRN102775,Jimmy,Gregory,Male,2007-12-10,18,10019,Medicaid,malignant,Prostate Cancer,IV,0,Never,1,0
 PT102776,MRN102776,Shelly,Hernandez,Female,1939-03-06,87,11375,Medicaid,malignant,Breast Cancer,III,4,Never,1,0
-PT102777,MRN102777,Kerry,Buckley,Male,2003-04-17,22,10019,Medicaid,malignant,Colorectal Cancer,IV,1,Never,1,0
+PT102777,MRN102777,Kerry,Buckley,Male,2003-04-17,23,10019,Medicaid,malignant,Colorectal Cancer,IV,1,Never,1,0
 PT102778,MRN102778,Andrew,Thomas,Male,2006-11-15,19,10461,Commercial,malignant,Pancreatic Cancer,III,1,Never,1,0
 PT102779,MRN102779,Matthew,Ruiz,Male,1960-05-23,65,11201,Medicare,malignant,Prostate Cancer,II,0,Never,0,0
 PT102780,MRN102780,Thomas,Williams,Male,2001-04-20,24,11215,Commercial,malignant,Lung Cancer,I,2,Current,1,0
@@ -2946,7 +2946,7 @@ PT102944,MRN102944,Terry,Hooper,Female,1997-06-23,28,11354,Self-Pay,malignant,Co
 PT102945,MRN102945,Kenneth,Thomas,Male,1936-02-09,90,11215,Medicare,ida,Iron Deficiency Anemia,N/A,4,Never,1,0
 PT102946,MRN102946,Keith,Meadows,Male,1955-07-10,70,11375,Medicare,malignant,Bladder Cancer,III,1,Former,1,0
 PT102947,MRN102947,Jeremy,Norris,Male,1988-05-15,37,10016,Medicaid,malignant,Lung Cancer,III,0,Former,1,0
-PT102948,MRN102948,Monique,Mccullough,Female,1965-04-18,60,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
+PT102948,MRN102948,Monique,Mccullough,Female,1965-04-18,61,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
 PT102949,MRN102949,Charles,Pierce,Male,1938-06-24,87,11101,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT102950,MRN102950,Eric,Morales,Male,1959-08-19,66,11354,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT102951,MRN102951,Ryan,Griffin,Male,1955-04-24,70,10461,Medicaid,malignant,Lymphoma,Intermediate Risk,5,Never,1,0
@@ -3085,7 +3085,7 @@ PT103083,MRN103083,Maria,Ross,Female,1982-01-27,44,11101,Commercial,ida,Iron Def
 PT103084,MRN103084,Karen,Morrison,Female,1959-07-19,66,10461,Medicaid,malignant,Breast Cancer,I,0,Never,1,0
 PT103085,MRN103085,Jared,Washington,Male,1987-06-05,38,10461,Commercial,malignant,Lymphoma,Intermediate Risk,5,Never,0,0
 PT103086,MRN103086,Douglas,Tate,Male,1984-01-18,42,11004,Medicaid,malignant,Lung Cancer,II,0,Never,1,0
-PT103087,MRN103087,Ashley,King,Female,1950-04-18,75,11354,Self-Pay,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
+PT103087,MRN103087,Ashley,King,Female,1950-04-18,76,11354,Self-Pay,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
 PT103088,MRN103088,Jonathan,Fuller,Male,1994-02-25,32,10461,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT103089,MRN103089,Brandy,Garcia,Female,1944-07-07,81,11373,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT103090,MRN103090,Amy,Jones,Female,1999-01-27,27,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
@@ -3187,7 +3187,7 @@ PT103185,MRN103185,Morgan,Fitzpatrick,Female,1977-09-22,48,11354,Commercial,ida,
 PT103186,MRN103186,Kelly,Calderon,Female,1977-04-09,49,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT103187,MRN103187,Tiffany,Huynh,Female,1987-06-26,38,11101,Commercial,malignant,Breast Cancer,III,4,Former,1,0
 PT103188,MRN103188,Darlene,Wilkerson,Female,1999-11-13,26,10461,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
-PT103189,MRN103189,Cynthia,Martinez,Female,2007-04-18,18,11004,Medicare,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
+PT103189,MRN103189,Cynthia,Martinez,Female,2007-04-18,19,11004,Medicare,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
 PT103190,MRN103190,Robert,Murphy,Male,1977-12-13,48,11004,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
 PT103191,MRN103191,Lauren,Price,Female,1946-07-16,79,11354,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
 PT103192,MRN103192,Paul,Young,Male,1948-01-15,78,11375,Medicare,malignant,Lung Cancer,IV,2,Former,0,0
@@ -3219,7 +3219,7 @@ PT103217,MRN103217,Shawn,Wang,Male,1981-08-18,44,10461,Commercial,malignant,Pros
 PT103218,MRN103218,Jennifer,Johnson,Female,2002-07-17,23,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT103219,MRN103219,Sharon,Morrow,Female,1945-06-07,80,11354,Commercial,malignant,Multiple Myeloma,Intermediate Risk,0,Never,1,0
 PT103220,MRN103220,Teresa,Ruiz,Female,1993-04-03,33,11215,Medicare,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT103221,MRN103221,Jennifer,Randall,Female,2001-04-16,24,11354,Medicare,malignant,Breast Cancer,II,2,Former,1,0
+PT103221,MRN103221,Jennifer,Randall,Female,2001-04-16,25,11354,Medicare,malignant,Breast Cancer,II,2,Former,1,0
 PT103222,MRN103222,Michelle,Mcdowell,Female,1955-04-22,70,11004,Medicaid,malignant,Bladder Cancer,II,4,Never,0,0
 PT103223,MRN103223,Samantha,Holloway,Female,1973-12-07,52,11004,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT103224,MRN103224,Melissa,Hunter,Female,1974-02-27,52,11004,Medicaid,malignant,Pancreatic Cancer,II,2,Never,1,0
@@ -3280,7 +3280,7 @@ PT103278,MRN103278,Tracy,Hansen,Female,1980-02-15,46,10016,Commercial,ida,Iron D
 PT103279,MRN103279,Lauren,Green,Female,1956-03-13,70,11101,Medicaid,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
 PT103280,MRN103280,Kathy,Conrad,Female,1946-08-09,79,11215,Self-Pay,malignant,Breast Cancer,IV,2,Current,0,0
 PT103281,MRN103281,Sherry,Anderson,Female,1978-05-27,47,10461,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
-PT103282,MRN103282,Evan,Moreno,Male,2005-04-16,20,11201,Commercial,malignant,Lung Cancer,IV,3,Former,0,0
+PT103282,MRN103282,Evan,Moreno,Male,2005-04-16,21,11201,Commercial,malignant,Lung Cancer,IV,3,Former,0,0
 PT103283,MRN103283,Brenda,Wilson,Female,1947-07-15,78,10019,Commercial,malignant,Lung Cancer,IV,4,Former,1,0
 PT103284,MRN103284,Amanda,Anderson,Female,1982-11-25,43,11101,Commercial,malignant,Lung Cancer,IV,1,Former,1,0
 PT103285,MRN103285,Shelby,Davenport,Female,2003-10-28,22,10016,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
@@ -3334,7 +3334,7 @@ PT103332,MRN103332,Bryan,Henry,Male,1952-12-13,73,10019,Medicare,ida,Iron Defici
 PT103333,MRN103333,Jessica,Drake,Female,1978-02-07,48,11201,Medicare,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT103334,MRN103334,Eric,Cohen,Male,1991-10-01,34,11375,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT103335,MRN103335,Bonnie,Wade,Female,2007-05-16,18,11004,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
-PT103336,MRN103336,Sandra,Hunt,Female,2007-04-17,18,11373,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
+PT103336,MRN103336,Sandra,Hunt,Female,2007-04-17,19,11373,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT103337,MRN103337,Katherine,Mcclure,Female,1942-10-26,83,10019,Medicare,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
 PT103338,MRN103338,Karen,Hart,Female,1969-02-19,57,11375,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
 PT103339,MRN103339,Jay,Avila,Male,1979-05-15,46,11354,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
@@ -3479,7 +3479,7 @@ PT103477,MRN103477,Christina,Turner,Female,1939-04-23,86,11375,Commercial,ida,Ir
 PT103478,MRN103478,Andrew,Cook,Male,1948-12-15,77,11101,Medicare,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
 PT103479,MRN103479,Molly,Singh,Female,1987-05-10,38,11101,Medicare,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT103480,MRN103480,Cameron,Braun,Male,1949-09-16,76,11354,Medicare,ida,Iron Deficiency Anemia,N/A,4,Current,0,0
-PT103481,MRN103481,Diane,Davis,Female,1969-04-17,56,11373,Medicaid,malignant,Breast Cancer,IV,1,Former,1,0
+PT103481,MRN103481,Diane,Davis,Female,1969-04-17,57,11373,Medicaid,malignant,Breast Cancer,IV,1,Former,1,0
 PT103482,MRN103482,Juan,Boyd,Male,1980-05-18,45,11373,Medicare,ida,Iron Deficiency Anemia,N/A,3,Never,1,0
 PT103483,MRN103483,Peter,Moore,Male,2002-11-01,23,11373,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT103484,MRN103484,Alyssa,Hogan,Female,1992-05-06,33,11201,Commercial,malignant,Lymphoma,Intermediate Risk,3,Former,0,0
@@ -3533,8 +3533,8 @@ PT103531,MRN103531,Jennifer,Berry,Female,1937-08-04,88,11004,Medicare,malignant,
 PT103532,MRN103532,Krystal,Mccullough,Female,1995-03-09,31,11373,Commercial,malignant,Lung Cancer,I,2,Former,0,0
 PT103533,MRN103533,Rachael,Alvarez,Female,2005-11-02,20,10019,Commercial,ida,Iron Deficiency Anemia,N/A,0,Current,0,0
 PT103534,MRN103534,Nathan,Obrien,Male,2004-11-19,21,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
-PT103535,MRN103535,Pamela,Wagner,Female,1950-04-17,75,10461,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT103536,MRN103536,Julia,Cole,Female,1972-04-17,53,11101,Medicaid,malignant,Lung Cancer,IV,3,Never,0,0
+PT103535,MRN103535,Pamela,Wagner,Female,1950-04-17,76,10461,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
+PT103536,MRN103536,Julia,Cole,Female,1972-04-17,54,11101,Medicaid,malignant,Lung Cancer,IV,3,Never,0,0
 PT103537,MRN103537,Joann,Cline,Female,1969-10-08,56,11373,Commercial,malignant,Breast Cancer,I,3,Current,1,0
 PT103538,MRN103538,Frederick,Marsh,Male,1956-06-09,69,11201,Medicare,malignant,Colorectal Cancer,IV,5,Never,1,0
 PT103539,MRN103539,Mary,Ortiz,Female,1963-02-17,63,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
@@ -3649,7 +3649,7 @@ PT103647,MRN103647,Denise,Frazier,Female,1958-01-26,68,11101,Medicare,ida,Iron D
 PT103648,MRN103648,John,Ward,Male,1963-03-17,63,10019,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Current,0,0
 PT103649,MRN103649,Olivia,Stephenson,Female,1958-09-21,67,11375,Medicare,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
 PT103650,MRN103650,Danny,Ramirez,Male,1949-07-23,76,11101,Commercial,ida,Iron Deficiency Anemia,N/A,1,Current,0,0
-PT103651,MRN103651,Jennifer,Cole,Female,1948-04-16,77,11004,Medicare,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
+PT103651,MRN103651,Jennifer,Cole,Female,1948-04-16,78,11004,Medicare,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
 PT103652,MRN103652,Aaron,Lee,Male,1970-05-11,55,11215,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
 PT103653,MRN103653,Angela,Armstrong,Female,2003-08-13,22,11004,Medicaid,malignant,Bladder Cancer,IV,2,Never,1,0
 PT103654,MRN103654,Allison,Mclaughlin,Female,1965-05-21,60,11101,Commercial,ida,Iron Deficiency Anemia,N/A,4,Never,0,0
@@ -3815,7 +3815,7 @@ PT103813,MRN103813,Katherine,Lopez,Female,1998-06-15,27,11354,Commercial,ida,Iro
 PT103814,MRN103814,Benjamin,Mccarty,Male,2000-02-14,26,10461,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT103815,MRN103815,Diane,Hall,Female,1997-09-20,28,11354,Commercial,malignant,Breast Cancer,II,0,Former,1,0
 PT103816,MRN103816,Mary,Jones,Female,1974-07-12,51,10016,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT103817,MRN103817,Amy,Stone,Female,1976-04-16,49,11215,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
+PT103817,MRN103817,Amy,Stone,Female,1976-04-16,50,11215,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT103818,MRN103818,Christopher,Heath,Male,1968-05-11,57,11004,Commercial,malignant,Lung Cancer,II,2,Former,1,0
 PT103819,MRN103819,Jennifer,Moore,Female,2008-02-03,18,11004,Self-Pay,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
 PT103820,MRN103820,Brian,Herrera,Male,1980-09-13,45,11004,Commercial,malignant,Prostate Cancer,I,2,Never,1,0
@@ -3865,7 +3865,7 @@ PT103863,MRN103863,Sarah,Jackson,Female,1988-09-08,37,11215,Commercial,malignant
 PT103864,MRN103864,Alicia,Garcia,Female,1986-03-11,40,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT103865,MRN103865,Edward,Nichols,Male,2002-01-18,24,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT103866,MRN103866,Jeanne,Jones,Female,1951-01-09,75,11101,Commercial,malignant,Ovarian Cancer,II,1,Current,1,0
-PT103867,MRN103867,Pamela,Byrd,Female,1943-04-18,82,10016,Medicare,malignant,Breast Cancer,IV,3,Former,1,0
+PT103867,MRN103867,Pamela,Byrd,Female,1943-04-18,83,10016,Medicare,malignant,Breast Cancer,IV,3,Former,1,0
 PT103868,MRN103868,Brittany,Howard,Female,1946-09-21,79,11373,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
 PT103869,MRN103869,Daniel,Johnson,Male,1961-11-22,64,11375,Commercial,malignant,Prostate Cancer,III,3,Never,0,0
 PT103870,MRN103870,Megan,Robinson,Female,1959-05-12,66,10019,Medicare,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
@@ -3900,7 +3900,7 @@ PT103898,MRN103898,Wanda,Jefferson,Female,1959-05-13,66,11004,Self-Pay,malignant
 PT103899,MRN103899,Carolyn,Haley,Female,1979-06-09,46,10461,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT103900,MRN103900,Lindsay,Jarvis,Female,1995-11-12,30,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
 PT103901,MRN103901,Melissa,Gregory,Female,1939-01-07,87,10019,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
-PT103902,MRN103902,William,Benson,Male,2001-04-16,24,11201,Commercial,malignant,Colorectal Cancer,III,0,Never,1,0
+PT103902,MRN103902,William,Benson,Male,2001-04-16,25,11201,Commercial,malignant,Colorectal Cancer,III,0,Never,1,0
 PT103903,MRN103903,Gary,Reid,Male,1993-11-24,32,11375,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
 PT103904,MRN103904,Stephen,Stewart,Male,1957-12-11,68,10019,Medicare,malignant,Lung Cancer,II,4,Former,0,0
 PT103905,MRN103905,Samuel,Olson,Male,2000-11-19,25,11373,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
@@ -3915,7 +3915,7 @@ PT103913,MRN103913,Lisa,Brown,Female,1947-01-18,79,11373,Medicare,ida,Iron Defic
 PT103914,MRN103914,James,Phillips,Male,1937-12-26,88,10019,Commercial,malignant,Multiple Myeloma,High Risk,0,Current,1,0
 PT103915,MRN103915,Brittany,Harris,Female,1998-03-19,28,11101,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT103916,MRN103916,Amanda,Mclean,Female,1963-03-05,63,11373,Commercial,ida,Iron Deficiency Anemia,N/A,1,Current,0,0
-PT103917,MRN103917,Linda,Bautista,Female,2002-04-16,23,11375,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
+PT103917,MRN103917,Linda,Bautista,Female,2002-04-16,24,11375,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT103918,MRN103918,Patrick,Murphy,Male,1951-05-18,74,11373,Medicare,malignant,Prostate Cancer,II,4,Never,1,0
 PT103919,MRN103919,Donald,Schneider,Male,1985-07-26,40,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
 PT103920,MRN103920,Philip,Meyer,Male,1961-02-14,65,10019,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
@@ -4021,7 +4021,7 @@ PT104019,MRN104019,Jamie,Brown,Female,1958-07-24,67,11373,Medicare,ida,Iron Defi
 PT104020,MRN104020,Henry,Rivera,Male,1983-10-20,42,11215,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT104021,MRN104021,Ariel,Bryant,Female,2000-01-03,26,11373,Commercial,malignant,Breast Cancer,III,0,Never,1,0
 PT104022,MRN104022,Melissa,Hardy,Female,1967-02-13,59,10016,Self-Pay,malignant,Bladder Cancer,IV,4,Never,1,0
-PT104023,MRN104023,Stacy,Taylor,Female,1948-04-17,77,11101,Self-Pay,ida,Iron Deficiency Anemia,N/A,2,Current,0,0
+PT104023,MRN104023,Stacy,Taylor,Female,1948-04-17,78,11101,Self-Pay,ida,Iron Deficiency Anemia,N/A,2,Current,0,0
 PT104024,MRN104024,Lindsay,Melton,Female,1951-11-12,74,10016,Medicare,malignant,Breast Cancer,IV,4,Never,1,0
 PT104025,MRN104025,Douglas,Lyons,Male,2006-06-22,19,11354,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT104026,MRN104026,Robert,Richardson,Male,1941-08-11,84,11201,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
@@ -4047,7 +4047,7 @@ PT104045,MRN104045,Kimberly,Baxter,Female,2004-12-28,21,11201,Self-Pay,ida,Iron 
 PT104046,MRN104046,Carol,Griffin,Female,1993-12-02,32,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Current,1,0
 PT104047,MRN104047,Ashley,Bates,Female,1941-05-23,84,11215,Medicare,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT104048,MRN104048,David,Lewis,Male,1951-04-19,74,10461,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT104049,MRN104049,Nicole,Keller,Female,1967-04-17,58,11375,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
+PT104049,MRN104049,Nicole,Keller,Female,1967-04-17,59,11375,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
 PT104050,MRN104050,Ann,Graham,Female,1991-07-09,34,11354,Commercial,malignant,Breast Cancer,IV,0,Current,1,0
 PT104051,MRN104051,Mike,Martin,Male,1949-11-14,76,10461,Medicare,malignant,Lung Cancer,II,2,Former,1,0
 PT104052,MRN104052,Tanya,Orr,Female,1977-01-17,49,11375,Commercial,malignant,Ovarian Cancer,III,2,Former,1,0
@@ -4191,7 +4191,7 @@ PT104189,MRN104189,Christopher,Chandler,Male,2005-02-04,21,11101,Commercial,mali
 PT104190,MRN104190,Elizabeth,Nicholson,Female,1987-04-10,39,11354,Commercial,malignant,Breast Cancer,IV,0,Current,1,0
 PT104191,MRN104191,John,Rice,Male,1990-12-24,35,10016,Commercial,ida,Iron Deficiency Anemia,N/A,2,Current,0,0
 PT104192,MRN104192,Melody,Grimes,Female,1977-03-01,49,11354,Commercial,ida,Iron Deficiency Anemia,N/A,0,Current,1,0
-PT104193,MRN104193,Juan,Lawson,Male,1988-04-18,37,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
+PT104193,MRN104193,Juan,Lawson,Male,1988-04-18,38,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT104194,MRN104194,Stephanie,Jackson,Female,1969-03-20,57,11101,Medicare,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
 PT104195,MRN104195,Theresa,Price,Female,1940-08-21,85,11201,Medicare,ida,Iron Deficiency Anemia,N/A,2,Current,1,0
 PT104196,MRN104196,Gregory,Figueroa,Male,1945-08-28,80,11354,Commercial,malignant,Pancreatic Cancer,IV,1,Never,1,0
@@ -4274,7 +4274,7 @@ PT104272,MRN104272,Ryan,Price,Male,1951-04-12,75,10016,Medicare,ida,Iron Deficie
 PT104273,MRN104273,Ashley,Rodriguez,Female,1973-12-23,52,11215,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT104274,MRN104274,Alisha,Moore,Female,1975-10-08,50,11373,Commercial,malignant,Ovarian Cancer,III,1,Never,0,0
 PT104275,MRN104275,Kathryn,Saunders,Female,1943-03-13,83,10016,Medicare,malignant,Colorectal Cancer,III,4,Never,0,0
-PT104276,MRN104276,Cynthia,Gregory,Female,1962-04-16,63,11215,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
+PT104276,MRN104276,Cynthia,Gregory,Female,1962-04-16,64,11215,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
 PT104277,MRN104277,Gloria,Bray,Female,1971-11-26,54,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT104278,MRN104278,Nancy,Hamilton,Female,1949-03-28,77,10019,Medicare,malignant,Ovarian Cancer,II,4,Current,1,0
 PT104279,MRN104279,Donna,Tucker,Female,2003-02-25,23,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
@@ -4333,7 +4333,7 @@ PT104331,MRN104331,Melissa,Anderson,Female,1940-05-20,85,11004,Self-Pay,ida,Iron
 PT104332,MRN104332,Amber,Knight,Female,2005-12-16,20,11373,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
 PT104333,MRN104333,Robert,Benson,Male,1977-08-02,48,11373,Medicaid,malignant,Colorectal Cancer,IV,2,Former,1,0
 PT104334,MRN104334,Natalie,Sanders,Female,1972-04-13,54,10461,Commercial,malignant,Multiple Myeloma,Low Risk,2,Former,1,0
-PT104335,MRN104335,Michael,Berg,Male,1960-04-17,65,11215,Medicare,ida,Iron Deficiency Anemia,N/A,2,Current,1,0
+PT104335,MRN104335,Michael,Berg,Male,1960-04-17,66,11215,Medicare,ida,Iron Deficiency Anemia,N/A,2,Current,1,0
 PT104336,MRN104336,Wesley,Martin,Male,1946-05-27,79,11373,Medicare,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
 PT104337,MRN104337,Paul,Cruz,Male,1941-03-10,85,10461,Medicare,malignant,Prostate Cancer,II,2,Never,0,0
 PT104338,MRN104338,Richard,Morales,Male,1979-11-03,46,10016,Commercial,malignant,Prostate Cancer,II,1,Former,0,0
@@ -4365,7 +4365,7 @@ PT104363,MRN104363,Richard,Rodriguez,Male,1987-10-07,38,11201,Medicaid,ida,Iron 
 PT104364,MRN104364,Nichole,Reyes,Female,1941-06-27,84,11375,Medicare,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
 PT104365,MRN104365,Matthew,Berg,Male,2002-02-27,24,11373,Commercial,malignant,Colorectal Cancer,III,2,Current,1,0
 PT104366,MRN104366,Madison,Pierce,Female,1999-10-25,26,11373,Medicare,ida,Iron Deficiency Anemia,N/A,0,Current,0,0
-PT104367,MRN104367,Robert,Walker,Male,2007-04-18,18,11215,Commercial,malignant,Lymphoma,Low Risk,0,Current,1,0
+PT104367,MRN104367,Robert,Walker,Male,2007-04-18,19,11215,Commercial,malignant,Lymphoma,Low Risk,0,Current,1,0
 PT104368,MRN104368,Debra,Perkins,Female,2003-11-09,22,10019,Medicaid,malignant,Multiple Myeloma,Low Risk,0,Never,0,0
 PT104369,MRN104369,Robert,Mullins,Male,1974-07-23,51,11354,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT104370,MRN104370,Christopher,Hall,Male,1981-11-12,44,11373,Commercial,malignant,Colorectal Cancer,II,0,Never,0,0
@@ -4401,7 +4401,7 @@ PT104399,MRN104399,Elizabeth,Hunt,Female,1945-07-19,80,11201,Medicare,malignant,
 PT104400,MRN104400,Russell,Thomas,Male,1956-01-02,70,11101,Medicare,malignant,Prostate Cancer,II,2,Never,1,0
 PT104401,MRN104401,Susan,Johnson,Female,1942-05-21,83,11354,Commercial,malignant,Breast Cancer,III,1,Former,1,1
 PT104402,MRN104402,Jessica,Hernandez,Female,1975-06-12,50,11215,Medicaid,malignant,Ovarian Cancer,II,2,Former,1,0
-PT104403,MRN104403,Mary,Perez,Female,1992-04-16,33,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
+PT104403,MRN104403,Mary,Perez,Female,1992-04-16,34,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
 PT104404,MRN104404,Sherry,Cruz,Female,2001-03-20,25,11215,Commercial,malignant,Ovarian Cancer,II,1,Never,0,0
 PT104405,MRN104405,Stacey,Carson,Female,1937-03-04,89,11373,Medicare,ida,Iron Deficiency Anemia,N/A,4,Never,1,0
 PT104406,MRN104406,Ashley,Jackson,Female,1984-10-05,41,11354,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
@@ -4564,7 +4564,7 @@ PT104562,MRN104562,Andrea,Sullivan,Female,2000-12-04,25,11375,Medicare,ida,Iron 
 PT104563,MRN104563,Elizabeth,Joseph,Female,2005-04-21,20,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT104564,MRN104564,Seth,Warren,Male,1944-02-21,82,11101,Commercial,malignant,Lymphoma,Intermediate Risk,5,Current,0,0
 PT104565,MRN104565,Michael,Green,Male,1984-04-22,41,11215,Medicare,malignant,Prostate Cancer,II,0,Former,1,0
-PT104566,MRN104566,Sandra,Davis,Female,2005-04-16,20,10019,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
+PT104566,MRN104566,Sandra,Davis,Female,2005-04-16,21,10019,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
 PT104567,MRN104567,Steven,Peterson,Male,1976-12-11,49,11354,Medicaid,malignant,Bladder Cancer,I,1,Never,0,0
 PT104568,MRN104568,Nicole,Martin,Female,1996-10-21,29,10019,Commercial,ida,Iron Deficiency Anemia,N/A,4,Former,1,0
 PT104569,MRN104569,Hannah,Barnes,Female,1961-07-17,64,11215,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,1,0
@@ -4602,7 +4602,7 @@ PT104600,MRN104600,Jeffrey,Thompson,Male,1985-06-19,40,11215,Medicare,malignant,
 PT104601,MRN104601,Kurt,Daniels,Male,1979-03-08,47,10461,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT104602,MRN104602,Jane,Bruce,Female,1953-01-21,73,11201,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
 PT104603,MRN104603,Michael,Kim,Male,1999-04-25,26,10016,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104604,MRN104604,Douglas,Oliver,Male,1938-04-18,87,11215,Medicare,ida,Iron Deficiency Anemia,N/A,5,Former,0,0
+PT104604,MRN104604,Douglas,Oliver,Male,1938-04-18,88,11215,Medicare,ida,Iron Deficiency Anemia,N/A,5,Former,0,0
 PT104605,MRN104605,Tammy,Vincent,Female,1996-09-07,29,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
 PT104606,MRN104606,Whitney,Shaffer,Female,1951-12-01,74,11354,Medicare,ida,Iron Deficiency Anemia,N/A,4,Never,0,0
 PT104607,MRN104607,Brian,Banks,Male,1948-02-12,78,10016,Medicare,ida,Iron Deficiency Anemia,N/A,6,Former,1,0
@@ -4647,7 +4647,7 @@ PT104645,MRN104645,Michelle,Knapp,Female,1962-06-10,63,11375,Commercial,ida,Iron
 PT104646,MRN104646,Angela,Reyes,Female,1960-03-06,66,11004,Medicare,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
 PT104647,MRN104647,Natalie,Anderson,Female,2004-07-24,21,11201,Medicaid,malignant,Breast Cancer,II,3,Former,1,0
 PT104648,MRN104648,Jody,Welch,Female,1959-01-10,67,11201,Medicare,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
-PT104649,MRN104649,Heather,Allen,Female,1966-04-17,59,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
+PT104649,MRN104649,Heather,Allen,Female,1966-04-17,60,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT104650,MRN104650,Steven,Phillips,Male,2005-07-13,20,11215,Commercial,malignant,Multiple Myeloma,Low Risk,1,Never,1,0
 PT104651,MRN104651,Joseph,Sanchez,Male,1980-03-03,46,11201,Commercial,ida,Iron Deficiency Anemia,N/A,5,Current,0,0
 PT104652,MRN104652,Penny,Hartman,Female,1981-09-19,44,11101,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
@@ -4676,7 +4676,7 @@ PT104674,MRN104674,Corey,Johnson,Male,1989-06-27,36,11354,Medicaid,malignant,Col
 PT104675,MRN104675,Allison,Hunt,Female,1969-04-19,56,11101,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT104676,MRN104676,Christian,Camacho,Male,1952-06-05,73,11201,Medicare,malignant,Colorectal Cancer,II,4,Never,1,0
 PT104677,MRN104677,Ashley,Robinson,Female,1996-07-07,29,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT104678,MRN104678,Garrett,Robinson,Male,1965-04-16,60,11201,Medicaid,malignant,Lung Cancer,I,1,Never,1,0
+PT104678,MRN104678,Garrett,Robinson,Male,1965-04-16,61,11201,Medicaid,malignant,Lung Cancer,I,1,Never,1,0
 PT104679,MRN104679,Nicholas,Case,Male,1979-10-08,46,11373,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
 PT104680,MRN104680,Debra,Olson,Female,1962-03-24,64,11201,Commercial,ida,Iron Deficiency Anemia,N/A,3,Former,1,0
 PT104681,MRN104681,Tiffany,Bailey,Female,1937-08-08,88,10016,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
@@ -4744,7 +4744,7 @@ PT104742,MRN104742,Stephanie,Mayo,Female,1943-09-26,82,10016,Medicare,malignant,
 PT104743,MRN104743,Taylor,Parrish,Female,1989-01-08,37,11101,Commercial,malignant,Breast Cancer,I,2,Former,0,0
 PT104744,MRN104744,Debbie,Glover,Female,1963-08-23,62,11375,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
 PT104745,MRN104745,Brian,Valentine,Male,1943-11-04,82,11101,Commercial,ida,Iron Deficiency Anemia,N/A,3,Current,0,0
-PT104746,MRN104746,Benjamin,Murphy,Male,1970-04-17,55,11004,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
+PT104746,MRN104746,Benjamin,Murphy,Male,1970-04-17,56,11004,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
 PT104747,MRN104747,Lisa,Burnett,Female,1963-01-17,63,11201,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,0
 PT104748,MRN104748,Derrick,Jackson,Male,1984-03-25,42,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
 PT104749,MRN104749,Chad,Murray,Male,1938-08-13,87,10016,Commercial,ida,Iron Deficiency Anemia,N/A,5,Never,1,0
@@ -4822,97 +4822,3 @@ PT104820,MRN104820,Jodi,Navarro,Female,1969-06-25,56,11373,Medicaid,ida,Iron Def
 PT104821,MRN104821,Wanda,Scott,Female,1937-11-18,88,11201,Medicare,malignant,Breast Cancer,I,3,Never,0,0
 PT104822,MRN104822,Katelyn,Diaz,Female,1953-02-19,73,11101,Medicare,ida,Iron Deficiency Anemia,N/A,4,Former,1,0
 PT104823,MRN104823,Adam,Gomez,Male,1960-04-27,65,11201,Medicare,ida,Iron Deficiency Anemia,N/A,4,Never,1,0
-PT104824,MRN104824,Michelle,Vance,Female,1980-04-10,46,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
-PT104825,MRN104825,Patricia,Vincent,Female,1947-10-28,78,11354,Commercial,ida,Iron Deficiency Anemia,N/A,0,Current,1,0
-PT104826,MRN104826,Steven,Larson,Male,1987-09-04,38,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104827,MRN104827,Brian,Jennings,Male,1945-04-10,81,10019,Commercial,malignant,Prostate Cancer,II,0,Current,0,0
-PT104828,MRN104828,Monica,Smith,Female,1976-08-05,49,11201,Commercial,malignant,Lung Cancer,III,3,Former,1,0
-PT104829,MRN104829,Veronica,Chase,Female,1988-10-03,37,10016,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
-PT104830,MRN104830,Matthew,Thomas,Male,1956-07-01,69,11004,Medicare,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
-PT104831,MRN104831,Kathleen,Sanchez,Female,1970-08-24,55,11101,Commercial,malignant,Breast Cancer,II,1,Never,0,0
-PT104832,MRN104832,Natalie,Mcpherson,Female,1941-06-17,84,11215,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
-PT104833,MRN104833,Heather,Garner,Female,1962-08-04,63,11101,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
-PT104834,MRN104834,Cory,Blevins,Male,1975-12-20,50,11201,Commercial,ida,Iron Deficiency Anemia,N/A,4,Never,1,0
-PT104835,MRN104835,Margaret,Sheppard,Female,1965-08-09,60,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT104836,MRN104836,Sherry,Shelton,Female,1990-04-17,35,10016,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104837,MRN104837,Steven,Cole,Male,1998-09-25,27,11004,Medicaid,malignant,Multiple Myeloma,High Risk,1,Never,1,0
-PT104838,MRN104838,Tyler,Rose,Male,1980-03-24,46,11354,Medicaid,malignant,Prostate Cancer,III,1,Never,1,0
-PT104839,MRN104839,Derek,Shelton,Male,1967-10-01,58,10019,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
-PT104840,MRN104840,Stacy,Myers,Female,1938-06-10,87,11373,Medicare,ida,Iron Deficiency Anemia,N/A,1,Former,1,0
-PT104841,MRN104841,Jennifer,Mcknight,Female,1985-05-14,40,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
-PT104842,MRN104842,Eric,Williams,Male,1984-10-08,41,11101,Self-Pay,ida,Iron Deficiency Anemia,N/A,0,Current,0,0
-PT104843,MRN104843,Joseph,Cooper,Male,1965-04-07,61,10019,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104844,MRN104844,Lisa,Hamilton,Female,1948-06-27,77,11004,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104845,MRN104845,Jordan,Donaldson,Female,1993-10-13,32,11373,Commercial,malignant,Multiple Myeloma,Intermediate Risk,2,Former,1,0
-PT104846,MRN104846,Rebecca,Roberts,Female,1948-09-21,77,10461,Commercial,ida,Iron Deficiency Anemia,N/A,2,Former,0,0
-PT104847,MRN104847,Tracy,Porter,Female,1954-04-02,72,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104848,MRN104848,Michael,Owens,Male,1977-07-28,48,11201,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
-PT104849,MRN104849,Chris,Levy,Male,1944-06-11,81,11373,Medicare,ida,Iron Deficiency Anemia,N/A,2,Former,1,0
-PT104850,MRN104850,Loretta,Beck,Female,1962-11-02,63,11215,Medicaid,ida,Iron Deficiency Anemia,N/A,3,Former,0,0
-PT104851,MRN104851,Eric,Roberts,Male,2005-11-03,20,11373,Medicaid,malignant,Prostate Cancer,IV,0,Former,0,0
-PT104852,MRN104852,Rebecca,Smith,Female,1990-07-12,35,11354,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,1,0
-PT104853,MRN104853,Amanda,Campbell,Female,1998-12-12,27,11201,Commercial,malignant,Lung Cancer,II,1,Never,1,0
-PT104854,MRN104854,Leslie,Brown,Female,1938-12-26,87,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
-PT104855,MRN104855,Elizabeth,Jordan,Female,1938-08-22,87,11373,Self-Pay,malignant,Breast Cancer,IV,4,Former,1,1
-PT104856,MRN104856,Matthew,Smith,Male,1983-12-18,42,11373,Commercial,malignant,Prostate Cancer,III,1,Former,1,0
-PT104857,MRN104857,Darlene,Bell,Female,1961-01-25,65,11215,Medicare,malignant,Lymphoma,Intermediate Risk,4,Current,1,0
-PT104858,MRN104858,Douglas,Trevino,Male,1955-08-06,70,11375,Medicare,malignant,Bladder Cancer,II,3,Never,1,0
-PT104859,MRN104859,Maurice,Mack,Male,2005-03-16,21,10461,Self-Pay,malignant,Prostate Cancer,III,1,Never,0,0
-PT104860,MRN104860,Christopher,Miller,Male,1989-02-10,37,11004,Commercial,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT104861,MRN104861,Debra,Ferrell,Female,2008-07-23,17,11101,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
-PT104862,MRN104862,Christina,Richards,Female,2004-07-18,21,10016,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104863,MRN104863,Angela,Robinson,Female,1942-02-14,84,11215,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
-PT104864,MRN104864,Kara,Gomez,Female,2003-07-16,22,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Current,1,0
-PT104865,MRN104865,Robin,Walsh,Female,1977-12-25,48,10019,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,0,1
-PT104866,MRN104866,Jay,Rasmussen,Male,1947-11-05,78,10019,Self-Pay,malignant,Bladder Cancer,IV,4,Never,1,1
-PT104867,MRN104867,Brett,Green,Male,1944-09-03,81,11373,Medicare,malignant,Lymphoma,Intermediate Risk,5,Current,1,0
-PT104868,MRN104868,Elizabeth,Collins,Female,1989-04-11,37,11215,Commercial,ida,Iron Deficiency Anemia,N/A,0,Former,1,0
-PT104869,MRN104869,Kristy,Shelton,Female,2003-09-01,22,11354,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
-PT104870,MRN104870,Erica,Lane,Female,2001-08-24,24,10016,Commercial,ida,Iron Deficiency Anemia,N/A,3,Never,0,0
-PT104871,MRN104871,Michael,Gonzalez,Male,1994-02-11,32,10019,Medicare,malignant,Prostate Cancer,I,2,Current,1,0
-PT104872,MRN104872,Brandy,Spencer,Female,1963-01-02,63,11373,Medicaid,malignant,Lymphoma,Low Risk,1,Never,1,0
-PT104873,MRN104873,Elizabeth,Miller,Female,1938-10-05,87,11354,Medicare,ida,Iron Deficiency Anemia,N/A,4,Never,0,0
-PT104874,MRN104874,Lacey,Fuller,Female,2004-11-13,21,10016,Medicare,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT104875,MRN104875,Kimberly,Bennett,Female,1944-01-22,82,11101,Medicare,malignant,Colorectal Cancer,III,3,Never,1,0
-PT104876,MRN104876,Sherri,Kim,Female,1946-03-28,80,11354,Medicare,ida,Iron Deficiency Anemia,N/A,6,Never,1,0
-PT104877,MRN104877,Charles,Ramos,Male,1946-01-17,80,11101,Medicare,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
-PT104878,MRN104878,Emily,Donovan,Female,1985-05-09,40,11004,Medicare,ida,Iron Deficiency Anemia,N/A,5,Former,1,0
-PT104879,MRN104879,Michelle,Mcdonald,Female,2004-01-24,22,11373,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT104880,MRN104880,Jeffrey,Fisher,Male,2006-05-23,19,10461,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104881,MRN104881,Jennifer,Johnson,Female,1987-06-04,38,10016,Commercial,ida,Iron Deficiency Anemia,N/A,1,Former,0,0
-PT104882,MRN104882,Justin,Bernard,Male,1951-04-03,75,11215,Medicaid,malignant,Colorectal Cancer,III,4,Current,1,0
-PT104883,MRN104883,Jennifer,Campos,Female,1958-07-18,67,10461,Commercial,ida,Iron Deficiency Anemia,N/A,3,Current,1,0
-PT104884,MRN104884,Lisa,Turner,Female,1985-09-04,40,10019,Commercial,malignant,Lymphoma,Intermediate Risk,0,Never,0,0
-PT104885,MRN104885,Dana,Hunt,Female,1989-06-15,36,11101,Commercial,malignant,Ovarian Cancer,II,1,Current,0,0
-PT104886,MRN104886,Bethany,Daniels,Female,1951-07-06,74,11354,Medicare,malignant,Breast Cancer,III,8,Current,0,0
-PT104887,MRN104887,Keith,Carter,Male,1969-08-09,56,10019,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,0,0
-PT104888,MRN104888,Nicole,Long,Female,1951-02-15,75,11101,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104889,MRN104889,Jamie,Smith,Male,2004-05-06,21,11201,Self-Pay,malignant,Prostate Cancer,IV,1,Former,1,0
-PT104890,MRN104890,Rhonda,Golden,Female,1997-07-11,28,11373,Medicaid,malignant,Ovarian Cancer,II,3,Never,1,0
-PT104891,MRN104891,Julia,Brown,Female,1944-12-21,81,11354,Medicare,malignant,Breast Cancer,IV,4,Former,0,0
-PT104892,MRN104892,Amy,Gallegos,Female,1961-05-03,64,11004,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT104893,MRN104893,Marie,Cook,Female,1944-08-27,81,11201,Commercial,malignant,Bladder Cancer,I,3,Former,1,0
-PT104894,MRN104894,Brent,Roberts,Male,1952-04-20,73,11201,Medicaid,ida,Iron Deficiency Anemia,N/A,4,Former,1,0
-PT104895,MRN104895,Karen,Rivera,Female,1946-05-22,79,11375,Medicare,malignant,Breast Cancer,II,2,Never,0,0
-PT104896,MRN104896,Amy,Yang,Female,1987-07-23,38,11375,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104897,MRN104897,Megan,Stevenson,Female,1990-07-24,35,11354,Medicaid,malignant,Lung Cancer,III,3,Former,1,0
-PT104898,MRN104898,Amy,Harris,Female,2007-10-22,18,10019,Commercial,malignant,Breast Cancer,II,0,Never,1,0
-PT104899,MRN104899,Brianna,Yang,Female,1990-08-11,35,11373,Commercial,ida,Iron Deficiency Anemia,N/A,2,Current,0,0
-PT104900,MRN104900,Kathleen,Walker,Female,1973-11-17,52,11354,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT104901,MRN104901,Megan,Phelps,Female,1984-04-10,42,11373,Medicaid,ida,Iron Deficiency Anemia,N/A,0,Never,0,0
-PT104902,MRN104902,Elizabeth,Collins,Female,1995-12-26,30,11101,Commercial,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104903,MRN104903,Virginia,Smith,Female,1956-03-15,70,11215,Medicaid,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104904,MRN104904,Karina,Watts,Female,1943-02-19,83,10016,Medicare,malignant,Multiple Myeloma,Intermediate Risk,4,Never,0,0
-PT104905,MRN104905,Brian,Smith,Male,1971-10-22,54,11354,Self-Pay,ida,Iron Deficiency Anemia,N/A,1,Never,1,0
-PT104906,MRN104906,Lindsey,Martinez,Female,1999-04-14,27,11215,Commercial,ida,Iron Deficiency Anemia,N/A,1,Current,0,0
-PT104907,MRN104907,Brent,Harris,Male,1956-09-09,69,11004,Self-Pay,malignant,Multiple Myeloma,High Risk,1,Never,1,0
-PT104908,MRN104908,Kara,Wall,Female,1954-08-21,71,10461,Medicare,ida,Iron Deficiency Anemia,N/A,3,Never,1,0
-PT104909,MRN104909,Jeremy,Brown,Male,1982-02-16,44,11215,Commercial,malignant,Colorectal Cancer,III,1,Never,1,0
-PT104910,MRN104910,Barbara,Sullivan,Female,1940-04-07,86,11101,Commercial,malignant,Ovarian Cancer,III,3,Never,1,0
-PT104911,MRN104911,William,Wilkins,Male,1996-09-01,29,11375,Commercial,ida,Iron Deficiency Anemia,N/A,2,Never,1,0
-PT104912,MRN104912,Sarah,Payne,Female,1954-03-18,72,11373,Medicaid,ida,Iron Deficiency Anemia,N/A,1,Current,0,0
-PT104913,MRN104913,Roberto,Maldonado,Male,1962-04-03,64,11375,Commercial,malignant,Prostate Cancer,III,5,Former,1,0
-PT104914,MRN104914,Shannon,Williamson,Female,1947-09-04,78,10019,Medicare,ida,Iron Deficiency Anemia,N/A,1,Never,0,0
-PT104915,MRN104915,Jeffrey,Fields,Male,1960-07-01,65,10461,Medicare,malignant,Lung Cancer,I,3,Never,1,0
-PT104916,MRN104916,Cathy,Cardenas,Female,1971-07-02,54,11354,Commercial,ida,Iron Deficiency Anemia,N/A,3,Current,1,0
-PT104917,MRN104917,Mary,Jackson,Female,1992-03-11,34,11375,Medicare,malignant,Breast Cancer,III,0,Former,1,0

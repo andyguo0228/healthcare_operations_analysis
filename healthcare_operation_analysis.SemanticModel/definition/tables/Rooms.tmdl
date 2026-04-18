@@ -90,6 +90,14 @@ table Rooms
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Room Sort'
+		dataType: string
+		lineageTag: d93fca25-39ec-471c-bfc1-40a8faafc2ae
+		summarizeBy: none
+		sourceColumn: Room Sort
+
+		annotation SummarizationSetBy = Automatic
+
 	hierarchy 'Room Hierarchy'
 		lineageTag: 57273982-a4dd-4e65-b962-2f41e0aff0b2
 
@@ -206,9 +214,10 @@ table Rooms
 				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Is Waiting Room", type logical}}),
 				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"MRN", "Provider ID", "Appointment Date", "Status", "New Patient Flag", "Infusion Flag", "Urgent Flag"}),
 				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns",null,0,Replacer.ReplaceValue,{"Duration"}),
-				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value",{{"Duration", Int64.Type}})
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value",{{"Duration", Int64.Type}}),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Changed Type2", "Room Sort", each if [Room Type] = "Status" then 0 else if [Room Type] = "Front Desk" then 1 else if [Room Type] = "Exam Room" then 2 else if [Room Type] = "Lab" then 3 else if [Room Type] = "Infusion Room" then 4 else null)
 				in
-				    #"Changed Type2"
+				    #"Added Conditional Column1"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

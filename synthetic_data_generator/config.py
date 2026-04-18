@@ -7,8 +7,8 @@ SEED = 42
 NUM_PATIENTS = random.randint(4000, 5000)
 NUM_PROVIDERS = 8
 
-START_DATE = date.today() - timedelta(days=1095)
-END_DATE = date.today()
+START_DATE = date(2022, 1, 1)
+END_DATE = date(2025, 12, 31)
 
 OUTPUT_DIR = Path("data")
 

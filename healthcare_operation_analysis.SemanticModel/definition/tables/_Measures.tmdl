@@ -98,12 +98,22 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Appts Rolling 3M Avg' =
+	measure 'Appts Rolling 3M Avg' = ```
 			
-			CALCULATE(
-			    DIVIDE(COUNTROWS(Appointments), 3),
-			    DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)
-			)
+			VAR _period = 
+			    CALCULATETABLE(
+			        VALUES('Date'[Month Year Sort]),
+			        DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)
+			    )
+			VAR _months = COUNTROWS(_period)
+			VAR _visits = 
+			    CALCULATE(
+			        COUNTROWS(Appointments),
+			        DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)
+			    )
+			RETURN
+			    DIVIDE(_visits, _months)
+			```
 		displayFolder: Time Intelligence
 		lineageTag: 3399bd66-c4e7-4e7e-bee4-a3e196591df0
 
@@ -132,18 +142,6 @@ table _Measures
 		displayFolder: Time Intelligence
 		lineageTag: 33bdacbc-47a4-4d7a-8e1b-dc28f5667f00
 
-	measure 'Avg Visit Duration (Min) Crossfilter' =
-			
-			CALCULATE(
-			    AVERAGE(Appointments[Total Duration]),
-			    Appointments[Status] = "Completed",
-			    Rooms[Room Type] <> "Status",
-			    CROSSFILTER(Appointments[Appointment ID], Rooms[Appointment ID], BOTH)
-			)
-		lineageTag: 3d39f862-24f2-42b6-9b8f-503e953c71a1
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	measure 'Appts PY' =
 			
 			CALCULATE(
@@ -155,6 +153,18 @@ table _Measures
 		lineageTag: 5ca10299-1193-40c9-92e9-5abf35559713
 
 		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Visit Duration (Min) Crossfilter' =
+			
+			CALCULATE(
+			    AVERAGE(Appointments[Total Duration]),
+			    Appointments[Status] = "Completed",
+			    Rooms[Room Type] <> "Status",
+			    CROSSFILTER(Appointments[Appointment ID], Rooms[Appointment ID], BOTH)
+			)
+		lineageTag: 3d39f862-24f2-42b6-9b8f-503e953c71a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Target Diff Format' =
 			
@@ -200,6 +210,160 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Time Intelligence
 		lineageTag: 026f004c-fb0d-47a0-b0b0-ad60a43e1773
+
+	measure 'YTD Appointments' = TOTALYTD([Total Appointments], 'Date'[Date])
+		formatString: 0
+		displayFolder: Throughput
+		lineageTag: 20a70ba0-2698-47bc-8751-c319131e68ac
+
+	measure 'Appts MTD' = TOTALMTD([Total Appointments], 'Date'[Date])
+		formatString: 0
+		displayFolder: Throughput
+		lineageTag: 7187f7be-3c62-45d2-b318-214b65fecec2
+
+	measure 'Appts QTD' = TOTALQTD([Total Appointments], 'Date'[Date])
+		formatString: 0
+		displayFolder: Throughput
+		lineageTag: b924e533-2f7e-4e2d-bfcc-20afe16b8be6
+
+	measure 'Completed Appointments' =
+			
+			CALCULATE(
+			    [Total Appointments],
+			    Appointments[Status] = "Completed"
+			)
+		formatString: 0
+		displayFolder: Throughput
+		lineageTag: a9e73190-8ad1-400e-b8bd-7355a06d8e4d
+
+	measure 'Total Exam Minutes' =
+			
+			CALCULATE(
+			    SUM(Rooms[Duration]),
+			    Rooms[Room Type] = "Exam Room"
+			)
+		formatString: 0
+		displayFolder: Resource Utilization
+		lineageTag: caca88cc-415a-4f09-a723-ca974aac8d60
+
+	measure 'Total Infusion Minutes' =
+			
+			CALCULATE(
+			    SUM(Rooms[Duration]),
+			    Rooms[Room Type] = "Infusion Room"
+			)
+		formatString: 0
+		displayFolder: Resource Utilization
+		lineageTag: b771183b-8cc4-44ef-868f-d237bb56b778
+
+	measure 'Active Exam Rooms' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(Rooms[Room]),
+			    Rooms[Room Type] = "Exam Room"
+			)
+		formatString: 0
+		displayFolder: Resource Utilization
+		lineageTag: 0b5f0844-2193-480e-aa6e-75caae2821b7
+
+	measure 'Exam Room Utilization %' = ```
+			
+			VAR _minutes = [Total Exam Minutes]
+			VAR _rooms = [Active Exam Rooms]
+			VAR _operatingDays = 
+			    CALCULATE(
+			        COUNTROWS('Date'),
+			        'Date'[Day of Week] <= 5
+			    )
+			VAR _capacity = _rooms * _operatingDays * 480
+			RETURN
+			    DIVIDE(_minutes, _capacity, 0)
+			```
+		displayFolder: Resource Utilization
+		lineageTag: 99b55be8-4de4-4e6b-b924-fd1fe4b43f37
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Infusion Room Utilization %' = ```
+			
+			VAR _minutes = [Total Infusion Minutes]
+			VAR _rooms = 
+			    CALCULATE(
+			        DISTINCTCOUNT(Rooms[Room]),
+			        Rooms[Room Type] = "Infusion Room"
+			    )
+			VAR _operatingDays = 
+			    CALCULATE(
+			        COUNTROWS('Date'),
+			        'Date'[Day of Week] <= 5
+			    )
+			VAR _capacity = _rooms * _operatingDays * 480
+			RETURN
+			    DIVIDE(_minutes, _capacity, 0)
+			```
+		displayFolder: Resource Utilization
+		lineageTag: eabe29a3-5fc9-429d-b06e-cbc5c675bd17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Median Wait Time (Min)' = ```
+			
+			VAR WaitByAppt = 
+			    ADDCOLUMNS(
+			        SUMMARIZE(Rooms, Appointments[Appointment ID]),
+			        "@Wait", 
+			            CALCULATE(
+			                SUM(Rooms[Duration]),
+			                Rooms[Is Waiting Room] = TRUE
+			            )
+			    )
+			RETURN
+			    MEDIANX(FILTER(WaitByAppt, [@Wait] > 0), [@Wait])
+			```
+		displayFolder: Wait Time
+		lineageTag: 5c16e4fe-9063-4779-973c-1822d92850ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'P90 Wait Time (Min)' = ```
+			
+			VAR WaitByAppt = 
+			    ADDCOLUMNS(
+			        SUMMARIZE(Rooms, Appointments[Appointment ID]),
+			        "@Wait", 
+			            CALCULATE(
+			                SUM(Rooms[Duration]),
+			                Rooms[Is Waiting Room] = TRUE
+			            )
+			    )
+			RETURN
+			    PERCENTILEX.INC(FILTER(WaitByAppt, [@Wait] > 0), [@Wait], 0.9)
+			```
+		displayFolder: Wait Time
+		lineageTag: aa7c430b-0b56-4058-8fe2-1496257d848c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Long Wait %' = ```
+			
+			VAR WaitByAppt = 
+			    ADDCOLUMNS(
+			        SUMMARIZE(Rooms, Appointments[Appointment ID]),
+			        "@Wait", 
+			            CALCULATE(
+			                SUM(Rooms[Duration]),
+			                Rooms[Is Waiting Room] = TRUE
+			            )
+			    )
+			VAR _long = COUNTROWS(FILTER(WaitByAppt, [@Wait] > 20))
+			VAR _total = COUNTROWS(WaitByAppt)
+			RETURN
+			    DIVIDE(_long, _total, 0)
+			```
+		displayFolder: Wait Time
+		lineageTag: 2de42d9c-7916-47a1-aa9e-253bf1e736e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition _Measures = m
 		mode: import

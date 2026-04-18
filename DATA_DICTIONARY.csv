@@ -22,11 +22,11 @@ appointments,appointment_id,1,string,No,AK,,Appointment identifier,APPT- + 10 he
 appointments,mrn,2,string,No,,,Patient MRN snapshot,MRN + 6 digits,Copied from patient dimension
 appointments,provider_id,3,string,No,FK,providers.provider_id,Provider identifier,Matches providers.provider_id,Random provider assignment per visit
 appointments,appointment_date,4,date,No,,,Scheduled visit date,Within configured date range,Derived from scheduled visit datetime at generation time
-appointments,visit_type,5,string,No,,,Visit category,"New Patient|Follow-up|Infusion|Lab Review|Urgent Visit",Diagnosis and treatment weighted logic
+appointments,visit_type,5,string,No,,,Visit category,"New Patient|Follow-up|Infusion|Walk In Visits",Diagnosis and treatment weighted logic
 appointments,status,6,string,No,,,Appointment status,"Completed|No Show|Cancelled",Infusion has higher completion probability
 appointments,new_patient_flag,7,integer,No,,,New patient indicator,0|1,1 when visit_type is New Patient
 appointments,infusion_flag,8,integer,No,,,Infusion indicator,0|1,1 when visit_type is Infusion
-appointments,urgent_flag,9,integer,No,,,Urgent visit indicator,0|1,1 when visit_type is Urgent Visit
+appointments,urgent_flag,9,integer,No,,,Urgent visit indicator,0|1,1 when visit_type is Walk In Visits
 appointments,room,10,string,No,,,Room/state label,"Workflow state or physical room label",Completed visits resolve exam/infusion room names
 appointments,room_type,11,string,No,,,Normalized room grouping,"Front Desk|Lab|Exam Room|Infusion Room|Other|Status",Mapped from room label
 appointments,room_timestamp,12,datetime,No,,,Event start timestamp,Datetime,Increments through generated room flow

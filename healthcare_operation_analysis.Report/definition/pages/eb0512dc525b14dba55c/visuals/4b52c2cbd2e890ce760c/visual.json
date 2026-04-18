@@ -10,7 +10,7 @@
     "tabOrder": 8000
   },
   "visual": {
-    "visualType": "barChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -68,7 +68,7 @@
                   "Function": 1
                 }
               },
-              "queryRef": "Sum(Rooms.Duration)",
+              "queryRef": "Avg(Rooms.Duration)",
               "nativeQueryRef": "Average of Duration"
             }
           ]
@@ -457,39 +457,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "4dcf98bb0900ee9c5da4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Appointments"
-              }
-            },
-            "Property": "Visit Type"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "a50d1697a136d15db9b0",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Rooms"
-                  }
-                },
-                "Property": "Duration"
-              }
-            },
-            "Function": 1
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }
