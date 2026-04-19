@@ -33,8 +33,7 @@ ROOM_TYPE_MAP = {
 
 
 def patient_visit_count(patient_row: pd.Series) -> int:
-    # Wider sigma creates a longer tail — some patients have many more/fewer visits than average
-    volatility = float(np.clip(np.random.lognormal(mean=-0.1, sigma=0.65), 0.40, 3.2))
+    volatility = float(np.clip(np.random.lognormal(mean=-0.05, sigma=0.30), 0.60, 2.0))
 
     if patient_row["primary_diagnosis"] == "Iron Deficiency Anemia":
         base = 2
@@ -196,8 +195,7 @@ def allocate_room_durations(patient_flow: list[str], total_minutes: int, visit_t
     total_minutes = max(total_minutes, len(patient_flow))
 
     base = []
-    # Wider sigma + higher ceiling creates sporadic days where waits are dramatically longer or shorter
-    shock_multiplier = float(np.clip(np.random.lognormal(mean=0.0, sigma=0.55), 0.45, 3.5))
+    shock_multiplier = float(np.clip(np.random.lognormal(mean=0.0, sigma=0.20), 0.72, 1.55))
     for room_state in patient_flow:
         low, high = room_duration_bounds(room_state, visit_type)
         sampled = random.randint(low, high)
@@ -234,10 +232,9 @@ def generate_flow_times(scheduled_dt, visit_type: str, status: str) -> dict:
             "checkout_datetime": None,
         }
 
-    # Wider sigma and heavier tails — patients arrive very early or very late more often
-    arrival_offset_min = int(np.clip(np.random.normal(4, 16), -50, 90))
-    if np.random.random() < 0.22:
-        arrival_offset_min += random.choice([-45, -30, -20, 25, 40, 60, 80])
+    arrival_offset_min = int(np.clip(np.random.normal(2, 8), -20, 35))
+    if np.random.random() < 0.06:
+        arrival_offset_min += random.choice([-15, 20, 30])
     check_in_dt = scheduled_dt + timedelta(minutes=arrival_offset_min)
 
     # Helper: lognormal wait — produces realistic right-skewed distributions
@@ -309,20 +306,33 @@ def generate_appointments(patients_df: pd.DataFrame, providers_df: pd.DataFrame)
         first_visit_date = random_business_date(START_DATE, END_DATE - timedelta(days=30))
         visit_dates = [first_visit_date]
 
-        for _ in range(n_visits - 1):
-            if patient["active_treatment_flag"] == 1 and np.random.random() < 0.35:
-                gap = int(np.clip(np.random.normal(11, 8), 3, 35))
-            elif np.random.random() < 0.20:
-                gap = int(np.clip(np.random.normal(74, 35), 28, 210))
-            else:
-                gap = int(np.clip(np.random.normal(32, 25), 5, 150))
+        # Assign a treatment cycle for active oncology patients (14, 21, or 28 days)
+        tx_cycle = weighted_choice([14, 21, 28], [20, 55, 25]) if patient["active_treatment_flag"] == 1 else None
 
-            # Occasional moderate delay
-            if np.random.random() < 0.06:
-                gap += random.randint(30, 120)
-            # Rare "lost to follow-up then returned" gap (~3% of inter-visit intervals)
-            if np.random.random() < 0.03:
-                gap += random.randint(180, 540)
+        for _ in range(n_visits - 1):
+            if patient["primary_diagnosis"] == "Iron Deficiency Anemia":
+                if patient["active_treatment_flag"] == 1 and np.random.random() < 0.65:
+                    # Weekly iron infusion series
+                    gap = int(np.clip(np.random.normal(7, 2), 5, 14))
+                else:
+                    # Quarterly monitoring
+                    gap = int(np.clip(np.random.normal(90, 12), 60, 130))
+            elif patient["active_treatment_flag"] == 1:
+                # Follow protocol cycle with small real-world scheduling variance
+                gap = int(np.clip(np.random.normal(tx_cycle, 2), tx_cycle - 4, tx_cycle + 7))
+            elif np.random.random() < 0.40:
+                # Post-treatment quarterly surveillance
+                gap = int(np.clip(np.random.normal(90, 12), 60, 130))
+            else:
+                # Semi-annual follow-up
+                gap = int(np.clip(np.random.normal(180, 18), 120, 250))
+
+            # Rare rescheduling delay (~4%)
+            if np.random.random() < 0.04:
+                gap += random.randint(7, 28)
+            # Rare lost-to-follow-up gap (~2%)
+            if np.random.random() < 0.02:
+                gap += random.randint(90, 300)
 
             next_date = next_weekday(visit_dates[-1] + timedelta(days=gap))
             if next_date > END_DATE:

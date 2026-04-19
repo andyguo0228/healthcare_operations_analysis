@@ -10,7 +10,7 @@
     "tabOrder": 8000
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "hundredPercentStackedColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,15 +20,33 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Providers"
+                      "Entity": "Date"
                     }
                   },
-                  "Property": "Provider Name"
+                  "Property": "Month Short"
                 }
               },
-              "queryRef": "Providers.Provider Name",
-              "nativeQueryRef": "Provider Name",
+              "queryRef": "Date.Month Short",
+              "nativeQueryRef": "Month Short",
               "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Appointments"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "Appointments.Status",
+              "nativeQueryRef": "Status"
             }
           ]
         },
@@ -42,11 +60,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Appts YoY %"
+                  "Property": "Total Appointments"
                 }
               },
-              "queryRef": "_Measures.Appts YoY %",
-              "nativeQueryRef": "Appts YoY %"
+              "queryRef": "_Measures.Total Appointments",
+              "nativeQueryRef": "Total Appointments"
             }
           ]
         }
@@ -55,19 +73,18 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Measures"
+                    "Entity": "Appointments"
                   }
                 },
-                "Property": "Appts YoY %"
+                "Property": "Status"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": true
+        ]
       }
     },
     "drillFilterOtherVisuals": true

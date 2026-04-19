@@ -637,51 +637,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "7cf30bed6ddcec227634",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Date"
-              }
-            },
-            "Property": "Month Short"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "998de05096dc8c0bee5c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Total Appointments"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ec4bbc4021908ac07eb4",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Appts PY"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

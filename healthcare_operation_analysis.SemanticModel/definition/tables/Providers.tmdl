@@ -9,20 +9,28 @@ table Providers
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Provider Name'
-		dataType: string
-		lineageTag: 91d4c825-ea60-4027-9702-4e476f966268
-		summarizeBy: none
-		sourceColumn: Provider Name
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Years Experience'
 		dataType: int64
 		formatString: 0
 		lineageTag: b540e81c-7c6e-483c-85a0-06eee7d1d4fd
 		summarizeBy: none
 		sourceColumn: Years Experience
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider First Name'
+		dataType: string
+		lineageTag: 6f400f89-4ea7-4f58-b6a8-c12f178793fd
+		summarizeBy: none
+		sourceColumn: Provider First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider Last Name'
+		dataType: string
+		lineageTag: fdf12ad7-7264-4bc1-833e-331df796a65a
+		summarizeBy: none
+		sourceColumn: Provider Last Name
 
 		annotation SummarizationSetBy = Automatic
 
@@ -34,9 +42,12 @@ table Providers
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"provider_id", type text}, {"provider_name", type text}, {"years_experience", Int64.Type}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"provider_id", "Provider ID"}, {"provider_name", "Provider Name"}, {"years_experience", "Years Experience"}}),
-				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{""})
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{""}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Columns", "Provider Name", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.None, false), {"Provider Name.1", "Provider Name.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Provider Name.1", type text}, {"Provider Name.2", type text}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type1",{{"Provider Name.1", "Provider First Name"}, {"Provider Name.2", "Provider Last Name"}})
 				in
-				    #"Removed Columns"
+				    #"Renamed Columns1"
 
 	annotation PBI_NavigationStepName = Navigation
 

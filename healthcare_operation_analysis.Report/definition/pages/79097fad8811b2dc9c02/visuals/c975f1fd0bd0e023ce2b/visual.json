@@ -62,6 +62,20 @@
               },
               "queryRef": "_Measures.Appts PY",
               "nativeQueryRef": "Appts PY"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "MinMax Appointments"
+                }
+              },
+              "queryRef": "_Measures.MinMax Appointments",
+              "nativeQueryRef": "MinMax Appointments"
             }
           ]
         }
@@ -131,7 +145,7 @@
         },
         {
           "properties": {
-            "enableTitleDataLabel": {
+            "showSeries": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -139,27 +153,6 @@
               }
             },
             "enableValueDataLabel": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "showSeries": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Appts PY"
-          }
-        },
-        {
-          "properties": {
-            "showSeries": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -182,6 +175,20 @@
               }
             ],
             "metadata": "_Measures.Total Appointments"
+          }
+        },
+        {
+          "properties": {
+            "showSeries": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Appts PY"
           }
         }
       ],
@@ -340,6 +347,27 @@
                   "Value": "'round'"
                 }
               }
+            },
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "markerShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'circle'"
+                }
+              }
+            },
+            "markerSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
             }
           }
         },
@@ -349,6 +377,27 @@
               "expr": {
                 "Literal": {
                   "Value": "'dashed'"
+                }
+              }
+            },
+            "strokeAutoScale": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "strokeLineJoin": {
+              "expr": {
+                "Literal": {
+                  "Value": "'round'"
+                }
+              }
+            },
+            "lineChartType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'linear'"
                 }
               }
             },
@@ -363,6 +412,25 @@
           "selector": {
             "metadata": "_Measures.Appts PY"
           }
+        },
+        {
+          "properties": {
+            "markerColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 5,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.MinMax Appointments"
+          }
         }
       ],
       "markers": [
@@ -376,26 +444,38 @@
               }
             }
           }
-        },
-        {
-          "properties": {
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "50D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Appts PY"
-          }
         }
       ],
       "seriesLabels": [
         {
           "properties": {
             "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "y2Axis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineShow": {
               "expr": {
                 "Literal": {
                   "Value": "false"

@@ -69,6 +69,9 @@ table Appointments
 		lineageTag: ff8bca18-9c41-4e16-a49a-6d143ce03656
 		summarizeBy: none
 		sourceColumn: Status
+		sortByColumn: 'Status Sort'
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -141,6 +144,14 @@ table Appointments
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Status Sort'
+		dataType: string
+		lineageTag: 9ceef630-f565-4139-933b-4229d41a79e4
+		summarizeBy: none
+		sourceColumn: Status Sort
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Appointments = m
 		mode: import
 		source =
@@ -149,9 +160,10 @@ table Appointments
 				    #"Removed Duplicates" = Table.Distinct(Source, {"Appointment ID"}),
 				    #"Removed Columns" = Table.RemoveColumns(#"Removed Duplicates",{"Room", "Room Type", "Room Timestamp", "Room Time", "Duration"}),
 				    #"Merged Queries" = Table.NestedJoin(#"Removed Columns", {"Appointment ID"}, helper_arrivaltimes, {"Appointment ID"}, "helper_arrivaltimes", JoinKind.LeftOuter),
-				    #"Expanded helper_arrivaltimes" = Table.ExpandTableColumn(#"Merged Queries", "helper_arrivaltimes", {"First Arrival", "Last Timestamp", "Total Duration"}, {"First Arrival", "Last Timestamp", "Total Duration"})
+				    #"Expanded helper_arrivaltimes" = Table.ExpandTableColumn(#"Merged Queries", "helper_arrivaltimes", {"First Arrival", "Last Timestamp", "Total Duration"}, {"First Arrival", "Last Timestamp", "Total Duration"}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Expanded helper_arrivaltimes", "Status Sort", each if [Status] = "Cancelled" then 1 else if [Status] = "No Show" then 2 else if [Status] = "Completed" then 3 else null)
 				in
-				    #"Expanded helper_arrivaltimes"
+				    #"Added Conditional Column"
 
 	annotation PBI_NavigationStepName = Navigation
 

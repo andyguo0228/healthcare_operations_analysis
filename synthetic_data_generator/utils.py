@@ -24,9 +24,9 @@ def random_date(start: date, end: date) -> date:
 def random_datetime_in_business_hours(d: date) -> datetime:
     hour = weighted_choice(
         [8, 9, 10, 11, 12, 13, 14, 15, 16],
-        [8, 12, 14, 12, 6, 10, 12, 10, 6],
+        [8, 14, 15, 13, 4, 11, 13, 10, 4],
     )
-    minute = random.randint(0, 59)
+    minute = random.choice([0, 15, 30, 45])
     return datetime(d.year, d.month, d.day, hour, minute)
 
 
