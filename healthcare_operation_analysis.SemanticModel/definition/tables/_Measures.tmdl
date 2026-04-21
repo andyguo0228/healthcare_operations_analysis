@@ -170,15 +170,15 @@ table _Measures
 			
 			VAR up_arrow = UNICHAR(129137)
 			VAR down_arrow = UNICHAR(129139)
-			VAR target = [Appts PY]
-			VAR targetdiff = [Appts YoY]
-			VAR targetpercent = FORMAT([Appts YoY Change], "0%")
+			
+			VAR targetpercent = FORMAT([Appts YoY %], "0%")
 			
 			RETURN
 				IF(
-					targetdiff < 0, targetpercent & " " & down_arrow,
+					targetpercent < 0, targetpercent & " " & down_arrow,
 					targetpercent & " " & up_arrow
 				)
+		formatString: 0
 		lineageTag: 90051758-2bb7-4ae8-9187-437677780dae
 
 	measure 'MinMax Appointments' =
@@ -364,6 +364,15 @@ table _Measures
 		lineageTag: 2de42d9c-7916-47a1-aa9e-253bf1e736e1
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Appt Diff Format' =
+			
+			VAR up_arrow = UNICHAR(129137)
+			VAR down_arrow = UNICHAR(129139)
+			VAR pct = FORMAT(ABS([Appts YoY %]), "0%")
+			VAR direction = IF([Appts YoY] >= 0, up_arrow, down_arrow)
+			RETURN direction & " " & pct
+		lineageTag: 5a3aca93-ac7d-4392-bcf8-192c4bf902c0
 
 	partition _Measures = m
 		mode: import

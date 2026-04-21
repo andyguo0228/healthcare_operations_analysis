@@ -48,6 +48,10 @@
       }
     ]
   },
+  "publicCustomVisuals": [
+    "PBI_CV_7B952816_A48F_49B4_9E13_15E3BB2C0337",
+    "powerKPI462CE5C2666F4EC8A8BDD7E5587320A3"
+  ],
   "resourcePackages": [
     {
       "name": "SharedResources",
