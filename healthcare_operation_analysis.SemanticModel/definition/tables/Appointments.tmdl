@@ -44,7 +44,6 @@ table Appointments
 
 	column 'Appointment Date'
 		dataType: dateTime
-		isHidden
 		formatString: Long Date
 		lineageTag: eb22dedd-d86f-4737-8ade-4757f568d56b
 		summarizeBy: none
