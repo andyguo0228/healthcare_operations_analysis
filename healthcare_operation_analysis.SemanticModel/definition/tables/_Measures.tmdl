@@ -56,10 +56,10 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Avg Visit Duration (Min)' =
+	measure 'Avg Duration' =
 			
 			CALCULATE(
-			    AVERAGE(Appointments[Total Duration]),
+			    AVERAGE(Appointments[Duration Without Infusion]),
 			    Appointments[Status] = "Completed"
 			)
 		displayFolder: KPI
@@ -71,16 +71,6 @@ table _Measures
 		formatString: 0
 		displayFolder: KPI
 		lineageTag: 7939b46c-2af1-483a-88d7-87bb45d79422
-
-	measure 'Avg Duration by Provider' =
-			
-			CALCULATE(
-			    AVERAGE(Appointments[Total Duration]),
-			    Appointments[Status] = "Completed"
-			)
-		lineageTag: 01660de4-ccac-40f1-93d4-5ee2929520e9
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Appts MoM Change' = ```
 			
@@ -418,6 +408,77 @@ table _Measures
 			RETURN SVGImageURL
 			```
 		lineageTag: 6ccbb9ee-046d-4c6d-b0aa-da311c9f5da8
+
+	measure _Selected_MinDate = ```
+			
+			VAR MinDate = [MinDate] - 1
+			VAR MaxDate = [MaxDate] + 1 
+			RETURN
+			
+			SWITCH(
+			    [_Selected_Date],
+			    "1W", MaxDate - 7,
+			    "1M", EDATE(MaxDate, -1),
+			    "3M", EDATE(MaxDate, -3),
+			    "YTD", DATE(YEAR(MaxDate), 1, 1),
+			    "1Y", EDATE(MaxDate, -12),
+			    "All", MinDate
+			)
+			```
+		formatString: General Date
+		lineageTag: 77e7d3cc-4310-4fec-bce5-10fb690dadcd
+
+	measure MinDate = ```
+			
+			CALCULATE(
+			    MIN('Date'[Date]),
+			    REMOVEFILTERS('Date'[Date])
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: e9e83b92-c19b-4261-88c6-b2cd58c7264b
+
+	measure MaxDate = ```
+			
+			CALCULATE(
+			    MAX('Date'[Date]),
+			    REMOVEFILTERS('Date'[Date])
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: fc7b538f-28cd-48bc-85ce-d892ae637b5c
+
+	measure _Selected_Date = SELECTEDVALUE('_Date_Selection'[Date Selection])
+		lineageTag: 9828154f-fc77-4820-bc98-295cf7798137
+
+	measure _Selected_Measure =
+			
+			SWITCH(
+			    SELECTEDVALUE('_Measure_Selection'[Measure Selection]),
+			    "Total Appointments", [Total Appointments],
+			    "Average Duration", [Avg Duration]
+			)
+		lineageTag: b6eb526f-2283-4044-908e-10b0775c69cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Dates_Param =
+			
+			CALCULATE(
+			    [_Selected_Measure],
+			    KEEPFILTERS(
+			        DATESBETWEEN(
+			            'Date'[Date],
+			            [_Selected_MinDate],
+			            [MaxDate]
+			        )
+			    )
+			)
+		lineageTag: e2edf31d-2c08-4d86-974f-0971d7f6f068
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition _Measures = m
 		mode: import

@@ -1,5 +1,0 @@
-EVALUATE
-CALCULATETABLE(
-        VALUES('Date'[Month Year Sort]),
-        DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)
-    )

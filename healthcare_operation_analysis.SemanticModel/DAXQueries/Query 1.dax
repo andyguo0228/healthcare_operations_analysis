@@ -1,7 +1,0 @@
-EVALUATE
-
-
-SUMMARIZECOLUMNS(
-    Rooms[Room Type],
-    "Average Duration", AVERAGE(Rooms[Duration])
-)

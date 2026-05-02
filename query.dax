@@ -1,0 +1,33 @@
+_Selected_MinDate = 
+VAR MinDate = [MinDate] - 1
+VAR MaxDate = [MaxDate] + 1 
+RETURN
+
+SWITCH(
+    [_Selected_MinDate],
+    "1W", MaxDate - 7,
+    "1M", EDATE(MaxDate, -1),
+    "3M", EDATE(MaxDate, -3),
+    "YTD", DATE(YEAR(MaxDate), 1, 1),
+    "1Y", EDATE(MaxDate, -12),
+    "All", MinDate
+)
+
+_Selected_Measure = 
+SWITCH(
+    SELECTEDVALUE('_Measure_Selection'[Measure Selection]),
+    "Total Appointments", [Total Appointments],
+    "Average Duration", [Avg Duration Without Infusion (Min)]
+)
+
+_Dates_Param = 
+CALCULATE(
+    [_Selected_Measure],
+    KEEPFILTERS(
+        DATESBETWEEN(
+            'Date'[Date],
+            [_Selected_MinDate],
+            [MaxDate]
+        )
+    )
+)

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "a13c1a6864e0933327ac",
+  "position": {
+    "x": 934.98371335504885,
+    "y": 167.81758957654725,
+    "z": 1,
+    "height": 340.84690553745929,
+    "width": 517.00325732899023
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "_Selected_Date"
+                }
+              },
+              "queryRef": "_Measures._Selected_Date",
+              "nativeQueryRef": "_Selected_Date"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "00d4dd4b132b1ae7ee41",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "_Selected_Date"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

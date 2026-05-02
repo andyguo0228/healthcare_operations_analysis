@@ -65,7 +65,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Visit Duration (Min)"
+                  "Property": "Avg Duration"
                 }
               },
               "queryRef": "_Measures.Avg Duration Completed",

@@ -22,3 +22,9 @@ relationship AutoDetected_07fa0d85-d905-4a4b-9063-4165dd79b1f2
 	fromColumn: Rooms.'Room Type'
 	toColumn: 'Sort Table'.'Room Type'
 
+relationship AutoDetected_4af47182-af09-4cce-b787-a2cfb5db485a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: _Measure_Selection.Index
+	toColumn: _Date_Selection.Index
+

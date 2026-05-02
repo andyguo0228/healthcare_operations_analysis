@@ -1,0 +1,33 @@
+table _Date_Selection
+	lineageTag: c98203b1-d61d-496d-892a-8a88fdc16065
+
+	column 'Date Selection'
+		dataType: string
+		lineageTag: 87de9b6f-2646-4fa0-9cd5-3f8cca4924f4
+		summarizeBy: none
+		sourceColumn: Date Selection
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: db47e619-54bd-4a5c-9f11-9bd7e9c33bb9
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Date_Selection = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMgxX0lEyVIrVATJ9gUwjMNMYxDQGMyNDXIBsE4gKI5C4KZjtmJMDZJspxcYCAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Date Selection" = _t, Index = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Date Selection", type text}, {"Index", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

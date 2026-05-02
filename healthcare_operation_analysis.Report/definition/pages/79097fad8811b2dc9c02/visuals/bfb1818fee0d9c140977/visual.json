@@ -65,7 +65,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Visit Duration (Min)"
+                  "Property": "Avg Duration"
                 }
               },
               "queryRef": "_Measures.Avg Duration Completed",
@@ -960,5 +960,65 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fea5ecd086d75d85d1b0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Total Appointments"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "87008ccdad5c0e7bedca",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Completion Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "36c339086b5814671a55",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "No-Show Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "90f601c805336e387699",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Avg Duration"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

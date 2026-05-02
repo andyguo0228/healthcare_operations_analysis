@@ -10,7 +10,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop","TMDL-Extension","DaxQueryView_Desktop"]
 
-annotation PBI_QueryOrder = ["helper_arrivaltimes","raw_Appointments","_Measures","Appointments","Rooms","Patients","Providers","Treatments","Date","Sort Table"]
+annotation PBI_QueryOrder = ["helper_arrivaltimes","raw_Appointments","_Measures","Appointments","Rooms","Patients","Providers","Treatments","Date","Sort Table","_Date_Selection","_Measure_Selection"]
 
 ref table _Measures
 ref table Date
@@ -20,6 +20,8 @@ ref table Providers
 ref table Rooms
 ref table Appointments
 ref table 'Sort Table'
+ref table _Date_Selection
+ref table _Measure_Selection
 
 ref cultureInfo en-US
 
