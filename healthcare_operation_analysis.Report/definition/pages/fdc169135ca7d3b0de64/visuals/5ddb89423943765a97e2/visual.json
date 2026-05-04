@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "5ddb89423943765a97e2",
   "position": {
-    "x": 934.98371335504885,
-    "y": 521.17263843648209,
+    "x": 401.2113870381587,
+    "y": 871.03573591762574,
     "z": 2,
-    "height": 340.84690553745929,
-    "width": 517.00325732899023
+    "height": 125.59660811629315,
+    "width": 517.50454270139312
   },
   "visual": {
     "visualType": "slicer",
@@ -87,7 +87,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Average Duration'"
+                                "Value": "'Total Appointments'"
                               }
                             }
                           ]
@@ -120,7 +120,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "978b8540287ec1859003",
+        "name": "96b711cb80a15dab9507",
         "field": {
           "Column": {
             "Expression": {
@@ -131,14 +131,7 @@
             "Property": "Measure Selection"
           }
         },
-        "type": "Categorical",
-        "objects": {
-          "general": [
-            {
-              "properties": {}
-            }
-          ]
-        }
+        "type": "Categorical"
       }
     ]
   }

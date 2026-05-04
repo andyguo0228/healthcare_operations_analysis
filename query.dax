@@ -31,3 +31,102 @@ CALCULATE(
         )
     )
 )
+
+_Moving_Average = 
+AVERAGEX(
+    DATESINPERIOD(
+        'Date'[Date],
+        LASTDATE('Date'[Date]),
+        -[_Selected_Moving_Average],
+        DAY
+    ),
+    [_Selected_Measure]
+)
+
+_Selected_MinDate_PP = 
+VAR MinDate = [MinDate] - 1
+VAR MaxDate = [_Selected_MinDate] - 1 
+RETURN
+
+SWITCH(
+    [_Selected_Date],
+    "1W", MaxDate - 7,
+    "1M", EDATE(MaxDate, -1),
+    "3M", EDATE(MaxDate, -3),
+    "YTD", DATE(YEAR(MaxDate), 1, 1),
+    "1Y", EDATE(MaxDate, -12),
+    "All", MinDate
+)
+
+_Dates_Param_PP = 
+CALCULATE(
+    [_Selected_Measure],
+    KEEPFILTERS(
+        DATESBETWEEN(
+            'Date'[Date],
+            [_Selected_MinDate_PP],
+            [_Selected_MinDate]
+        )
+    )
+)
+
+_Dates_Param_Delta = [_Dates_Param] - [_Dates_Param_PP]
+
+
+
+_Dates_Param_Delta % = DIVIDE([_Dates_Param_Delta], [_Dates_Param_PP], 0)
+
+_Selected_Measure_Text = SELECTEDVALUE('_Measure_Selection'[Measure Selection])
+
+_Reference_Label_Font_Color = 
+VAR label = [_Dates_Param_Delta]
+RETURN
+SWITCH(
+    TRUE(),
+    label > 0, "#038D96",
+    label < 0, "#A84545"
+)
+
+_PP_Reference_Label = 
+
+VAR _Current = [_Dates_Param]
+VAR _LY = [_Dates_Param_PP]
+VAR _Growth = [_Dates_Param_Delta %]
+VAR NumOfDigits = 
+IFERROR(
+    LEN(
+        CONVERT(
+            INT([_Dates_Param]),
+            STRING
+        )
+    )
+    , 0)
+
+VAR Suffix = 
+".0" &
+SWITCH(
+    TRUE(),
+    NumOfDigits >= 13, "T",
+    NumOfDigits >= 10, "B",
+    NumOfDigits >= 7, "M",
+    NumOfDigits >= 4, "K"
+)
+
+VAR Commas = 
+REPT(",",
+    SWITCH(
+        TRUE(),
+        NumOfDigits >= 13, "4",
+        NumOfDigits >= 10, "3",
+        NumOfDigits >= 7, "2",
+        NumOfDigits >= 4, "1",
+    )
+)
+
+VAR _Format = "#,##0" & Commas & Suffix & ";-#,##0" & Commas & Suffix
+
+RETURN
+IF(
+    _Growth <> 0,
+    "" &FORMAT(_Current - _LY, _Format)
+    &FORMAT(_Growth, " | 0.0% ▲; | 0.0% ▼;")& "", " ")

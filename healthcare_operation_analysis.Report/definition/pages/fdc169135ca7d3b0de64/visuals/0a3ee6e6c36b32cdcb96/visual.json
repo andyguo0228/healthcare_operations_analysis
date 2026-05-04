@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "0a3ee6e6c36b32cdcb96",
   "position": {
-    "x": 934.98371335504885,
-    "y": 78.175895765472319,
+    "x": 248.86735311932162,
+    "y": 34.887946698970325,
     "z": 0,
-    "height": 42.736156351791529,
-    "width": 539.93485342019551,
+    "height": 43.028467595396734,
+    "width": 539.60024227740769,
     "tabOrder": 0
   },
   "visual": {
@@ -31,6 +31,23 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Date_Selection"
+                  }
+                },
+                "Property": "Date Selection"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "objects": {
@@ -107,7 +124,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'3M'"
+                                "Value": "'1M'"
                               }
                             }
                           ]

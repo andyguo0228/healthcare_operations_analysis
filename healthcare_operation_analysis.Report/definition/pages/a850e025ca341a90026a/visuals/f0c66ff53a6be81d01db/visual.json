@@ -1,16 +1,15 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
-  "name": "e51b2d86ce184066b310",
+  "name": "f0c66ff53a6be81d01db",
   "position": {
-    "x": 1531.127999506708,
-    "y": 872.01954397394138,
-    "z": 5,
-    "height": 207.98045602605862,
-    "width": 388.87200049329203
+    "x": 434.17928380290357,
+    "y": 81.44758385069656,
+    "z": 0,
+    "height": 300,
+    "width": 300
   },
   "visual": {
     "visualType": "card",
-    "autoSelectVisualType": true,
     "query": {
       "queryState": {
         "Values": {
@@ -33,12 +32,27 @@
         }
       }
     },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
       {
-        "name": "09d90b98d3174db632bc",
+        "name": "627a194862c3c94e516a",
         "field": {
           "Measure": {
             "Expression": {

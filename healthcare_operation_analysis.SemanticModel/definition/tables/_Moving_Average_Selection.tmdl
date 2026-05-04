@@ -1,0 +1,23 @@
+table _Moving_Average_Selection
+	lineageTag: 105bd783-a7ce-4fca-9194-fa73f5592216
+
+	column Days
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e42f655-062e-4baf-af5f-0318a152cb18
+		summarizeBy: sum
+		sourceColumn: Days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Moving_Average_Selection = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlaK1YlWMgeThiZgyshCKTYWAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Days = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Days", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

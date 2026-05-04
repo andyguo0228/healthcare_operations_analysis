@@ -6,6 +6,9 @@ table _Date_Selection
 		lineageTag: 87de9b6f-2646-4fa0-9cd5-3f8cca4924f4
 		summarizeBy: none
 		sourceColumn: Date Selection
+		sortByColumn: Index
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -13,8 +16,10 @@ table _Date_Selection
 		dataType: int64
 		formatString: 0
 		lineageTag: db47e619-54bd-4a5c-9f11-9bd7e9c33bb9
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: Index
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

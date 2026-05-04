@@ -480,6 +480,165 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure _Selected_Moving_Average = SELECTEDVALUE(_Moving_Average_Selection[Days])
+		formatString: 0
+		lineageTag: 6f72c53f-0cb3-48f0-8c91-14ef57c57e5d
+
+	measure _Moving_Average =
+			
+			AVERAGEX(
+			    DATESINPERIOD(
+			        'Date'[Date],
+			        LASTDATE('Date'[Date]),
+			        -[_Selected_Moving_Average],
+			        DAY
+			    ),
+			    [_Selected_Measure]
+			)
+		lineageTag: f7c59a39-7f70-4abc-b6d5-1d8adfc03994
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Moving_Average_Dates_Param =
+			
+			IF(
+			    ISBLANK([_Selected_Measure]),
+			    BLANK(),
+			
+			    CALCULATE(
+			        [_Moving_Average],
+			        KEEPFILTERS(
+			            DATESBETWEEN(
+			                'Date'[Date],
+			                [_Selected_MinDate],
+			                [MaxDate]
+			            )
+			        )
+			    )
+			)
+		lineageTag: e244da6b-eabe-48f0-adee-d06d53a9d613
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Selected_MinDate_PP = ```
+			
+			VAR MinDate = [MinDate] - 1
+			VAR MaxDate = [_Selected_MinDate] - 1 
+			RETURN
+			
+			SWITCH(
+			    [_Selected_Date],
+			    "1W", MaxDate - 7,
+			    "1M", EDATE(MaxDate, -1),
+			    "3M", EDATE(MaxDate, -3),
+			    "YTD", DATE(YEAR(MaxDate), 1, 1),
+			    "1Y", EDATE(MaxDate, -12),
+			    "All", MinDate
+			)
+			```
+		formatString: General Date
+		lineageTag: 4e8244aa-4bfc-4940-81d9-b2b431269344
+
+	measure _Dates_Param_PP =
+			
+			CALCULATE(
+			    [_Selected_Measure],
+			    KEEPFILTERS(
+			        DATESBETWEEN(
+			            'Date'[Date],
+			            [_Selected_MinDate_PP],
+			            [_Selected_MinDate]
+			        )
+			    )
+			)
+		lineageTag: 3cf8f843-1bf3-4cab-bd48-89c7572ee289
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Dates_Param_Delta = [_Dates_Param] - [_Dates_Param_PP]
+		lineageTag: 7e1e6bdc-f6bc-4a70-828e-04a93e6b36fe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Dates_Param_Delta %' = DIVIDE([_Dates_Param_Delta], [_Dates_Param_PP], 0)
+		lineageTag: 05ae27d3-fbe5-4bd7-ae19-052a5451b0f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Selected_Measure_Text = SELECTEDVALUE('_Measure_Selection'[Measure Selection])
+		lineageTag: be25999f-a21d-4dd6-91e2-e7e60f853e9e
+
+	measure _PP_Reference_Label = ```
+			
+			
+			VAR _Current = [_Dates_Param]
+			VAR _LY = [_Dates_Param_PP]
+			VAR _Growth = [_Dates_Param_Delta %]
+			VAR NumOfDigits = 
+			IFERROR(
+			    LEN(
+			        CONVERT(
+			            INT([_Dates_Param]),
+			            STRING
+			        )
+			    )
+			    , 0)
+			
+			VAR Suffix = 
+			".0" &
+			SWITCH(
+			    TRUE(),
+			    NumOfDigits >= 13, "T",
+			    NumOfDigits >= 10, "B",
+			    NumOfDigits >= 7, "M",
+			    NumOfDigits >= 4, "K",
+			    ""
+			)
+			
+			VAR Commas = 
+			REPT(",",
+			    SWITCH(
+			        TRUE(),
+			        NumOfDigits >= 13, "4",
+			        NumOfDigits >= 10, "3",
+			        NumOfDigits >= 7, "2",
+			        NumOfDigits >= 4, "1",
+			        "0"
+			    )
+			)
+			
+			VAR _Format = "#,##0" & Commas & Suffix & ";-#,##0" & Commas & Suffix
+			
+			RETURN
+			IF(
+			    _Growth <> 0,
+			    "" &FORMAT(_Current - _LY, _Format)
+			    &FORMAT(_Growth, " | 0.0% ▲; | 0.0% ▼;")& "", " ")
+			```
+		lineageTag: 6c953826-e2d8-4d78-b53b-a8aaa0d42854
+
+	measure _Reference_Label_Font_Color =
+			
+			VAR label = [_Dates_Param_Delta]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    label > 0, "#038D96",
+			    label < 0, "#A84545"
+			)
+		lineageTag: f86e9204-c8fc-4886-a662-6ba0a6545810
+
+	measure _Reference_Label_Background_Color = ```
+			
+			VAR label = [_Dates_Param_Delta] 
+			RETURN
+			SWITCH(TRUE(),
+			    label > 0 , "#E7F3F5", 
+			    label < 0, "#F6EDED"
+			    )
+			```
+		lineageTag: d6a1d65e-3d0f-4e21-9670-1de909cff4dd
+
 	partition _Measures = m
 		mode: import
 		source =
